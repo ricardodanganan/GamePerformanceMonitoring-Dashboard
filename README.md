@@ -36,22 +36,43 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 
 ## Usage
 
-1. **Launch the application** and grant the necessary system permissions.
-2. **View system performance metrics in real-time**:
-   - CPU & GPU temperature
-   - RAM & disk usage
-   - Network bandwidth & latency
-3. **Receive alerts** when system thresholds are exceeded.
-4. **Use the game optimization module** to adjust settings based on your system specs.
+### View system performance metrics in real-time
+- **CPU & GPU Usage & Temperature**: Graphical representation via Chart.js.
+- **RAM & Disk Usage**: Track memory and storage performance.
+- **Network Monitoring**: Display ping, bandwidth usage, and latency.
+
+### Receive alerts when system thresholds are exceeded
+- **Automatic notifications** will appear when CPU, GPU, or RAM usage reaches critical levels.
+- **Audio alerts** will trigger for immediate attention.
+
+### Use the game optimization module *(Upcoming Feature)*
+- **Detect installed games** via Steam API.
+- **Compare system hardware** to recommended settings.
+- **Receive optimization suggestions** based on detected hardware and software.
+
+### Access in-game overlay *(Planned Feature)*
+- **Live stats inside your game** without minimizing it.
+- **Toggle visibility via a hotkey** to enable/disable the overlay.
 
 ---
 
 ## Dependencies
 
-- **Frontend:** React.js, Chart.js  
-- **Backend:** WebSockets, PowerShell Scripts  
-- **APIs:** Steam API (for game detection)  
-- **Database (Future Phase):** Supabase (for cloud-based performance tracking)  
+### Frontend:
+- **React.js** – For UI components
+- **Chart.js** – For real-time graphical data visualization
+- **React Toastify** – For system alerts & notifications
+
+### Backend:
+- **Node.js** – For API handling
+- **Express.js** – For managing requests
+- **WebSockets** – For real-time updates
+- **PowerShell Scripts** – For retrieving system performance data
+
+### APIs & Tools:
+- **Steam API** – For detecting installed games
+- **NVIDIA API (Planned)** – For AI-driven optimizations 
+
 ---
 
 ## Future Enhancements
