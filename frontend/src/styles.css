@@ -1,0 +1,94 @@
+body {
+    background-color: #1a1a2e;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;    
+}
+
+h1 {
+    color: #66c0f4;
+    text-shadow: 0 0 10px #66c0f4, 0 0 20px #66c0f4;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.metric-card {
+    background: linear-gradient(145deg, #0f0f1a, #21213b);
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(102, 192, 244, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.metric-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(102, 192, 244, 0.8);
+}
+
+.metric-card h2 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+}
+
+.icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-container .icon {
+    font-size: 3rem;
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.icon-container:hover .icon {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 15px rgba(102, 192, 244, 0.8));
+}
+
+button {
+    background: linear-gradient(90deg, #66c0f4, #4da8d8);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 10px rgba(102, 192, 244, 0.5);
+}
+
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(90deg, #4da8d8, #66c0f4);
+}
+
+.Toastify__toast {
+    background-color: #0f0f1a;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(102, 192, 244, 0.5);
+    border: 1px solid #66c0f4;
+}
+
+.Toastify__toast--error {
+    background-color: #ff1717;
+    box-shadow: 0 0 15px rgba(255, 23, 23, 0.8);
+}
+
+.Toastify__toast--warning {
+    background-color: #fcff56;
+    color: #000000;
+    box-shadow: 0 0 15px rgba(252, 255, 86, 0.8);
+}
+
+.Toastify__toast--info {
+    background-color: #66c0f4;
+    box-shadow: 0 0 15px rgba(102, 192, 244, 0.8);
+}
+
