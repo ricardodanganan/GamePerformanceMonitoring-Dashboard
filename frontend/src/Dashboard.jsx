@@ -20,16 +20,13 @@ const playSoundAlert = () => {
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
     const [cpuData, setCpuData] = useState([]);
-    const [cpuChange, setCpuChange] = useState(0); // Store CPU usage change
-    const [cpuAvg30s, setCpuAvg30s] = useState(0); // Average CPU usage over 30s
-    const [cpuAvg1m, setCpuAvg1m] = useState(0); // Average CPU usage over 1m
     const [ramData, setRamData] = useState([]);
     const [diskData, setDiskData] = useState([]);
     const [gpuData, setGpuData] = useState([]); 
     const [gpuTempData, setGpuTempData] = useState([]); 
     const [cpuTempData, setCpuTempData] = useState([]); 
     const [latencyData, setLatencyData] = useState([]); 
-    const activeToasts = new Set();  
+    const activeToasts = new Set(); 
 
     const fetchData = async () => {
         try {
@@ -50,25 +47,10 @@ const Dashboard = () => {
             const latency = await latencyRes.json();
 
             // Ensure numeric values for GPU and CPU usage
-            const cpuValue = parseFloat(cpu.value); // Ensure it's a number
             const gpuUsage = parseFloat(gpu.gpuUtil.replace("%", ""));
             const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
 
-            setCpuData((prev) => {
-                const newData = [...prev.slice(-11), cpuValue]; // Stores last 12 readings (1 min history)
-                const previousCpu = newData.length > 1 ? newData[newData.length - 2] : cpuValue;
-                setCpuChange(cpuValue - previousCpu); // Calculate change in CPU usage
-                
-                // Ensure we only compute averages if enough data exists
-                const last6 = newData.length >= 6 ? newData.slice(-6) : [];
-                const last12 = newData.length >= 12 ? newData.slice(-12) : [];
-
-                setCpuAvg30s(last6.length > 0 ? (last6.reduce((a, b) => a + b, 0) / last6.length).toFixed(2) : 0);
-                setCpuAvg1m(last12.length > 0 ? (last12.reduce((a, b) => a + b, 0) / last12.length).toFixed(2) : 0);
-
-                return newData;
-            });
-            
+            setCpuData((prev) => [...prev.slice(-9), cpu.value]);
             setRamData((prev) => [...prev.slice(-9), ram.value]);
             setDiskData((prev) => [...prev.slice(-9), disk.value]);
             setGpuData((prev) => [...prev.slice(-9), gpuUsage]);
@@ -246,15 +228,7 @@ const Dashboard = () => {
                 style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
             >
                 {[
-                    {
-                        label: "CPU Usage",
-                        data: cpuData,
-                        borderColor: "red",
-                        icon: FaMicrochip,
-                        cpuChange: cpuChange,   // Pass cpuChange
-                        cpuAvg30s: cpuAvg30s,   // Pass cpuAvg30s
-                        cpuAvg1m: cpuAvg1m      // Pass cpuAvg1m
-                    },
+                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: FaMicrochip },
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: FaThermometerHalf },
                     { label: "RAM Usage", data: ramData, borderColor: "blue", icon: FaMemory },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: FaHdd },
@@ -281,14 +255,7 @@ const Dashboard = () => {
                             <metric.icon size={40} color={metric.borderColor} />
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
-                        <ChartComponent
-                            label={metric.label}
-                            data={metric.data}
-                            borderColor={metric.borderColor}
-                            cpuChange={metric.cpuChange || 0}   // Ensure cpuChange is passed
-                            cpuAvg30s={metric.cpuAvg30s || 0}   // Ensure cpuAvg30s is passed
-                            cpuAvg1m={metric.cpuAvg1m || 0}     // Ensure cpuAvg1m is passed
-                        />
+                        <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
                     </div>
                 ))}
             </div>
