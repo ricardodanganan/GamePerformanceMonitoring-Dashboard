@@ -6,10 +6,6 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
-- [Configuration](#configuration)
-- [Project Iterations](#project-iterations)
-  - [Iteration 1: Real-Time System Monitoring](#iteration-1-real-time-system-monitoring)
-  - [Iteration 2: Game Optimization Module](#iteration-2-game-optimization-module)
 - [Expected Outcomes](#expected-outcomes)
 - [Future Enhancements](#future-enhancements)
 - [Troubleshooting & Contingency Plans](#troubleshooting--contingency-plans)
@@ -20,7 +16,7 @@
 
 ## Introduction
 
-The **Game Performance & IT Monitoring Dashboard** is a **real-time monitoring tool** designed to track system performance metrics and optimize gaming experiences. It provides users with detailed insights into their CPU, GPU, RAM, disk usage, and network performance while offering optimization recommendations tailored to their system specifications.
+The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Management project, developed as part of my 4th-year finals project. This real-time monitoring and optimization tool is designed to enhance gaming performance by providing comprehensive system insights. It tracks CPU and GPU usage, temperatures, RAM consumption, disk activity, and network performance, ensuring gamers have a clear view of their system’s health. Equipped with threshold-based alerts, historical performance tracking, and Steam API integration, it helps optimize system resources, detect installed games, and provide tailored recommendations. Additionally, I am implementing an in-game overlay feature, allowing players to monitor system performance without exiting their game. Future enhancements include cloud-based monitoring, AI-driven game optimization, and multi-system performance tracking across LAN environments.
 
 ---
 
@@ -56,50 +52,6 @@ The **Game Performance & IT Monitoring Dashboard** is a **real-time monitoring t
 - **Backend:** WebSockets, PowerShell Scripts  
 - **APIs:** Steam API (for game detection)  
 - **Database (Future Phase):** Supabase (for cloud-based performance tracking)  
-
----
-
-## Configuration
-
-To use Steam API for detecting installed games, configure your API key in `.env`:
-```sh
-STEAM_API_KEY=your_steam_api_key
-```
-
-For PowerShell monitoring scripts, ensure you have:
-```sh
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-*(Run this command in PowerShell as Administrator if scripts are blocked.)*
-
----
-
-## Project Iterations
-
-### Iteration 1: Real-Time System Monitoring (Ongoing)
-- **Track** CPU, GPU, RAM, and disk usage in real-time using Windows PowerShell scripts.
-- **Implement alert notifications** for overheating and high resource consumption.
-- **Monitor network performance** (ping, bandwidth, latency) via WebSockets.
-- **Identify connection issues** affecting gameplay.
-
-### Iteration 2: Game Optimization Module (Started & TBC)
-- **Detect installed games** via the Steam API.
-- **Recommend optimal system settings** based on hardware vs. game requirements.
-- **Store historical performance data** in a local JSON file.
-- **Future enhancement:** Sync data to a cloud database for multi-device access.
-
----
-
-## Expected Outcomes
-
-By the end of this semester, the project will:
-✔ **Provide a functional real-time monitoring dashboard.**  
-✔ **Track system metrics & alert users when thresholds are exceeded.**  
-✔ **Measure network latency & bandwidth for multiplayer gaming.**  
-✔ **Recommend performance optimizations based on system hardware.**  
-✔ **Store historical performance logs for trend analysis.**
-✔ **In-game overlay.**   
-
 ---
 
 ## Future Enhancements
