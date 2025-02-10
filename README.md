@@ -6,9 +6,6 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
-- [Expected Outcomes](#expected-outcomes)
-- [Future Enhancements](#future-enhancements)
-- [Troubleshooting & Contingency Plans](#troubleshooting--contingency-plans)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -72,31 +69,6 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### APIs & Tools:
 - **Steam API** – For detecting installed games
 - **NVIDIA API (Planned)** – For AI-driven optimizations 
-
----
-
-## Future Enhancements
-
-💡 Multi-system monitoring across LAN  
-💡 Cloud-based performance tracking  
-💡 In-game overlay for real-time stats  
-💡 AI-based game optimization recommendations  
-
----
-
-## Troubleshooting & Contingency Plans
-
-⚠ **Hardware Compatibility Issues**  
-🔹 Solution: Provide alternative monitoring methods if some system data is inaccessible.  
-
-⚠ **PowerShell Script Execution Issues**  
-🔹 Solution: Guide users on enabling script execution securely or create an alternative solution.  
-
-⚠ **High Resource Consumption from Real-Time Monitoring**  
-🔹 Solution: Optimize backend scripts and use WebSockets for efficient data transfer.  
-
-⚠ **Steam API or NVIDIA API Limitations**  
-🔹 Solution: Implement manual game detection and allow users to enter their system specs for optimization recommendations.  
 
 ---
 
