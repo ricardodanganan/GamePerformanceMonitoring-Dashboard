@@ -4,6 +4,8 @@ import { FaMicrochip, FaMemory, FaHdd, FaGamepad, FaNetworkWired, FaThermometerH
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundVideo from "./assets/background-2.mp4"; 
+import cpuIcon from "./assets/cpu-icon.gif";
+
 
 const getCardBackgroundColor = (value) => {
     if (value < 50) return "#04ff00"; 
@@ -228,7 +230,7 @@ const Dashboard = () => {
                 style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
             >
                 {[
-                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: FaMicrochip },
+                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon },
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: FaThermometerHalf },
                     { label: "RAM Usage", data: ramData, borderColor: "blue", icon: FaMemory },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: FaHdd },
@@ -252,7 +254,7 @@ const Dashboard = () => {
                         onMouseLeave={(e) => handleMouseLeave(e, index)}
                     >
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-                            <metric.icon size={40} color={metric.borderColor} />
+                        <img src={metric.icon} alt={metric.label} width={70} height={70} />
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
                         <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
