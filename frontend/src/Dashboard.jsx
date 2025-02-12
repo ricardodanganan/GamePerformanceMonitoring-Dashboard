@@ -3,7 +3,7 @@ import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundVideo from "./assets/background-2.mp4"; 
-import cpuIcon from "./assets/cpu-icon.gif";
+import cpuIcon from "./assets/chip-icon.gif";
 import cpuTempIcon from "./assets/cpuTemp-icon.gif";
 import latencyIcon from "./assets/latency-icon.gif";
 import gpuIcon from "./assets/gpu-icon.gif";
