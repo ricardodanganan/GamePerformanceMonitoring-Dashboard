@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ChartComponent from "./ChartComponent";
-import { FaMicrochip, FaMemory, FaHdd, FaGamepad, FaNetworkWired, FaThermometerHalf, FaThermometerQuarter } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundVideo from "./assets/background-2.mp4"; 
@@ -10,6 +9,7 @@ import latencyIcon from "./assets/latency-icon.gif";
 import gpuIcon from "./assets/gpu-icon.gif";
 import gpuTempIcon from "./assets/gpuTemp-icon.gif";
 import ramIcon from "./assets/ram-icon.gif";
+import diskIcon from "./assets/disk-icon.gif";
 
 const getCardBackgroundColor = (value) => {
     if (value < 50) return "#04ff00"; 
@@ -234,13 +234,13 @@ const Dashboard = () => {
                 style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
             >
                 {[
-                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon },
-                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon },
-                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon },
-                    { label: "Disk Usage", data: diskData, borderColor: "green", icon: FaHdd },
-                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon },
-                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon },
-                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon },
+                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50  },
+                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45  },
+                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50  },
+                    { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45 },
+                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 45  },
+                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50  },
+                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45  },
                 ].map((metric, index) => (
                     <div
                         key={index}
@@ -258,7 +258,7 @@ const Dashboard = () => {
                         onMouseLeave={(e) => handleMouseLeave(e, index)}
                     >
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-                        <img src={metric.icon} alt={metric.label} width={70} height={70} />
+                        <img src={metric.icon} alt={metric.label} width={metric.size} height={metric.size} />
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
                         <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
