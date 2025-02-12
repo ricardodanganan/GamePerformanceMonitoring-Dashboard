@@ -3,19 +3,13 @@ import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundVideo from "./assets/background-2.mp4"; 
-import cpuIcon from "./assets/chip-icon.gif";
-import cpuTempIcon from "./assets/cpuTemp-icon.gif";
-import latencyIcon from "./assets/latency-icon.gif";
-import gpuIcon from "./assets/gpu-icon.gif";
-import gpuTempIcon from "./assets/gpuTemp-icon.gif";
-import ramIcon from "./assets/ram-icon.gif";
-import diskIcon from "./assets/disk-icon.gif";
-
-const getCardBackgroundColor = (value) => {
-    if (value < 50) return "#04ff00"; 
-    if (value < 80) return "#fcff56"; 
-    return "#ff1717"; 
-};
+import cpuIcon from "./assets/icon/chip-icon.gif";
+import cpuTempIcon from "./assets/icon/cpuTemp-icon.gif";
+import latencyIcon from "./assets/icon/latency-icon.gif";
+import gpuIcon from "./assets/icon/gpu-icon.gif";
+import gpuTempIcon from "./assets/icon/gpuTemp-icon.gif";
+import ramIcon from "./assets/icon/ram-icon.gif";
+import diskIcon from "./assets/icon/disk-icon.gif";
 
 // Function to play sound alert when showing toast
 const playSoundAlert = () => {
@@ -223,7 +217,7 @@ const Dashboard = () => {
                     color: "white",
                     border: "none",
                     borderRadius: "5px",
-                    cursor: 'pointer',
+                    cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
                 }}
                 onClick={dismissAllToasts}
             >
@@ -246,13 +240,14 @@ const Dashboard = () => {
                         key={index}
                         className="metric-card"
                         style={{
-                            backgroundColor: getCardBackgroundColor(metric.data[metric.data.length - 1] || 0),
                             color: "#000000",
+                            fontFamily: "Arial, sans-serif",
                             padding: "20px",
                             borderRadius: "12px",
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             transformStyle: "preserve-3d",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto"
                         }}
                         onMouseMove={(e) => handleMouseMove(e, index)}
                         onMouseLeave={(e) => handleMouseLeave(e, index)}
