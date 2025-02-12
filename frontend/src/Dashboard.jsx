@@ -7,6 +7,7 @@ import backgroundVideo from "./assets/background-2.mp4";
 import cpuIcon from "./assets/cpu-icon.gif";
 import latencyIcon from "./assets/latency-icon.gif";
 import gpuIcon from "./assets/gpu-icon.gif";
+import ramIcon from "./assets/ram-icon.gif";
 
 const getCardBackgroundColor = (value) => {
     if (value < 50) return "#04ff00"; 
@@ -233,7 +234,7 @@ const Dashboard = () => {
                 {[
                     { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon },
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: FaThermometerHalf },
-                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: FaMemory },
+                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: FaHdd },
                     { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon },
                     { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: FaThermometerQuarter },
