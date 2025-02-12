@@ -13,7 +13,7 @@ import diskIcon from "./assets/icon/disk-icon.gif";
 
 // Function to play sound alert when showing toast
 const playSoundAlert = () => {
-    const audio = new Audio("/alert-sound-3.mp3");
+    const audio = new Audio("/alerts/alert-sound-3.mp3");
     audio.play();
 };
 

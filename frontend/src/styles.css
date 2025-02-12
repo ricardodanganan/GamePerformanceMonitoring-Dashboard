@@ -53,7 +53,7 @@ h1 {
 }
 
 button {
-    background: linear-gradient(90deg, #66c0f4, #4da8d8);
+    background: linear-gradient(145deg, #000000, #6565b1);
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -66,12 +66,12 @@ button {
 
 button:hover {
     transform: scale(1.1);
-    background: linear-gradient(90deg, #4da8d8, #66c0f4);
+    color: #ff1717;
+    background: linear-gradient(90deg, #000000, #66c0f4);
 }
 
 .Toastify__toast {
     background-color: #0f0f1a;
-    color: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(102, 192, 244, 0.5);
     border: 1px solid #66c0f4;
 }
