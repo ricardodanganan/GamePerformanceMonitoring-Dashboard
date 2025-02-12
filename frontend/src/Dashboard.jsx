@@ -238,7 +238,7 @@ const Dashboard = () => {
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45  },
                     { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50  },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45 },
-                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 45  },
+                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50  },
                     { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50  },
                     { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45  },
                 ].map((metric, index) => (
