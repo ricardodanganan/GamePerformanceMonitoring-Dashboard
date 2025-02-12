@@ -5,7 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import backgroundVideo from "./assets/background-2.mp4"; 
 import cpuIcon from "./assets/cpu-icon.gif";
-
+import latencyIcon from "./assets/latency-icon.gif";
+import gpuIcon from "./assets/gpu-icon.gif";
 
 const getCardBackgroundColor = (value) => {
     if (value < 50) return "#04ff00"; 
@@ -234,9 +235,9 @@ const Dashboard = () => {
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: FaThermometerHalf },
                     { label: "RAM Usage", data: ramData, borderColor: "blue", icon: FaMemory },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: FaHdd },
-                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: FaGamepad },
+                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon },
                     { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: FaThermometerQuarter },
-                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: FaNetworkWired },
+                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon },
                 ].map((metric, index) => (
                     <div
                         key={index}
