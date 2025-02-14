@@ -26,13 +26,15 @@ const ChartComponent = ({ label, data, borderColor }) => {
         labels: Array.from({ length: data.length }, (_, i) => i + 1),
         datasets: [
             {
-                label,
-                data,
-                borderColor,
-                backgroundColor: "rgba(0, 0, 0, 0)",
-                tension: 0.4,
+              label,
+              data,
+              borderColor,
+              borderWidth: 3, // Increase thickness
+              pointRadius: 3, // Make data points more visible
+              backgroundColor: "rgb(255, 255, 255)", // Light fill under the line
+              tension: 0.4, // Smooth curve effect
             },
-        ],
+          ],          
     };
 
     const options = {

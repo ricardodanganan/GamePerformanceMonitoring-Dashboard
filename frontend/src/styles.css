@@ -29,6 +29,7 @@ h1 {
 .metric-card:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(102, 192, 244, 0.8);
+    background: linear-gradient(145deg, #0f0f1a, #454577);
 }
 
 .metric-card h2 {
