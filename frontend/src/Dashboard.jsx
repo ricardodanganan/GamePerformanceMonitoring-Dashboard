@@ -26,6 +26,7 @@ const Dashboard = () => {
     const [gpuTempData, setGpuTempData] = useState([]); 
     const [cpuTempData, setCpuTempData] = useState([]); 
     const [latencyData, setLatencyData] = useState([]); 
+    const [expandedCard, setExpandedCard] = useState(null);
     const activeToasts = new Set(); 
 
     const fetchData = async () => {
@@ -64,6 +65,11 @@ const Dashboard = () => {
         }
     };
 
+    // Function to toggle expanded card view
+    const toggleShowMore = (index) => {
+        setExpandedCard(prev => (prev === index ? null : index));
+    };
+    
     // Function to show toast alert messages
     const showToast = (type, title, message, link, id) => {
         if (activeToasts.has(id)) return; // Prevent duplicate notifications
@@ -163,10 +169,10 @@ const Dashboard = () => {
         const centerX = rect.width / 4; 
         const centerY = rect.height / 4; 
 
-        const rotateX = ((y - centerY) / centerY) * 10; 
-        const rotateY = ((centerX - x) / centerX) * 10; 
+        const rotateX = ((y - centerY) / centerY) * 6; 
+        const rotateY = ((centerX - x) / centerX) * 6; 
 
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.15)`;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.10)`;
         card.style.boxShadow = `0px 15px 20px rgba(0, 0, 0, 0.3)`;
     };
 
@@ -183,7 +189,7 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+        <div style={{position: "relative",height: "140vh", overflowY: "auto", }}>
         {/* Video Background */}
         <video
             autoPlay
@@ -228,38 +234,92 @@ const Dashboard = () => {
                 style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
             >
                 {[
-                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50  },
-                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45  },
-                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50  },
+                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50 },
+                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45 },
+                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50 },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45 },
-                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50  },
-                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50  },
-                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45  },
+                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50 },
+                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50 },
+                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45 },
                 ].map((metric, index) => (
                     <div
                         key={index}
                         className="metric-card"
                         style={{
-                            color: "#000000",
+                            color: "#ffffff",
                             fontFamily: "Arial, sans-serif",
                             padding: "20px",
                             borderRadius: "12px",
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             transformStyle: "preserve-3d",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto"
+                            cursor: "pointer",
+                            backgroundColor: "#20232a",
+                            width: "300px",
+                            textAlign: "center",
+                            position: "relative",
                         }}
                         onMouseMove={(e) => handleMouseMove(e, index)}
                         onMouseLeave={(e) => handleMouseLeave(e, index)}
                     >
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
-                        <img src={metric.icon} alt={metric.label} width={metric.size} height={metric.size} />
+                            <img src={metric.icon} alt={metric.label} width={metric.size} height={metric.size} />
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
                         <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
+
+                        {/* Show More Button */}
+                        <button
+                            onClick={() => toggleShowMore(index)}
+                            style={{
+                                marginTop: "10px",
+                                padding: "8px 18px", // Slightly larger padding for consistency
+                                background: expandedCard === index 
+                                    ? "linear-gradient(45deg, #50565e, #3a3d40)" 
+                                    : "linear-gradient(45deg, #20232a, #32363e)",
+                                color: "white",
+                                border: "1px solid rgba(255, 255, 255, 0.3)", // Slightly more visible border
+                                borderRadius: "8px", // Better rounded edges
+                                cursor: "pointer",
+                                minWidth: "140px", // Slightly larger width for balance
+                                transition: "all 0.2s ease-in-out",
+                                fontSize: "14px",
+                                display: "block",
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                            }}
+                            onMouseEnter={(e) => (e.target.style.background = "#50565e")}
+                            onMouseLeave={(e) =>
+                                (e.target.style.background = expandedCard === index 
+                                    ? "linear-gradient(45deg, #50565e, #3a3d40)" 
+                                    : "linear-gradient(45deg, #20232a, #32363e)")
+                            }
+                        >
+                            {expandedCard === index ? "Show Less" : "Show More"}
+                        </button>
+
+                        {/* Extra Information Section */}
+                        {expandedCard === index && (
+                            <div
+                            style={{
+                                marginTop: "12px",
+                                backgroundColor: "#1e2125",
+                                padding: "12px",
+                                borderRadius: "8px",
+                                textAlign: "left",
+                                fontSize: "14px",
+                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Slight shadow for depth
+                                transition: "all 0.3s ease-in-out", // Smooth open/close effect
+                            }}
+                            >
+                                <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}%</p>
+                                <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}%</p>
+                            </div>
+                        )}
                     </div>
                 ))}
-            </div>
+            </div>   
             <ToastContainer />
         </div>
     );
