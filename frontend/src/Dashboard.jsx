@@ -253,7 +253,7 @@ const Dashboard = () => {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             transformStyle: "preserve-3d",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                            cursor: "pointer",
+                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
                             backgroundColor: "#20232a",
                             width: "300px",
                             textAlign: "center",
