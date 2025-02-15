@@ -1,3 +1,6 @@
+# Description: PowerShell script to get disk usage information for C: drive in GB and percentage.
+# The script calculates total disk space, free space, used space, disk usage percentage, and outputs the information in JSON format.
+
 # Get total disk space and free space for C: drive
 $totalDisk = (Get-PSDrive C | Select-Object -ExpandProperty Used) + (Get-PSDrive C | Select-Object -ExpandProperty Free)
 $freeDisk = Get-PSDrive C | Select-Object -ExpandProperty Free

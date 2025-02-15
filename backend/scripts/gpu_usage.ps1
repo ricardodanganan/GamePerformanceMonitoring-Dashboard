@@ -1,3 +1,7 @@
+# Description: Get GPU Usage, Clock Speed, and Power Consumption for NVIDIA GPUs using nvidia-smi command-line utility in PowerShell.
+# The script filters out Intel Integrated Graphics and only shows dedicated NVIDIA GPUs.
+# The output is formatted as JSON and displayed on the console.
+
 # Get all GPU Names
 $gpuNames = Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name
 

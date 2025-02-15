@@ -1,3 +1,5 @@
+# Description: This script calculates the RAM usage of the system and outputs the result in JSON format. 
+
 $totalMemory = (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory
 $freeMemory = (Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory * 1024
 $usedMemory = $totalMemory - $freeMemory

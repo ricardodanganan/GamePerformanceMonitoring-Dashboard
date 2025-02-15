@@ -1,3 +1,6 @@
+# Description: PowerShell script to monitor network latency and packet loss, 
+# detect connection type (Wi-Fi or Ethernet), and output the information in JSON format.
+
 $server = "8.8.8.8"  # Google DNS for latency test
 $pingResult = Test-Connection -ComputerName $server -Count 5 -ErrorAction SilentlyContinue
 

@@ -1,3 +1,6 @@
+# Description: Get real-time CPU usage, CPU name, core count, and speed (GHz) using Get-Counter and Get-CimInstance cmdlets. 
+# Convert the output to JSON format and output it to the console.
+
 # Get real-time CPU usage using Get-Counter
 $cpuUsage = (Get-Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1).CounterSamples.CookedValue
 
