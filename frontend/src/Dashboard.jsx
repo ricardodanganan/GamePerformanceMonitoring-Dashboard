@@ -19,19 +19,27 @@ const playSoundAlert = () => {
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
+
+    // Cpu usage, name, cores, speed state
     const [cpuData, setCpuData] = useState([]);
     const [cpuName, setCpuName] = useState("");
     const [cpuCores, setCpuCores] = useState("");
     const [cpuSpeed, setCpuSpeed] = useState("");
-
+    // ram state
     const [ramData, setRamData] = useState([]);
+    // disk state
     const [diskData, setDiskData] = useState([]);
+    // gpu state
     const [gpuData, setGpuData] = useState([]); 
+    // VRAM ysage, total, used state
     const [vramData, setVramData] = useState([]);
     const [vramUsed, setVramUsed] = useState(0);
     const [vramTotal, setVramTotal] = useState(0);
+    // gpu temp state
     const [gpuTempData, setGpuTempData] = useState([]); 
+    // cpu temp state
     const [cpuTempData, setCpuTempData] = useState([]); 
+     // latency state
     const [latencyData, setLatencyData] = useState([]); 
     const [expandedCard, setExpandedCard] = useState(null);
     const activeToasts = new Set(); 
@@ -62,6 +70,7 @@ const Dashboard = () => {
             const gpuUsage = parseFloat(gpu.gpuUtil.replace("%", ""));
             const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
 
+            // cpu usage, name and cores, speed state update
             setCpuData((prev) => [...prev.slice(-9), cpu.cpuUsage]);
             setCpuName(cpu.cpuName);
             setCpuCores(cpu.cpuCores);
@@ -330,11 +339,11 @@ const Dashboard = () => {
                                     <p><strong>VRAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
                                 ) : metric.label === "CPU Usage" ? (
-                                    <>
-                                        <p><strong>CPU Name:</strong> {cpuName}</p>
-                                        <p><strong>CPU Cores:</strong> {cpuCores}</p>
-                                        <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
-                                    </>
+                                <>
+                                    <p><strong>CPU Name:</strong> {cpuName}</p>
+                                    <p><strong>CPU Cores:</strong> {cpuCores}</p>
+                                    <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
+                                </>
                                 ) : null}
                             </div>
                         )}
