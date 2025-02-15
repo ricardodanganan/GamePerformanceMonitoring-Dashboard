@@ -1,6 +1,14 @@
-# Description: This script is used to get the CPU usage of the system.
-# The script uses the Get-Counter cmdlet to get the percentage of processor time used by the system.
-# The script outputs the CPU usage to the console and frontend application.
-$cpuUsage = Get-Counter '\Processor(_Total)\% Processor Time' | Select-Object -ExpandProperty CounterSamples | Select-Object -ExpandProperty CookedValue
-$cpuUsage = [math]::Round($cpuUsage, 2)
-Write-Output $cpuUsage
+# Get CPU Usage
+$cpuUsage = Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object -ExpandProperty Average
+
+# Get CPU Name
+$cpuName = (Get-CimInstance Win32_Processor).Name
+
+# Get CPU Core Count
+$cpuCores = (Get-CimInstance Win32_Processor).NumberOfCores
+
+# Get CPU Speed (GHz)
+$cpuSpeed = [math]::Round((Get-CimInstance Win32_Processor).MaxClockSpeed / 1000, 2)
+
+# Convert to JSON format and output
+Write-Output "{'cpuUsage': $cpuUsage, 'cpuName': '$cpuName', 'cpuCores': $cpuCores, 'cpuSpeed': $cpuSpeed}"

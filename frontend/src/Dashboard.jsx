@@ -20,6 +20,10 @@ const playSoundAlert = () => {
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
     const [cpuData, setCpuData] = useState([]);
+    const [cpuName, setCpuName] = useState("");
+    const [cpuCores, setCpuCores] = useState("");
+    const [cpuSpeed, setCpuSpeed] = useState("");
+
     const [ramData, setRamData] = useState([]);
     const [diskData, setDiskData] = useState([]);
     const [gpuData, setGpuData] = useState([]); 
@@ -58,7 +62,11 @@ const Dashboard = () => {
             const gpuUsage = parseFloat(gpu.gpuUtil.replace("%", ""));
             const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
 
-            setCpuData((prev) => [...prev.slice(-9), cpu.value]);
+            setCpuData((prev) => [...prev.slice(-9), cpu.cpuUsage]);
+            setCpuName(cpu.cpuName);
+            setCpuCores(cpu.cpuCores);
+            setCpuSpeed(cpu.cpuSpeed);
+            
             setRamData((prev) => [...prev.slice(-9), ram.value]);
             setDiskData((prev) => [...prev.slice(-9), disk.value]);
             setGpuData((prev) => [...prev.slice(-9), gpuUsage]);
@@ -314,29 +322,20 @@ const Dashboard = () => {
 
                         {/* Extra Information Section */}
                         {expandedCard === index && (
-                            <div
-                                style={{
-                                    marginTop: "10px",
-                                    backgroundColor: "#282c34",
-                                    padding: "10px",
-                                    borderRadius: "5px",
-                                    textAlign: "left",
-                                    fontSize: "14px",
-                                }}
-                            >
-                                {metric.label === "VRAM Usage" ? (
+                            <div style={{marginTop: "10px",backgroundColor: "#282c34",padding: "10px",borderRadius: "5px",textAlign: "left",fontSize: "14px",}}>
+                                 {metric.label === "VRAM Usage" ? (
+                                <>
+                                    <p><strong>VRAM Total:</strong> {vramTotal} MB</p>
+                                    <p><strong>VRAM Used:</strong> {vramUsed} MB</p>
+                                    <p><strong>VRAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                </>
+                                ) : metric.label === "CPU Usage" ? (
                                     <>
-                                        <p><strong>VRAM Total:</strong> {vramTotal} MB</p>
-                                        <p><strong>VRAM Used:</strong> {vramUsed} MB</p>
-                                        <p><strong>VRAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                        <p><strong>CPU Name:</strong> {cpuName}</p>
+                                        <p><strong>CPU Cores:</strong> {cpuCores}</p>
+                                        <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
                                     </>
-                                ) : (
-                                    <>
-                                        <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
-                                        <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}%</p>
-                                        <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}%</p>
-                                    </>
-                                )}
+                                ) : null}
                             </div>
                         )}
                     </div>

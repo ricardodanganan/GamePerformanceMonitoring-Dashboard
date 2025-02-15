@@ -24,9 +24,28 @@ const runPowerShell = (scriptPath, res) => {
 
 // CPU, RAM, Disk Usage Endpoints (Using PowerShell) - Windows Only
 // These endpoints execute PowerShell scripts to fetch CPU, RAM, and Disk usage data
-app.get("/cpu", (req, res) =>
-  runPowerShell("../backend/scripts/cpu_usage.ps1", res)
-);
+app.get("/cpu", (req, res) => {
+  exec("powershell -ExecutionPolicy Bypass -File ./scripts/cpu_usage.ps1", (error, stdout, stderr) => {
+    if (error) {
+      console.error("❌ Error fetching CPU data:", stderr);
+      return res.status(500).json({ error: "Failed to retrieve CPU data" });
+    }
+
+    try {
+      const cpuData = JSON.parse(stdout.replace(/'/g, '"')); // Convert PowerShell JSON output
+      res.json({
+        cpuUsage: cpuData.cpuUsage,
+        cpuName: cpuData.cpuName,
+        cpuCores: cpuData.cpuCores,
+        cpuSpeed: cpuData.cpuSpeed
+      });
+    } catch (parseError) {
+      console.error("⚠️ Parsing error:", parseError);
+      res.status(500).json({ error: "Failed to parse CPU data" });
+    }
+  });
+});
+
 app.get("/ram", (req, res) =>
   runPowerShell("../backend/scripts/ram_usage.ps1", res)
 );
