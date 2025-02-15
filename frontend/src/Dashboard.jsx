@@ -31,6 +31,8 @@ const Dashboard = () => {
     const [usedRAM, setUsedRAM] = useState(0);
     // disk state
     const [diskData, setDiskData] = useState([]);
+    const [totalDisk, setTotalDisk] = useState(0);
+    const [usedDisk, setUsedDisk] = useState(0);
     // gpu state
     const [gpuData, setGpuData] = useState([]); 
     // VRAM ysage, total, used state
@@ -77,12 +79,15 @@ const Dashboard = () => {
             setCpuName(cpu.cpuName);
             setCpuCores(cpu.cpuCores);
             setCpuSpeed(cpu.cpuSpeed);
-            
+            // ram usage, total, used state update
             setRamData((prev) => [...prev.slice(-9), ram.ramUsage]);
-setTotalRAM(ram.totalRAM);
-setUsedRAM(ram.usedRAM);
+            setTotalRAM(ram.totalRAM);
+            setUsedRAM(ram.usedRAM);
+            // disk usage, total, used state update
+            setDiskData((prev) => [...prev.slice(-9), disk.diskUsage]);
+            setTotalDisk(disk.totalDisk);
+            setUsedDisk(disk.usedDisk);
 
-            setDiskData((prev) => [...prev.slice(-9), disk.value]);
             setGpuData((prev) => [...prev.slice(-9), gpuUsage]);
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
@@ -355,6 +360,12 @@ setUsedRAM(ram.usedRAM);
                                     <p><strong>Used RAM:</strong> {usedRAM} MB</p>
                                     <p><strong>RAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
+                                ) : metric.label === "Disk Usage" ? (
+                                    <>
+                                        <p><strong>Total Disk Space:</strong> {totalDisk} GB</p>
+                                        <p><strong>Used Disk Space:</strong> {usedDisk} GB</p>
+                                        <p><strong>Disk Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                    </>
                                 ) : null}
                             </div>
                         )}

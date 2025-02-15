@@ -67,9 +67,26 @@ app.get("/ram", (req, res) => {
   });
 });
 
-app.get("/disk", (req, res) =>
-  runPowerShell("../backend/scripts/disk_usage.ps1", res)
-);
+app.get("/disk", (req, res) => {
+  exec("powershell -ExecutionPolicy Bypass -File ./scripts/disk_usage.ps1", (error, stdout, stderr) => {
+    if (error) {
+      console.error("❌ Error fetching Disk data:", stderr);
+      return res.status(500).json({ error: "Failed to retrieve Disk data" });
+    }
+
+    try {
+      const diskData = JSON.parse(stdout.replace(/'/g, '"'));
+      res.json({
+        totalDisk: diskData.totalDisk,
+        usedDisk: diskData.usedDisk,
+        diskUsage: diskData.diskUsage
+      });
+    } catch (parseError) {
+      console.error("⚠️ Parsing error:", parseError);
+      res.status(500).json({ error: "Failed to parse Disk data" });
+    }
+  });
+});
 
 // GPU Utilization Endpoint (Using nvidia-smi) - Windows Only
 app.get("/gpu", (req, res) => {
