@@ -90,22 +90,25 @@ app.get("/disk", (req, res) => {
 
 // GPU Utilization Endpoint (Using nvidia-smi) - Windows Only
 app.get("/gpu", (req, res) => {
-  exec(
-    "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error fetching GPU data: ${stderr}`);
-        res.status(500).json({ error: "Failed to fetch GPU data" });
-        return;
-      }
-
-      // GPU utilization data parsed
-      const gpuUtil = stdout.trim(); // Direct GPU utilization percentage
-      res.json({
-        gpuUtil: `${gpuUtil}%`,
-      });
+  exec("powershell -ExecutionPolicy Bypass -File ./scripts/gpu_usage.ps1", (error, stdout, stderr) => {
+    if (error) {
+      console.error("❌ Error fetching GPU data:", stderr);
+      return res.status(500).json({ error: "Failed to retrieve GPU data" });
     }
-  );
+
+    try {
+      const gpuData = JSON.parse(stdout.replace(/'/g, '"'));
+      res.json({
+        gpuName: gpuData.gpuName,
+        gpuUsage: gpuData.gpuUsage,
+        gpuClockSpeed: gpuData.gpuClockSpeed,
+        gpuPower: gpuData.gpuPower
+      });
+    } catch (parseError) {
+      console.error("⚠️ Parsing error:", parseError);
+      res.status(500).json({ error: "Failed to parse GPU data" });
+    }
+  });
 });
 
 // GPU Temperature Endpoint (Using PowerShell) - Windows Only

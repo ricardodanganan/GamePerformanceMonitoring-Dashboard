@@ -34,7 +34,10 @@ const Dashboard = () => {
     const [totalDisk, setTotalDisk] = useState(0);
     const [usedDisk, setUsedDisk] = useState(0);
     // gpu state
-    const [gpuData, setGpuData] = useState([]); 
+    const [gpuData, setGpuData] = useState([]);
+    const [gpuName, setGpuName] = useState("");
+    const [gpuClockSpeed, setGpuClockSpeed] = useState(0);
+    const [gpuPower, setGpuPower] = useState(0);
     // VRAM ysage, total, used state
     const [vramData, setVramData] = useState([]);
     const [vramUsed, setVramUsed] = useState(0);
@@ -70,8 +73,7 @@ const Dashboard = () => {
             const latency = await latencyRes.json();
             const vram = await vramRes.json();
 
-            // Ensure numeric values for GPU and CPU usage
-            const gpuUsage = parseFloat(gpu.gpuUtil.replace("%", ""));
+            // Calculate GPU usage based on power and clock speed
             const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
 
             // cpu usage, name and cores, speed state update
@@ -87,10 +89,16 @@ const Dashboard = () => {
             setDiskData((prev) => [...prev.slice(-9), disk.diskUsage]);
             setTotalDisk(disk.totalDisk);
             setUsedDisk(disk.usedDisk);
-
-            setGpuData((prev) => [...prev.slice(-9), gpuUsage]);
+            // gpu usage, name, clock speed, power state update
+            setGpuData((prev) => [...prev.slice(-9), gpu.gpuUsage]);
+            setGpuName(gpu.gpuName);
+            setGpuClockSpeed(gpu.gpuClockSpeed);
+            setGpuPower(gpu.gpuPower);
+            // gpu temp state update
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
+            // cpu temp state update
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
+            // latency state update
             setLatencyData((prev) => [...prev.slice(-9), latencyValue]);
             // VRAM usage, total, used state update
             setVramData((prev) => [...prev.slice(-9), vram.vramUsage]);
@@ -372,6 +380,12 @@ const Dashboard = () => {
                                     <p><strong>CPU Name:</strong> {cpuName}</p>
                                     <p><strong>CPU Cores:</strong> {cpuCores}</p>
                                     <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
+                                    </>
+                                ) : metric.label === "GPU Usage" ? (
+                                    <>
+                                        <p><strong>GPU Model:</strong> {gpuName}</p>
+                                        <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
+                                        <p><strong>Power Consumption:</strong> {gpuPower} W</p>
                                     </>
                                 ) : null}
                             </div>
