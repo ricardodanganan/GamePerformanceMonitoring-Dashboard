@@ -1,23 +1,40 @@
-# Latency Monitoring Script
-# This script measures the network latency (ping) to a specified target server.
-# It calculates the Round-Trip Time (RTT) in milliseconds and outputs the result.
-# This is particularly helpful for gamers to monitor their connection stability and detect potential lag issues.
+$server = "8.8.8.8"  # Google DNS for latency test
+$pingResult = Test-Connection -ComputerName $server -Count 5 -ErrorAction SilentlyContinue
 
-# Target server for the ping
-$target = "8.8.8.8"  # Google DNS is used as a reliable and globally accessible server
-
-# Perform the ping and extract the average Round-Trip Time (RTT)
-$pingResult = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue
-
-if ($pingResult) {
-    # Output the latency (in milliseconds)
-    $pingResult.ResponseTime
-} else {
-    # If ping fails, output an error
+# If ping fails, return an error
+if (-not $pingResult) {
     Write-Output "PingFailed"
+    exit
 }
 
-# Purpose:
-# 1. Measures latency to a game server or reliable target like Google DNS.
-# 2. Helps gamers understand their network performance and identify high latency, which can cause lag.
-# 3. Useful for troubleshooting network issues in real-time during gameplay.
+# Extract latency (Ping time)
+$latencyValues = $pingResult.ResponseTime
+$avgLatency = [math]::Round(($latencyValues | Measure-Object -Average).Average, 2)
+
+# Simulate packet loss calculation
+$totalPackets = 5
+$receivedPackets = ($latencyValues | Measure-Object).Count
+$packetLoss = [math]::Round((($totalPackets - $receivedPackets) / $totalPackets) * 100, 2)
+
+# Detect Wi-Fi or Ethernet Connection Type
+$networkType = "Unknown"
+$interfaces = Get-NetAdapter | Where-Object { $_.Status -eq "Up" }
+
+foreach ($interface in $interfaces) {
+    if ($interface.InterfaceDescription -match "Wi-Fi") {
+        $networkType = "Wi-Fi"
+        break
+    } elseif ($interface.InterfaceDescription -match "Ethernet") {
+        $networkType = "Ethernet"
+        break
+    }
+}
+
+# Output as JSON
+$jsonOutput = @{
+    latency = "$avgLatency ms"
+    packetLoss = "$packetLoss %"
+    connectionType = "$networkType"
+} | ConvertTo-Json -Compress
+
+Write-Output $jsonOutput

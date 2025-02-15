@@ -47,8 +47,12 @@ const Dashboard = () => {
     // cpu temp state
     const [cpuTempData, setCpuTempData] = useState([]); 
      // latency state
-    const [latencyData, setLatencyData] = useState([]); 
+    const [latencyData, setLatencyData] = useState([]);
+    const [packetLoss, setPacketLoss] = useState(0);
+    const [connectionType, setConnectionType] = useState("Unknown");
+    // Expanded card state     
     const [expandedCard, setExpandedCard] = useState(null);
+    // Toast alert state
     const activeToasts = new Set(); 
 
     const fetchData = async () => {
@@ -74,7 +78,7 @@ const Dashboard = () => {
             const vram = await vramRes.json();
 
             // Calculate GPU usage based on power and clock speed
-            const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
+            // const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
 
             // cpu usage, name and cores, speed state update
             setCpuData((prev) => [...prev.slice(-9), cpu.cpuUsage]);
@@ -99,12 +103,15 @@ const Dashboard = () => {
             // cpu temp state update
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
             // latency state update
-            setLatencyData((prev) => [...prev.slice(-9), latencyValue]);
+            setLatencyData((prev) => [...prev.slice(-9), parseFloat(latency.latency)]);
+            setPacketLoss(parseFloat(latency.packetLoss));       
+            setPacketLoss(parseFloat(latency.packetLoss));
+            setConnectionType(latency.connectionType);
             // VRAM usage, total, used state update
             setVramData((prev) => [...prev.slice(-9), vram.vramUsage]);
             setVramUsed(vram.vramUsed);  
             setVramTotal(vram.vramTotal); 
-
+            // Check for threshold values and show toast alerts
             checkThresholds(cpu.value, gpuUsage, cpuTemp.cpuTemp, gpuTemp.gpuTemp, ram.value, latencyValue);
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -392,6 +399,12 @@ const Dashboard = () => {
                                         <p><strong>GPU Model:</strong> {gpuName}</p>
                                         <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
                                         <p><strong>Power Consumption:</strong> {gpuPower} W</p>
+                                    </>
+                                ) : metric.label === "Network Latency" ? (
+                                    <>
+                                        <p><strong>Ping:</strong> {metric.data[metric.data.length - 1] || 0} ms</p>
+                                        <p><strong>Packet Loss:</strong> {packetLoss} %</p>
+                                        <p><strong>Connection Type:</strong> {connectionType}</p>
                                     </>
                                 ) : null}
                             </div>

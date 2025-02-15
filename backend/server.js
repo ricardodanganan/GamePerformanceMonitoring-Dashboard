@@ -145,21 +145,25 @@ app.get("/cpu-temp", (req, res) => {
 });
 
 // API Endpoint for Latency Monitoring
-app.get("/ping-latency", (req, res) => {
-  const scriptPath = "./scripts/latency_monitor.ps1"; // Adjust path if needed
+app.get("/ping-latency", async (req, res) => {
+  const scriptPath = "./scripts/latency_monitor.ps1";
 
   exec(`powershell -ExecutionPolicy Bypass -File ${scriptPath}`, (error, stdout, stderr) => {
       if (error) {
-          console.error(`Error: ${stderr}`);
-          res.status(500).json({ error: "Failed to retrieve latency data" });
-          return;
+          console.error(`❌ Error fetching Latency data:`, stderr);
+          return res.status(500).json({ error: "Failed to retrieve latency data" });
       }
 
-      const latency = stdout.trim();
-      if (latency === "PingFailed") {
-          res.status(500).json({ error: "Ping failed" });
-      } else {
-          res.json({ latency: `${latency} ms` });
+      try {
+          const latencyData = JSON.parse(stdout.replace(/'/g, '"'));
+          res.json({
+              latency: latencyData.latency,
+              packetLoss: latencyData.packetLoss,
+              connectionType: latencyData.connectionType
+          });
+      } catch (parseError) {
+          console.error("⚠️ Parsing error:", parseError);
+          res.status(500).json({ error: "Failed to parse latency data" });
       }
   });
 });

@@ -13,6 +13,7 @@
     "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "speedtest-net": "^2.2.0",
     "ws": "^8.18.0"
   }
 }
