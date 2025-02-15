@@ -92,6 +92,7 @@ const Dashboard = () => {
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
             setLatencyData((prev) => [...prev.slice(-9), latencyValue]);
+            // VRAM usage, total, used state update
             setVramData((prev) => [...prev.slice(-9), vram.vramUsage]);
             setVramUsed(vram.vramUsed);  
             setVramTotal(vram.vramTotal); 
@@ -362,9 +363,15 @@ const Dashboard = () => {
                                 </>
                                 ) : metric.label === "Disk Usage" ? (
                                     <>
-                                        <p><strong>Total Disk Space:</strong> {totalDisk} GB</p>
-                                        <p><strong>Used Disk Space:</strong> {usedDisk} GB</p>
-                                        <p><strong>Disk Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                    <p><strong>Total Disk Space:</strong> {totalDisk} GB</p>
+                                    <p><strong>Used Disk Space:</strong> {usedDisk} GB</p>
+                                    <p><strong>Disk Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                    </>
+                                ) : metric.label === "CPU Temperature" ? (
+                                    <>
+                                    <p><strong>CPU Name:</strong> {cpuName}</p>
+                                    <p><strong>CPU Cores:</strong> {cpuCores}</p>
+                                    <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
                                     </>
                                 ) : null}
                             </div>
