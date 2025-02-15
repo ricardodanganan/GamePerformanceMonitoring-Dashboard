@@ -36,7 +36,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### View system performance metrics in real-time
 - **CPU & GPU Usage & Temperature**: Graphical representation via Chart.js.
 - **RAM & Disk Usage**: Track memory and storage performance.
-- **Network Monitoring**: Display ping, bandwidth usage, and latency.
+- **Network Monitoring**: Display ping and latency.
 
 ### Receive alerts when system thresholds are exceeded
 - **Automatic notifications** will appear when CPU, GPU, or RAM usage reaches critical levels.

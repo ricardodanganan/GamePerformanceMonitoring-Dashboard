@@ -387,6 +387,12 @@ const Dashboard = () => {
                                         <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
                                         <p><strong>Power Consumption:</strong> {gpuPower} W</p>
                                     </>
+                                ) : metric.label === "GPU Temperature" ? (
+                                    <>
+                                        <p><strong>GPU Model:</strong> {gpuName}</p>
+                                        <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
+                                        <p><strong>Power Consumption:</strong> {gpuPower} W</p>
+                                    </>
                                 ) : null}
                             </div>
                         )}
