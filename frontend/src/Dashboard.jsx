@@ -207,7 +207,7 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div style={{position: "relative",height: "130vh", overflowY: "auto", }}>
+        <div style={{position: "relative",height: "135vh", overflowY: "auto", }}>
         {/* Video Background */}
         <video
             autoPlay

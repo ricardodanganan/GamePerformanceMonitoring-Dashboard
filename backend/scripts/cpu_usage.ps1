@@ -1,5 +1,8 @@
-# Get CPU Usage
-$cpuUsage = Get-WmiObject Win32_Processor | Measure-Object -Property LoadPercentage -Average | Select-Object -ExpandProperty Average
+# Get real-time CPU usage using Get-Counter
+$cpuUsage = (Get-Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1).CounterSamples.CookedValue
+
+# Round the value for better display
+$cpuUsage = [math]::Round($cpuUsage, 2)
 
 # Get CPU Name
 $cpuName = (Get-CimInstance Win32_Processor).Name
