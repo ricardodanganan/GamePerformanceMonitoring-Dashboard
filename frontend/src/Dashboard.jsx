@@ -77,9 +77,6 @@ const Dashboard = () => {
             const latency = await latencyRes.json();
             const vram = await vramRes.json();
 
-            // Calculate GPU usage based on power and clock speed
-            // const latencyValue = parseFloat(latency.latency.replace(" ms", ""));
-
             // cpu usage, name and cores, speed state update
             setCpuData((prev) => [...prev.slice(-9), cpu.cpuUsage]);
             setCpuName(cpu.cpuName);
@@ -148,6 +145,7 @@ const Dashboard = () => {
         playSoundAlert();
     };
 
+    // Function to check threshold values and show toast alerts messages based on metrics 
     const checkThresholds = (cpu, gpu, cpuTemp, gpuTemp, ram, latency) => {
         if (cpu > 80) {
             showToast(
@@ -235,12 +233,14 @@ const Dashboard = () => {
         card.style.boxShadow = "0 2px 3px rgb(153, 35, 35)";
     };
 
+    // Fetch data on component mount and every 5 seconds
     useEffect(() => {
         fetchData();
         const interval = setInterval(fetchData, 5000);
         return () => clearInterval(interval);
     }, []);
 
+    // Render dashboard component with metrics and alerts 
     return (
         <div style={{position: "relative",height: "135vh", overflowY: "auto", }}>
         {/* Video Background */}
@@ -262,10 +262,11 @@ const Dashboard = () => {
             <source src={backgroundVideo} type="video/mp4" />
             Your browser does not support the video tag.
         </video>
-            
+            {/* Dashboard Title */}
             <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "3rem", color: "#66c0f4" }}>
                 Game Performance Dashboard
             </h1>
+            {/* Dismiss All Alerts Button */}
             <button
                 style={{
                     position: "absolute",
@@ -282,10 +283,12 @@ const Dashboard = () => {
             >
                 Dismiss All Alerts
             </button>
+            {/* Dashboard Container */}
             <div
                 className="dashboard-container"
                 style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
-            >
+            >   
+            {/* Metric Cards */}
                 {[
                     { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50 },
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45 },
@@ -312,17 +315,19 @@ const Dashboard = () => {
                             width: "300px",
                             textAlign: "center",
                             position: "relative",
-                            filter: expandedCard !== null && expandedCard !== index ? "blur(2px)" : "none", // Blur effect
+                            filter: expandedCard !== null && expandedCard !== index ? "blur(6px)" : "none", // Blur effect
                             opacity: expandedCard !== null && expandedCard !== index ? "0.5" : "1", // Darken effect
                             pointerEvents: expandedCard !== null && expandedCard !== index ? "none" : "auto", // Prevent clicks on blurred cards
                         }}
                         onMouseMove={(e) => handleMouseMove(e, index)}
                         onMouseLeave={(e) => handleMouseLeave(e, index)}
                     >
+                        {/* Metric Icon and Data */}
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", marginBottom: "10px" }}>
                             <img src={metric.icon} alt={metric.label} width={metric.size} height={metric.size} />
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
+                        {/* Metric Label */}
                         <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
 
                         {/* Show More Button */}
@@ -330,15 +335,15 @@ const Dashboard = () => {
                             onClick={() => toggleShowMore(index)}
                             style={{
                                 marginTop: "10px",
-                                padding: "8px 18px", // Slightly larger padding for consistency
+                                padding: "8px 18px", 
                                 background: expandedCard === index 
                                     ? "linear-gradient(45deg, #50565e, #3a3d40)" 
                                     : "linear-gradient(45deg, #20232a, #32363e)",
                                 color: "white",
-                                border: "1px solid rgba(255, 255, 255, 0.3)", // Slightly more visible border
-                                borderRadius: "8px", // Better rounded edges
+                                border: "1px solid rgba(255, 255, 255, 0.3)", 
+                                borderRadius: "8px", 
                                 cursor: "pointer",
-                                minWidth: "140px", // Slightly larger width for balance
+                                minWidth: "140px", 
                                 transition: "all 0.2s ease-in-out",
                                 fontSize: "14px",
                                 display: "block",
