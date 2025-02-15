@@ -107,6 +107,24 @@ app.get("/ping-latency", (req, res) => {
   });
 });
 
+// VRAM Usage Endpoint (Using NVIDIA-SMI via PowerShell)
+app.get("/vram", (req, res) => {
+  exec("powershell -ExecutionPolicy Bypass -File ./scripts/vram_monitor.ps1", (error, stdout, stderr) => {
+      if (error) {
+          console.error("Error fetching VRAM data:", stderr);
+          return res.status(500).json({ error: "Failed to retrieve VRAM usage" });
+      }
+
+      try {
+          const vramData = JSON.parse(stdout.replace(/'/g, '"')); // Convert JSON output properly
+          res.json({ vramUsage: vramData.vramUsage });
+      } catch (parseError) {
+          console.error("Parsing error:", parseError);
+          res.status(500).json({ error: "Failed to parse VRAM data" });
+      }
+  });
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

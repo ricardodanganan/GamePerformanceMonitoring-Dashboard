@@ -23,6 +23,7 @@ const Dashboard = () => {
     const [ramData, setRamData] = useState([]);
     const [diskData, setDiskData] = useState([]);
     const [gpuData, setGpuData] = useState([]); 
+    const [vramData, setVramData] = useState([]);
     const [gpuTempData, setGpuTempData] = useState([]); 
     const [cpuTempData, setCpuTempData] = useState([]); 
     const [latencyData, setLatencyData] = useState([]); 
@@ -38,6 +39,7 @@ const Dashboard = () => {
             const gpuTempRes = await fetch("http://localhost:3001/gpu-temp");
             const cpuTempRes = await fetch("http://localhost:3001/cpu-temp");
             const latencyRes = await fetch("http://localhost:3001/ping-latency");
+            const vramRes = await fetch("http://localhost:3001/vram");
 
             const cpu = await cpuRes.json();
             const ram = await ramRes.json();
@@ -46,6 +48,7 @@ const Dashboard = () => {
             const gpuTemp = await gpuTempRes.json();
             const cpuTemp = await cpuTempRes.json();
             const latency = await latencyRes.json();
+            const vram = await vramRes.json();
 
             // Ensure numeric values for GPU and CPU usage
             const gpuUsage = parseFloat(gpu.gpuUtil.replace("%", ""));
@@ -58,6 +61,7 @@ const Dashboard = () => {
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
             setLatencyData((prev) => [...prev.slice(-9), latencyValue]);
+            setVramData((prev) => [...prev.slice(-9), vram.vramUsage]); // Stores only % usage for UI
 
             checkThresholds(cpu.value, gpuUsage, cpuTemp.cpuTemp, gpuTemp.gpuTemp, ram.value, latencyValue);
         } catch (error) {
@@ -239,6 +243,7 @@ const Dashboard = () => {
                     { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50 },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45 },
                     { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50 },
+                    { label: "VRAM Usage", data: vramData, borderColor: "yellow", icon: gpuIcon, size: 50 },
                     { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50 },
                     { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45 },
                 ].map((metric, index) => (
@@ -315,9 +320,9 @@ const Dashboard = () => {
                                 transition: "all 0.3s ease-in-out", // Smooth open/close effect
                             }}
                             >
-                                <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
-                                <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}%</p>
-                                <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}%</p>
+                                <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}</p>
+                                <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}</p>
+                                <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}</p>
                             </div>
                         )}
                     </div>
