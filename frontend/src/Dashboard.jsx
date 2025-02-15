@@ -27,6 +27,8 @@ const Dashboard = () => {
     const [cpuSpeed, setCpuSpeed] = useState("");
     // ram state
     const [ramData, setRamData] = useState([]);
+    const [totalRAM, setTotalRAM] = useState(0);
+    const [usedRAM, setUsedRAM] = useState(0);
     // disk state
     const [diskData, setDiskData] = useState([]);
     // gpu state
@@ -76,7 +78,10 @@ const Dashboard = () => {
             setCpuCores(cpu.cpuCores);
             setCpuSpeed(cpu.cpuSpeed);
             
-            setRamData((prev) => [...prev.slice(-9), ram.value]);
+            setRamData((prev) => [...prev.slice(-9), ram.ramUsage]);
+setTotalRAM(ram.totalRAM);
+setUsedRAM(ram.usedRAM);
+
             setDiskData((prev) => [...prev.slice(-9), disk.value]);
             setGpuData((prev) => [...prev.slice(-9), gpuUsage]);
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
@@ -343,6 +348,12 @@ const Dashboard = () => {
                                     <p><strong>CPU Name:</strong> {cpuName}</p>
                                     <p><strong>CPU Cores:</strong> {cpuCores}</p>
                                     <p><strong>CPU Speed:</strong> {cpuSpeed} GHz</p>
+                                </>
+                                ) : metric.label === "RAM Usage" ? (
+                                    <>
+                                    <p><strong>Total RAM:</strong> {totalRAM} MB</p>
+                                    <p><strong>Used RAM:</strong> {usedRAM} MB</p>
+                                    <p><strong>RAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
                                 ) : null}
                             </div>

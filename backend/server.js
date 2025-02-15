@@ -46,9 +46,27 @@ app.get("/cpu", (req, res) => {
   });
 });
 
-app.get("/ram", (req, res) =>
-  runPowerShell("../backend/scripts/ram_usage.ps1", res)
-);
+app.get("/ram", (req, res) => {
+  exec("powershell -ExecutionPolicy Bypass -File ./scripts/ram_usage.ps1", (error, stdout, stderr) => {
+    if (error) {
+      console.error("❌ Error fetching RAM data:", stderr);
+      return res.status(500).json({ error: "Failed to retrieve RAM data" });
+    }
+
+    try {
+      const ramData = JSON.parse(stdout.replace(/'/g, '"'));
+      res.json({
+        totalRAM: ramData.totalRAM,
+        usedRAM: ramData.usedRAM,
+        ramUsage: ramData.ramUsage
+      });
+    } catch (parseError) {
+      console.error("⚠️ Parsing error:", parseError);
+      res.status(500).json({ error: "Failed to parse RAM data" });
+    }
+  });
+});
+
 app.get("/disk", (req, res) =>
   runPowerShell("../backend/scripts/disk_usage.ps1", res)
 );
