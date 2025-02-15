@@ -111,15 +111,27 @@ app.get("/ping-latency", (req, res) => {
 app.get("/vram", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/vram_monitor.ps1", (error, stdout, stderr) => {
       if (error) {
-          console.error("Error fetching VRAM data:", stderr);
+          console.error("❌ Error fetching VRAM data:", stderr);
           return res.status(500).json({ error: "Failed to retrieve VRAM usage" });
       }
 
+      // Log the raw PowerShell output before parsing
+      console.log("🖥️ Raw VRAM Output:", stdout.trim());
+
       try {
-          const vramData = JSON.parse(stdout.replace(/'/g, '"')); // Convert JSON output properly
-          res.json({ vramUsage: vramData.vramUsage });
+          // Convert PowerShell output to JSON format
+          const vramData = JSON.parse(stdout.replace(/'/g, '"'));
+
+          // Log parsed VRAM data to check values
+          console.log("📊 Parsed VRAM Data:", vramData);
+
+          res.json({
+              vramUsed: vramData.vramUsed,
+              vramTotal: vramData.vramTotal,
+              vramUsage: vramData.vramUsage
+          });
       } catch (parseError) {
-          console.error("Parsing error:", parseError);
+          console.error("⚠️ Parsing error:", parseError);
           res.status(500).json({ error: "Failed to parse VRAM data" });
       }
   });

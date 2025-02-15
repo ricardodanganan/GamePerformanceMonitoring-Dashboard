@@ -24,6 +24,8 @@ const Dashboard = () => {
     const [diskData, setDiskData] = useState([]);
     const [gpuData, setGpuData] = useState([]); 
     const [vramData, setVramData] = useState([]);
+    const [vramUsed, setVramUsed] = useState(0);
+    const [vramTotal, setVramTotal] = useState(0);
     const [gpuTempData, setGpuTempData] = useState([]); 
     const [cpuTempData, setCpuTempData] = useState([]); 
     const [latencyData, setLatencyData] = useState([]); 
@@ -32,6 +34,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
+            // Fetch data from API endpoints using async/await syntax 
             const cpuRes = await fetch("http://localhost:3001/cpu");
             const ramRes = await fetch("http://localhost:3001/ram");
             const diskRes = await fetch("http://localhost:3001/disk");
@@ -41,6 +44,7 @@ const Dashboard = () => {
             const latencyRes = await fetch("http://localhost:3001/ping-latency");
             const vramRes = await fetch("http://localhost:3001/vram");
 
+            // Fetch data from API endpoints and convert to JSON format 
             const cpu = await cpuRes.json();
             const ram = await ramRes.json();
             const disk = await diskRes.json();
@@ -61,7 +65,9 @@ const Dashboard = () => {
             setGpuTempData((prev) => [...prev.slice(-9), gpuTemp.gpuTemp]);
             setCpuTempData((prev) => [...prev.slice(-9), cpuTemp.cpuTemp]);
             setLatencyData((prev) => [...prev.slice(-9), latencyValue]);
-            setVramData((prev) => [...prev.slice(-9), vram.vramUsage]); // Stores only % usage for UI
+            setVramData((prev) => [...prev.slice(-9), vram.vramUsage]);
+            setVramUsed(vram.vramUsed);  
+            setVramTotal(vram.vramTotal); 
 
             checkThresholds(cpu.value, gpuUsage, cpuTemp.cpuTemp, gpuTemp.gpuTemp, ram.value, latencyValue);
         } catch (error) {
@@ -309,20 +315,28 @@ const Dashboard = () => {
                         {/* Extra Information Section */}
                         {expandedCard === index && (
                             <div
-                            style={{
-                                marginTop: "12px",
-                                backgroundColor: "#1e2125",
-                                padding: "12px",
-                                borderRadius: "8px",
-                                textAlign: "left",
-                                fontSize: "14px",
-                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Slight shadow for depth
-                                transition: "all 0.3s ease-in-out", // Smooth open/close effect
-                            }}
+                                style={{
+                                    marginTop: "10px",
+                                    backgroundColor: "#282c34",
+                                    padding: "10px",
+                                    borderRadius: "5px",
+                                    textAlign: "left",
+                                    fontSize: "14px",
+                                }}
                             >
-                                <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}</p>
-                                <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}</p>
-                                <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}</p>
+                                {metric.label === "VRAM Usage" ? (
+                                    <>
+                                        <p><strong>VRAM Total:</strong> {vramTotal} MB</p>
+                                        <p><strong>VRAM Used:</strong> {vramUsed} MB</p>
+                                        <p><strong>VRAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p><strong>Current Value:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
+                                        <p><strong>Max Recorded:</strong> {Math.max(...metric.data)}%</p>
+                                        <p><strong>Min Recorded:</strong> {Math.min(...metric.data)}%</p>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
