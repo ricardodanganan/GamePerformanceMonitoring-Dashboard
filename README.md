@@ -72,6 +72,31 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 
 ---
 
+## Deployment
+
+### Railway.app Deployment Plan:
+
+- Railway hosts both the frontend and backend together, eliminating the need for separate hosting services.
+
+- The backend (Node.js + PowerShell scripts) only runs when needed to avoid exceeding Railway's free tier limit (500 hours/month).
+
+- The frontend (React) remains always online while the backend starts only when accessed.
+
+### Usage Considerations:
+
+- Since this project is for a final presentation, the backend does not run 24/7 but is available on-demand.
+
+- If the Railway free tier limit is exceeded, the backend will pause until the next billing cycle.
+
+- To ensure continuous access, the backend should be manually started in railway app before testing or presenting.
+
+### Future Scalability:
+
+- If long-term usage is required, the backend can be migrated to a dedicated server or cloud-based hosting for continuous monitoring.
+
+- Additional features like historical data storage and multi-system tracking can be integrated over time.
+
+
 ## Contributors
 
 👤 **Ricardo Danganan Jnr** *(Developer)*  
