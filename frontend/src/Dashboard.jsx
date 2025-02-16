@@ -323,7 +323,7 @@ const Dashboard = () => {
                             width: "300px",
                             textAlign: "center",
                             position: "relative",
-                            filter: expandedCard !== null && expandedCard !== index ? "blur(6px)" : "none", // Blur effect
+                            filter: expandedCard !== null && expandedCard !== index ? "blur(10px)" : "none", // Blur effect
                             opacity: expandedCard !== null && expandedCard !== index ? "0.5" : "1", // Darken effect
                             pointerEvents: expandedCard !== null && expandedCard !== index ? "none" : "auto", // Prevent clicks on blurred cards
                         }}
@@ -359,6 +359,7 @@ const Dashboard = () => {
                                 display: "block",
                                 marginLeft: "auto",
                                 marginRight: "auto",
+                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
                             }}
                             onMouseEnter={(e) => {
                                 e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
