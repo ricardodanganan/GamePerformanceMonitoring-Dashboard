@@ -3,7 +3,7 @@ import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Import background video for the dashboard
-import backgroundVideo from "./assets/animated-background-1.mp4"; 
+import backgroundVideo from "./assets/background/animated-background-1.mp4"; 
 // Import icons for each metric card
 import cpuIcon from "./assets/icon/chip-icon.gif";
 import cpuTempIcon from "./assets/icon/cpuTemp-icon.gif";
