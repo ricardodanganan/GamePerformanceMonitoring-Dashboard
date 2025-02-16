@@ -54,6 +54,20 @@ const Dashboard = () => {
     const [connectionType, setConnectionType] = useState("Unknown");
     // Expanded card state     
     const [expandedCard, setExpandedCard] = useState(null);
+    // Time range state
+    const [timeRange, setTimeRange] = useState("1hour");
+    const [historyData, setHistoryData] = useState({
+        cpu_usage: [],
+        cpu_temp: [],
+        ram_usage: [],
+        disk_usage: [],
+        gpu_usage: [],
+        gpu_temp: [],
+        vram_usage: [],
+        network_latency: [],
+        timestamps: [], // Ensure timestamps are initialized
+    });
+
     // Toast alert state
     const activeToasts = new Set(); 
 
@@ -117,6 +131,60 @@ const Dashboard = () => {
         }
     };
 
+    // Function to fetch historical data based on time range
+    // Fetch function to get historical data
+    // http://localhost:3001/history/12hours
+    // http://localhost:3001/history/24hours
+    // http://localhost:3001/history/1hour
+    const fetchHistoricalData = async (selectedRange = timeRange) => {
+        try {
+            console.log(`Fetching historical data for ${selectedRange}...`);
+            const response = await fetch(`http://localhost:3001/history/${selectedRange}`);
+            const data = await response.json();
+    
+            if (Array.isArray(data) && data.length > 0) {
+                // Determine how many points to display based on time range
+                const maxPoints = 10; // Adjust this value to control how many points are displayed
+                const step = Math.ceil(data.length / maxPoints);
+    
+                // Downsampling: Pick every 'step' data point to reduce overcrowding
+                const sampledData = data.filter((_, index) => index % step === 0);
+    
+                setHistoryData({
+                    cpu_usage: sampledData.map(entry => entry.cpu_usage ?? 0),
+                    cpu_temp: sampledData.map(entry => entry.cpu_temp ?? 0),
+                    ram_usage: sampledData.map(entry => entry.ram_usage ?? 0),
+                    disk_usage: sampledData.map(entry => entry.disk_usage ?? 0),
+                    gpu_usage: sampledData.map(entry => entry.gpu_usage ?? 0),
+                    gpu_temp: sampledData.map(entry => entry.gpu_temp ?? 0),
+                    vram_usage: sampledData.map(entry => entry.vram_usage ?? 0),
+                    network_latency: sampledData.map(entry => entry.network_latency ?? 0),
+                    timestamps: sampledData.map(entry => entry.timestamp ? new Date(entry.timestamp).toLocaleTimeString() : ""),
+                });
+            } else {
+                console.warn(`No historical data available for ${selectedRange}.`);
+                setHistoryData({
+                    cpu_usage: [],
+                    cpu_temp: [],
+                    ram_usage: [],
+                    disk_usage: [],
+                    gpu_usage: [],
+                    gpu_temp: [],
+                    vram_usage: [],
+                    network_latency: [],
+                    timestamps: [],
+                });
+            }
+        } catch (error) {
+            console.error(`Error fetching historical data for ${selectedRange}:`, error);
+        }
+    };    
+      
+    // Fetch historical data on component mount
+    useEffect(() => {
+        fetchHistoricalData();
+    }, []);
+    
     // Function to toggle expanded card view
     const toggleShowMore = (index) => {
         if (expandedCard === index) {
@@ -252,7 +320,7 @@ const Dashboard = () => {
 
     // Render dashboard component with metrics and alerts 
     return (
-        <div style={{position: "relative",height: "135vh", overflowY: "auto", }}>
+        <div style={{position: "relative",height: "150vh", overflowY: "auto", }}>
         {/* Video Background */}
         <video
             autoPlay
@@ -276,6 +344,25 @@ const Dashboard = () => {
             <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "3rem", color: "#66c0f4" }}>
                 Game Performance Dashboard
             </h1>
+            {/* View History Dropdown */}
+            <div style={{ textAlign: "center", margin: "20px 0" }}>
+                <label style={{ color: "#fff", fontSize: "18px", marginRight: "10px" }}>
+                    View History:
+                </label>
+                <select
+                    value={timeRange}
+                    onChange={(e) => {
+                        const newTimeRange = e.target.value;
+                        setTimeRange(newTimeRange);
+                        fetchHistoricalData(newTimeRange); // Pass new time range dynamically
+                    }}                    
+                    style={{ padding: "5px", fontSize: "16px", borderRadius: "5px" }}
+                >
+                    <option value="1hour">Last 1 Hour</option>
+                    <option value="12hours">Last 12 Hours</option>
+                    <option value="24hours">Last 24 Hours</option>
+                </select>
+            </div>
             {/* Dismiss All Alerts Button */}
             <button
                 style={{
@@ -338,8 +425,11 @@ const Dashboard = () => {
                             <h2 style={{ fontSize: "2.5rem", margin: 0 }}>{metric.data[metric.data.length - 1] || 0}</h2>
                         </div>
                         {/* Metric Label */}
-                        <ChartComponent label={metric.label} data={metric.data} borderColor={metric.borderColor} />
-
+                        <ChartComponent 
+                            label={metric.label} 
+                            data={timeRange === "1hour" ? metric.data : historyData[metric.label.replace(" ", "_").toLowerCase()] || []} 
+                            borderColor={metric.borderColor} 
+                        />
                         {/* Show More Button */}
                         <button
                             onClick={() => toggleShowMore(index)}
