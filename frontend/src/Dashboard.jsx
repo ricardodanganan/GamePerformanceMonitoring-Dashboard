@@ -117,9 +117,13 @@ const Dashboard = () => {
 
     // Function to toggle expanded card view
     const toggleShowMore = (index) => {
-        setExpandedCard(prev => (prev === index ? null : index));
+        if (expandedCard === index) {
+            setExpandedCard(null);
+        } else {
+            setExpandedCard(index);
+        }
     };
-    
+        
     // Function to show toast alert messages
     const showToast = (type, title, message, link, id) => {
         if (activeToasts.has(id)) return; // Prevent duplicate notifications
@@ -339,33 +343,50 @@ const Dashboard = () => {
                             onClick={() => toggleShowMore(index)}
                             style={{
                                 marginTop: "10px",
-                                padding: "8px 18px", 
-                                background: expandedCard === index 
-                                    ? "linear-gradient(45deg, #50565e, #3a3d40)" 
-                                    : "linear-gradient(45deg, #20232a, #32363e)",
+                                padding: "10px 20px",
+                                background: "linear-gradient(90deg, #2a2d35, #3c3f47)",
                                 color: "white",
-                                border: "1px solid rgba(255, 255, 255, 0.3)", 
-                                borderRadius: "8px", 
+                                border: "2px solid rgba(255, 255, 255, 0.3)",
+                                borderRadius: "10px",
                                 cursor: "pointer",
-                                minWidth: "140px", 
-                                transition: "all 0.2s ease-in-out",
+                                minWidth: "150px",
+                                transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "14px",
+                                fontWeight: "bold",
+                                textTransform: "uppercase",
+                                letterSpacing: "1px",
+                                boxShadow: "0px 0px 8px rgba(60, 63, 71, 0.5)",
                                 display: "block",
                                 marginLeft: "auto",
                                 marginRight: "auto",
                             }}
-                            onMouseEnter={(e) => (e.target.style.background = "#50565e")}
-                            onMouseLeave={(e) =>
-                                (e.target.style.background = expandedCard === index 
-                                    ? "linear-gradient(45deg, #50565e, #3a3d40)" 
-                                    : "linear-gradient(45deg, #20232a, #32363e)")
-                            }
+                            onMouseEnter={(e) => {
+                                e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
+                                e.target.style.boxShadow = "0px 0px 15px rgba(60, 63, 71, 0.8)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = "linear-gradient(90deg, #2a2d35, #3c3f47)";
+                                e.target.style.boxShadow = "0px 0px 8px rgba(60, 63, 71, 0.5)";
+                            }}
                         >
                             {expandedCard === index ? "Show Less" : "Show More"}
                         </button>
 
                         {/* Extra Information Section */}
-                        {expandedCard === index && (
+                        <div className={`extra-info ${expandedCard === index ? "expanded" : "collapsed"}`}
+                            style={{
+                                marginTop: "10px",
+                                backgroundColor: "#282c34",
+                                padding: expandedCard === index ? "10px" : "0px",
+                                borderRadius: "5px",
+                                textAlign: "left",
+                                fontSize: "14px",
+                                maxHeight: expandedCard === index ? "200px" : "0px",
+                                overflow: "hidden",
+                                transition: "max-height 0.3s ease-in-out, padding 0.3s ease-in-out"
+                            }}
+                            >
+                            {expandedCard === index && (
                             <div style={{marginTop: "10px",backgroundColor: "#282c34",padding: "10px",borderRadius: "5px",textAlign: "left",fontSize: "14px",}}>
                                  {metric.label === "VRAM Usage" ? (
                                 <>
@@ -418,6 +439,8 @@ const Dashboard = () => {
                                 ) : null}
                             </div>
                         )}
+                    </div>
+                    {/* End of Metric Cards */}
                     </div>
                 ))}
             </div>   
