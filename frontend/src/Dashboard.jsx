@@ -143,11 +143,15 @@ const Dashboard = () => {
             const data = await response.json();
     
             if (Array.isArray(data) && data.length > 0) {
-                // Determine how many points to display based on time range
-                const maxPoints = 10; // Adjust this value to control how many points are displayed
+                // Set different max points based on the time range
+                let maxPoints;
+                if (selectedRange === "1hour") maxPoints = 10;
+                else if (selectedRange === "12hours") maxPoints = 15;
+                else if (selectedRange === "24hours") maxPoints = 20;
+    
                 const step = Math.ceil(data.length / maxPoints);
     
-                // Downsampling: Pick every 'step' data point to reduce overcrowding
+                // Downsampling to reduce overcrowding
                 const sampledData = data.filter((_, index) => index % step === 0);
     
                 setHistoryData({
@@ -159,7 +163,9 @@ const Dashboard = () => {
                     gpu_temp: sampledData.map(entry => entry.gpu_temp ?? 0),
                     vram_usage: sampledData.map(entry => entry.vram_usage ?? 0),
                     network_latency: sampledData.map(entry => entry.network_latency ?? 0),
-                    timestamps: sampledData.map(entry => entry.timestamp ? new Date(entry.timestamp).toLocaleTimeString() : ""),
+                    timestamps: sampledData.map(entry =>
+                        entry.timestamp ? new Date(entry.timestamp).toLocaleTimeString() : ""
+                    ),
                 });
             } else {
                 console.warn(`No historical data available for ${selectedRange}.`);
@@ -178,7 +184,7 @@ const Dashboard = () => {
         } catch (error) {
             console.error(`Error fetching historical data for ${selectedRange}:`, error);
         }
-    };    
+    };        
       
     // Fetch historical data on component mount
     useEffect(() => {
@@ -513,21 +519,21 @@ const Dashboard = () => {
                                     </>
                                 ) : metric.label === "GPU Usage" ? (
                                     <>
-                                        <p><strong>GPU Model:</strong> {gpuName}</p>
-                                        <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
-                                        <p><strong>Power Consumption:</strong> {gpuPower} W</p>
+                                    <p><strong>GPU Model:</strong> {gpuName}</p>
+                                    <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
+                                    <p><strong>Power Consumption:</strong> {gpuPower} W</p>
                                     </>
                                 ) : metric.label === "GPU Temperature" ? (
                                     <>
-                                        <p><strong>GPU Model:</strong> {gpuName}</p>
-                                        <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
-                                        <p><strong>Power Consumption:</strong> {gpuPower} W</p>
+                                    <p><strong>GPU Model:</strong> {gpuName}</p>
+                                    <p><strong>Core Clock Speed:</strong> {gpuClockSpeed} MHz</p>
+                                    <p><strong>Power Consumption:</strong> {gpuPower} W</p>
                                     </>
                                 ) : metric.label === "Network Latency" ? (
                                     <>
-                                        <p><strong>Ping:</strong> {metric.data[metric.data.length - 1] || 0} ms</p>
-                                        <p><strong>Packet Loss:</strong> {packetLoss} %</p>
-                                        <p><strong>Connection Type:</strong> {connectionType}</p>
+                                    <p><strong>Ping:</strong> {metric.data[metric.data.length - 1] || 0} ms</p>
+                                    <p><strong>Packet Loss:</strong> {packetLoss} %</p>
+                                    <p><strong>Connection Type:</strong> {connectionType}</p>
                                     </>
                                 ) : null}
                             </div>

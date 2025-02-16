@@ -22,14 +22,20 @@ ChartJS.register(
     Legend
 );
 
-const ChartComponent = ({ label, data = [], borderColor, timeLabels = [] }) => {
+const ChartComponent = ({ label, data = [], borderColor, timeLabels = [], selectedRange }) => {
     console.log("Chart Data:", data);
     console.log("Time Labels:", timeLabels);
 
-    // Ensure timeLabels has valid timestamps
+    // Ensure timeLabels has valid timestamps and format based on selected range
     const formattedTimeLabels = timeLabels.length > 0
-        ? timeLabels.map(ts => (ts ? new Date(ts).toLocaleTimeString() : "N/A"))
-        : Array.from({ length: Math.max(data.length, 10) }, (_, i) => `${i + 1}`);
+        ? timeLabels.map(ts =>
+              ts
+                  ? selectedRange === "1hour"
+                      ? new Date(ts).toLocaleTimeString() // Only time for 1 hour view
+                      : new Date(ts).toLocaleString() // Full date & time for 12/24 hour view
+                  : "N/A"
+          )
+        : Array.from({ length: Math.max(data.length, 10) }, (_, i) => `Point ${i + 1}`);
 
     const chartData = {
         labels: formattedTimeLabels,
@@ -41,7 +47,7 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [] }) => {
                 borderWidth: 3,
                 pointRadius: 3,
                 backgroundColor: "rgba(255, 255, 255, 0.5)",
-                tension: 0.5, // Smoother lines
+                tension: 0.4, // Smooth lines
             },
         ],
     };
@@ -61,7 +67,7 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [] }) => {
                     text: "Time",
                 },
                 ticks: {
-                    maxTicksLimit: 10,
+                    maxTicksLimit: selectedRange === "1hour" ? 10 : 5, // Adjust ticks based on range
                     autoSkip: true, // Ensures only necessary ticks are shown
                 },
             },
@@ -84,4 +90,3 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [] }) => {
 };
 
 export default ChartComponent;
-
