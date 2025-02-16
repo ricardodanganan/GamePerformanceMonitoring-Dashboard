@@ -220,16 +220,20 @@ const Dashboard = () => {
         const centerX = rect.width / 4; 
         const centerY = rect.height / 4; 
 
-        const rotateX = ((y - centerY) / centerY) * 6; 
-        const rotateY = ((centerX - x) / centerX) * 6; 
+        const rotateX = ((y - centerY) / centerY) * 4; 
+        const rotateY = ((centerX - x) / centerX) * 4; 
 
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.10)`;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.05)`;
+        card.style.transition = "transform 0.2s ease-out";
+        card.style.backgroundPosition = `${50 + rotateY * 2}% ${50 + rotateX * 2}%`; 
         card.style.boxShadow = `0px 15px 20px rgba(0, 0, 0, 0.3)`;
     };
 
     const handleMouseLeave = (e, index) => {
         const card = document.querySelectorAll(".metric-card")[index];
-        card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+        card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale(1)";
+        card.style.transition = "transform 0.5s ease-in-out";
+        card.style.backgroundPosition = "50% 50%"; 
         card.style.boxShadow = "0 2px 3px rgb(153, 35, 35)";
     };
 
