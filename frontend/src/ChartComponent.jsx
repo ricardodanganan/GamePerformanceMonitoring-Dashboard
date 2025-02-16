@@ -11,6 +11,7 @@ import {
     Legend,
 } from "chart.js";
 
+// Register the ChartJS plugins
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -20,7 +21,7 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-
+// Chart component to display the data in a line chart
 const ChartComponent = ({ label, data, borderColor }) => {
     const chartData = {
         labels: Array.from({ length: data.length }, (_, i) => i + 1),
@@ -48,13 +49,13 @@ const ChartComponent = ({ label, data, borderColor }) => {
             x: {
                 title: {
                     display: true,
-                    text: "Time (5s intervals)",
+                    text: "Time (5s intervals)", // X-axis title (time) 
                 },
             },
             y: {
                 title: {
                     display: true,
-                    text: "Percentage (%)",
+                    text: "Percentage (%)", // Y-axis title (percentage)
                 },
                 min: 0,
                 max: 100,

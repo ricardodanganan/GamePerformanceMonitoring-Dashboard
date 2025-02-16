@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// Import background video for the dashboard
 import backgroundVideo from "./assets/background-2.mp4"; 
+// Import icons for each metric card
 import cpuIcon from "./assets/icon/chip-icon.gif";
 import cpuTempIcon from "./assets/icon/cpuTemp-icon.gif";
 import latencyIcon from "./assets/icon/latency-icon.gif";
@@ -67,7 +69,7 @@ const Dashboard = () => {
             const latencyRes = await fetch("http://localhost:3001/ping-latency");
             const vramRes = await fetch("http://localhost:3001/vram");
 
-            // Fetch data from API endpoints and convert to JSON format 
+            // Fetch data from API endpoints and convert to JSON format
             const cpu = await cpuRes.json();
             const ram = await ramRes.json();
             const disk = await diskRes.json();
@@ -309,7 +311,7 @@ const Dashboard = () => {
                 ].map((metric, index) => (
                     <div
                         key={index}
-                        className="metric-card"
+                        className="metric-card" // Metric Card Styling
                         style={{
                             color: "#ffffff",
                             fontFamily: "Arial, sans-serif",
@@ -318,7 +320,7 @@ const Dashboard = () => {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             transformStyle: "preserve-3d",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
+                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto", // Custom cursor 
                             backgroundColor: "#20232a",
                             width: "300px",
                             textAlign: "center",
@@ -359,7 +361,6 @@ const Dashboard = () => {
                                 display: "block",
                                 marginLeft: "auto",
                                 marginRight: "auto",
-                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
                             }}
                             onMouseEnter={(e) => {
                                 e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
@@ -387,6 +388,7 @@ const Dashboard = () => {
                                 transition: "max-height 0.3s ease-in-out, padding 0.3s ease-in-out"
                             }}
                             >
+                            {/* Expanded cards for extra information for each metrics */}
                             {expandedCard === index && (
                             <div style={{marginTop: "10px",backgroundColor: "#282c34",padding: "10px",borderRadius: "5px",textAlign: "left",fontSize: "14px",}}>
                                  {metric.label === "VRAM Usage" ? (
@@ -444,8 +446,10 @@ const Dashboard = () => {
                     {/* End of Metric Cards */}
                     </div>
                 ))}
-            </div>   
-            <ToastContainer />
+                {/* End of Dashboard Container */}
+            </div>  
+            {/* End of Dashboard Component */} 
+            <ToastContainer /> 
         </div>
     );
 };

@@ -7,6 +7,7 @@ const PORT = 3001;
 
 app.use(cors()); // Allow frontend to access backend
 
+// API Endpoint for System Information (Using PowerShell) - Windows Only
 // Function to execute PowerShell scripts and return the output
 const runPowerShell = (scriptPath, res) => {
   exec(
@@ -22,8 +23,8 @@ const runPowerShell = (scriptPath, res) => {
   );
 };
 
-// CPU, RAM, Disk Usage Endpoints (Using PowerShell) - Windows Only
-// These endpoints execute PowerShell scripts to fetch CPU, RAM, and Disk usage data
+// API Endpoint for System Information (Using PowerShell) - Windows Only
+// This endpoint executes a PowerShell script to fetch the cpu usage, name, cores, and speed
 app.get("/cpu", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/cpu_usage.ps1", (error, stdout, stderr) => {
     if (error) {
@@ -46,6 +47,8 @@ app.get("/cpu", (req, res) => {
   });
 });
 
+// RAM Usage Endpoint (Using PowerShell) - Windows Only
+// This endpoint executes a PowerShell script to fetch the RAM usage, total RAM, and available RAM
 app.get("/ram", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/ram_usage.ps1", (error, stdout, stderr) => {
     if (error) {
@@ -67,6 +70,8 @@ app.get("/ram", (req, res) => {
   });
 });
 
+// Disk Usage Endpoint (Using PowerShell) - Windows Only
+// This endpoint executes a PowerShell script to fetch the Disk usage, total disk space, and used disk space
 app.get("/disk", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/disk_usage.ps1", (error, stdout, stderr) => {
     if (error) {
@@ -89,6 +94,7 @@ app.get("/disk", (req, res) => {
 });
 
 // GPU Utilization Endpoint (Using nvidia-smi) - Windows Only
+// This endpoint executes a PowerShell script to fetch the GPU usage, clock speed, and power consumption
 app.get("/gpu", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/gpu_usage.ps1", (error, stdout, stderr) => {
     if (error) {
@@ -144,7 +150,8 @@ app.get("/cpu-temp", (req, res) => {
     });
 });
 
-// API Endpoint for Latency Monitoring
+// Network Latency Endpoint (Using PowerShell) - Windows Only
+// This endpoint executes a PowerShell script to fetch the network latency and packet loss
 app.get("/ping-latency", async (req, res) => {
   const scriptPath = "./scripts/latency_monitor.ps1";
 
@@ -169,6 +176,7 @@ app.get("/ping-latency", async (req, res) => {
 });
 
 // VRAM Usage Endpoint (Using NVIDIA-SMI via PowerShell)
+// This endpoint executes a PowerShell script to fetch the VRAM usage, total VRAM, and VRAM usage percentage
 app.get("/vram", (req, res) => {
   exec("powershell -ExecutionPolicy Bypass -File ./scripts/vram_monitor.ps1", (error, stdout, stderr) => {
       if (error) {
@@ -186,6 +194,7 @@ app.get("/vram", (req, res) => {
           // Log parsed VRAM data to check values
           console.log("📊 Parsed VRAM Data:", vramData);
 
+          // Send the parsed VRAM data to the client
           res.json({
               vramUsed: vramData.vramUsed,
               vramTotal: vramData.vramTotal,
