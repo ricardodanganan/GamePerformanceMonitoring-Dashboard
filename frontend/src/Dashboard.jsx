@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { saveAs } from "file-saver";
 // Import background video for the dashboard
 import backgroundVideo from "./assets/background/animated-background-3.mp4"; 
 // Import icons for each metric card
@@ -199,6 +200,20 @@ const Dashboard = () => {
             setExpandedCard(index);
         }
     };
+
+    const handleDownload = async (metric) => {
+        try {
+            const response = await fetch(`http://localhost:3001/export/${metric}/csv`);
+            if (!response.ok) {
+                throw new Error("Failed to download data");
+            }
+    
+            const blob = await response.blob();
+            saveAs(blob, `${metric}_historical_data.csv`);
+        } catch (error) {
+            console.error("Error downloading file:", error);
+        }
+    };          
         
     // Function to show toast alert messages
     const showToast = (type, title, message, link, id) => {
@@ -326,7 +341,7 @@ const Dashboard = () => {
 
     // Render dashboard component with metrics and alerts 
     return (
-        <div style={{position: "relative",height: "150vh", overflowY: "auto", }}>
+        <div style={{position: "relative",height: "175vh", overflowY: "auto", }}>
         {/* Video Background */}
         <video
             autoPlay
@@ -393,18 +408,19 @@ const Dashboard = () => {
             >   
             {/* Metric Cards */}
                 {[
-                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50 },
-                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45 },
-                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50 },
-                    { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45 },
-                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50 },
-                    { label: "VRAM Usage", data: vramData, borderColor: "yellow", icon: gpuIcon, size: 50 },
-                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50 },
-                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45 },
-                ].map((metric, index) => (
+                    { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50, api: "cpu_usage" },
+                    { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45, api: "cpu_temp" },
+                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50, api: "ram_usage" },
+                    { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45, api: "disk_usage" },
+                    { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50, api: "gpu_usage" },
+                    { label: "VRAM Usage", data: vramData, borderColor: "yellow", icon: gpuIcon, size: 50, api: "vram_usage" },
+                    { label: "GPU Temperature", data: gpuTempData, borderColor: "orange", icon: gpuTempIcon, size: 50, api: "gpu_temp" },
+                    { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45, api: "network_latency" },
+                ]
+                .map((metric, index) => (
                     <div
                         key={index}
-                        className="metric-card" // Metric Card Styling
+                        className="metric-card" 
                         style={{
                             color: "#ffffff",
                             fontFamily: "Arial, sans-serif",
@@ -447,7 +463,7 @@ const Dashboard = () => {
                                 border: "2px solid rgba(255, 255, 255, 0.3)",
                                 borderRadius: "10px",
                                 cursor: "pointer",
-                                minWidth: "150px",
+                                minWidth: "170px",
                                 transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "14px",
                                 fontWeight: "bold",
@@ -469,7 +485,39 @@ const Dashboard = () => {
                         >
                             {expandedCard === index ? "Show Less" : "Show More"}
                         </button>
-
+                        {/* 🟢 Download Button for Each Metric */}
+                        <button
+                            onClick={() => handleDownload(metric.api)}
+                            style={{
+                                marginTop: "10px",
+                                padding: "10px 20px",
+                                background: "linear-gradient(90deg, #2a2d35, #3c3f47)",
+                                color: "white",
+                                border: "2px solid rgba(255, 255, 255, 0.3)",
+                                borderRadius: "10px",
+                                cursor: "pointer",
+                                minWidth: "150px",
+                                transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                textTransform: "uppercase",
+                                letterSpacing: "1px",
+                                boxShadow: "0px 0px 8px rgba(60, 63, 71, 0.5)",
+                                display: "block",
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
+                                e.target.style.boxShadow = "0px 0px 15px rgba(60, 63, 71, 0.8)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.background = "linear-gradient(90deg, #2a2d35, #3c3f47)";
+                                e.target.style.boxShadow = "0px 0px 8px rgba(60, 63, 71, 0.5)";
+                            }}
+                        >
+                            Download CSV
+                        </button>
                         {/* Extra Information Section */}
                         <div className={`extra-info ${expandedCard === index ? "expanded" : "collapsed"}`}
                             style={{

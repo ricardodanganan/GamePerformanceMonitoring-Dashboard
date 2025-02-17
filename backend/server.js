@@ -2,6 +2,8 @@ const express = require("express");
 const { exec } = require("child_process");
 const cors = require("cors");
 const db = require('./database'); // Import SQLite database
+const fs = require("fs");
+const { parse } = require("json2csv");
 
 const app = express();
 const PORT = 3001;
@@ -130,6 +132,42 @@ app.get("/check-data", (req, res) => {
           return res.status(500).json({ error: "Failed to retrieve data" });
       }
       res.json(rows);
+  });
+});
+ 
+// Export historical data for a specific metric in JSON or CSV format (e.g., cpu_usage, ram_usage)
+app.get("/export/:metric/:format", (req, res) => {
+  const { metric, format } = req.params;
+  const validMetrics = ["cpu_usage", "cpu_temp", "ram_usage", "disk_usage", "gpu_usage", "gpu_temp", "vram_usage", "network_latency"];
+
+  if (!validMetrics.includes(metric)) {
+      return res.status(400).json({ error: "Invalid metric" });
+  }
+
+  const query = `SELECT timestamp, ${metric} FROM performance_metrics ORDER BY timestamp ASC`;
+
+  db.all(query, [], (err, rows) => {
+      if (err) {
+          console.error("❌ Error exporting data:", err.message);
+          return res.status(500).json({ error: "Failed to retrieve export data" });
+      }
+
+      if (format === "json") {
+          res.setHeader("Content-Type", "application/json");
+          res.setHeader("Content-Disposition", `attachment; filename=${metric}.json`);
+          res.json(rows);
+      } else if (format === "csv") {
+          try {
+              const csv = parse(rows);
+              res.setHeader("Content-Type", "text/csv");
+              res.setHeader("Content-Disposition", `attachment; filename=${metric}.csv`);
+              res.send(csv);
+          } catch (err) {
+              res.status(500).json({ error: "Error generating CSV" });
+          }
+      } else {
+          res.status(400).json({ error: "Invalid format. Use json or csv" });
+      }
   });
 });
 
