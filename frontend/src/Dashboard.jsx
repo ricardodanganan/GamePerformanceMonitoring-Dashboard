@@ -341,7 +341,7 @@ const Dashboard = () => {
 
     // Render dashboard component with metrics and alerts 
     return (
-        <div style={{position: "relative",height: "175vh", overflowY: "auto", }}>
+        <div style={{position: "relative",height: "190vh", overflowY: "auto", }}>
         {/* Video Background */}
         <video
             autoPlay
