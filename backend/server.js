@@ -98,7 +98,6 @@ app.get("/history/:timeRange", (req, res) => {
   const { timeRange } = req.params;
   let timeCondition = "";
 
-  // Determine the time range based on user selection
   if (timeRange === "1hour") {
       timeCondition = "timestamp >= datetime('now', '-1 hour')";
   } else if (timeRange === "12hours") {
@@ -109,8 +108,7 @@ app.get("/history/:timeRange", (req, res) => {
       return res.status(400).json({ error: "Invalid time range selected" });
   }
 
-  // Query the database for the requested time range, from most recent to oldest 
-  const query = `SELECT timestamp, ${timeCondition} FROM performance_metrics ORDER BY timestamp DESC`;
+  const query = `SELECT * FROM performance_metrics WHERE ${timeCondition} ORDER BY timestamp DESC`;
 
   db.all(query, [], (err, rows) => {
       if (err) {
