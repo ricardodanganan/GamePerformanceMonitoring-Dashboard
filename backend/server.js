@@ -136,7 +136,8 @@ app.get("/check-data", (req, res) => {
 });
  
 // Export historical data for a specific metric in JSON or CSV format (e.g., cpu_usage, ram_usage)
-app.get("/export/:metric/:format", (req, res) => {
+// Add a header with metadata information (export date, system info) before the actual data
+app.get("/export/:metric/:format", async (req, res) => {
   const { metric, format } = req.params;
   const validMetrics = ["cpu_usage", "cpu_temp", "ram_usage", "disk_usage", "gpu_usage", "gpu_temp", "vram_usage", "network_latency"];
 
@@ -146,30 +147,99 @@ app.get("/export/:metric/:format", (req, res) => {
 
   const query = `SELECT timestamp, ${metric} FROM performance_metrics ORDER BY timestamp ASC`;
 
-  db.all(query, [], (err, rows) => {
+  db.all(query, [], async (err, rows) => {
       if (err) {
           console.error("❌ Error exporting data:", err.message);
           return res.status(500).json({ error: "Failed to retrieve export data" });
       }
 
-      if (format === "json") {
-          res.setHeader("Content-Type", "application/json");
-          res.setHeader("Content-Disposition", `attachment; filename=${metric}.json`);
-          res.json(rows);
-      } else if (format === "csv") {
-          try {
-              const csv = parse(rows);
+      try {
+          // 🔹 Fetch system info using PowerShell
+          const systemInfo = await getSystemInfo();
+
+          // 🔹 Prepare metadata header
+          const metadata = [
+              "Game Performance Monitoring Dashboard - Historical Data Export",
+              `Exported On: ${new Date().toLocaleString()}`,
+              `System Info: ${systemInfo}`,
+              "", // Empty line before actual data
+          ].join("\n");
+
+          if (format === "json") {
+              res.setHeader("Content-Type", "application/json");
+              res.setHeader("Content-Disposition", `attachment; filename=${metric}.json`);
+              res.json(rows);
+          } else if (format === "csv") {
+              const csvData = parse(rows);
+              const finalCsv = `${metadata}\n${csvData}`;
+
               res.setHeader("Content-Type", "text/csv");
               res.setHeader("Content-Disposition", `attachment; filename=${metric}.csv`);
-              res.send(csv);
-          } catch (err) {
-              res.status(500).json({ error: "Error generating CSV" });
+              res.send(finalCsv);
+          } else {
+              res.status(400).json({ error: "Invalid format. Use json or csv" });
           }
-      } else {
-          res.status(400).json({ error: "Invalid format. Use json or csv" });
+      } catch (error) {
+          res.status(500).json({ error: "Error generating CSV" });
       }
   });
 });
+
+// Function to get system info using PowerShell (Windows Only)
+// This function fetches the computer name, OS name, Windows version, CPU name, GPU name, and total RAM
+// Returns a formatted string with the system information in the download file header
+const getSystemInfo = () => {
+  return new Promise((resolve, reject) => {
+      exec(`powershell -Command "Get-ComputerInfo | Select-Object CsName, OsName, WindowsVersion, CsTotalPhysicalMemory | ConvertTo-Json"`,
+          (error, stdout, stderr) => {
+              if (error || stderr) {
+                  console.error("❌ Error fetching system info:", error || stderr);
+                  resolve("Unknown System Information");
+                  return;
+              }
+
+              try {
+                  const systemData = JSON.parse(stdout);
+
+                  // Get GPU Information and Remove Integrated GPUs
+                  exec(`powershell -Command "Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name | ConvertTo-Json"`, 
+                      (gpuError, gpuStdout, gpuStderr) => {
+                          let gpuName = "Unknown GPU";
+                          if (!gpuError && !gpuStderr && gpuStdout.trim()) {
+                              let gpus = JSON.parse(gpuStdout);
+
+                              // If multiple GPUs exist, remove Intel ones and keep only dedicated GPU
+                              if (Array.isArray(gpus)) {
+                                  gpus = gpus.filter(gpu => !gpu.includes("Intel"));
+                                  gpuName = gpus.length > 0 ? gpus[0] : "Unknown GPU";
+                              } else {
+                                  // If only one GPU exists, assign it directly
+                                  gpuName = gpus.includes("Intel") ? "Unknown GPU" : gpus;
+                              }
+                          }
+
+                          // Get CPU Name Separately
+                          exec(`powershell -Command "Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name | ConvertTo-Json"`, 
+                              (cpuError, cpuStdout, cpuStderr) => {
+                                  let cpuName = "Unknown CPU";
+                                  if (!cpuError && !cpuStderr && cpuStdout.trim()) {
+                                      cpuName = JSON.parse(cpuStdout);
+                                  }
+
+                                  // Final system info
+                                  const formattedInfo = `Computer: ${systemData.CsName}, OS: ${systemData.OsName}, Windows Version: ${systemData.WindowsVersion}, CPU: ${cpuName}, GPU: ${gpuName}, Total RAM: ${(systemData.CsTotalPhysicalMemory / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+                                  resolve(formattedInfo);
+                              });
+                      });
+              } catch (parseError) {
+                  console.error("⚠️ Parsing error:", parseError);
+                  resolve("Unknown System Information");
+              }
+          }
+      );
+  });
+};
+
 
 // API Endpoint for System Information (Using PowerShell) - Windows Only
 // This endpoint executes a PowerShell script to fetch the cpu usage, name, cores, and speed
