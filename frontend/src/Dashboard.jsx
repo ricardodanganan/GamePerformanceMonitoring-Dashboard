@@ -75,9 +75,10 @@ const Dashboard = () => {
         network_latency: [],
         timestamps: [], // Ensure timestamps are initialized
     });
-
+    // Background video state
     const [currentBg, setCurrentBg] = useState(0);
-
+    // Title color state
+    const [titleColor, setTitleColor] = useState("#66c0f4"); // Default color
     // Toast alert state
     const activeToasts = new Set(); 
 
@@ -361,6 +362,39 @@ const Dashboard = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // Function to determine if the background is bright or dark
+    const updateTitleColor = () => {
+        const video = document.querySelector(".background-video");
+
+        if (video) {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+
+            canvas.width = 100;
+            canvas.height = 100;
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+            let totalBrightness = 0;
+            for (let i = 0; i < imageData.length; i += 4) {
+                const r = imageData[i];
+                const g = imageData[i + 1];
+                const b = imageData[i + 2];
+                totalBrightness += (r + g + b) / 3;
+            }
+            const avgBrightness = totalBrightness / (canvas.width * canvas.height);
+
+            // If brightness is high, make text dark; otherwise, make it light
+            setTitleColor(avgBrightness > 128 ? "#000000" : "#ffffff");
+        }
+    };
+
+    // Run when the background changes
+    useEffect(() => {
+        setTimeout(updateTitleColor, 500); // Delay to ensure video has rendered
+    }, [currentBg]);
+
     // Render dashboard component with metrics and alerts 
     return (
         <div style={{position: "relative",height: "190vh", overflowY: "auto", }}>
@@ -410,9 +444,10 @@ const Dashboard = () => {
         </button>
 
             {/* Dashboard Title */}
-            <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "3rem", color: "#66c0f4" }}>
+            <h1 className="dashboard-title" style={{ color: titleColor }}>
                 Game Performance Dashboard
             </h1>
+
             {/* View History Dropdown */}
             <div style={{ textAlign: "center", margin: "20px 0" }}>
                 <label style={{ color: "#fff", fontSize: "18px", marginRight: "10px" }}>

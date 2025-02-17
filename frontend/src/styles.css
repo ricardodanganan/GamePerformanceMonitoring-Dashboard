@@ -1,12 +1,17 @@
 body {
     background-color: #1a1a2e;
     color: #ffffff;
-    font-family: 'Orbitron', sans-serif;    
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;  /* ✅ Remove any default margin */
+    padding: 0; /* ✅ Remove default padding */
+    overflow-x: hidden; /* ✅ Prevent horizontal scrolling */
 }
 
-h1 {
-    color: #66c0f4;
-    text-shadow: 0 0 10px #66c0f4, 0 0 20px #66c0f4;
+.dashboard-title {
+    text-align: center;
+    font-size: 3rem;
+    transition: color 1s ease-in-out; /* Smooth transition for color change */
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8); /* Dark shadow for better visibility */
 }
 
 .dashboard-container {
