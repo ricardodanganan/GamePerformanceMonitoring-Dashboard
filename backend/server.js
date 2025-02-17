@@ -109,8 +109,8 @@ app.get("/history/:timeRange", (req, res) => {
       return res.status(400).json({ error: "Invalid time range selected" });
   }
 
-  // Query the database for the requested time range
-  const query = `SELECT * FROM performance_metrics WHERE ${timeCondition} ORDER BY timestamp ASC`;
+  // Query the database for the requested time range, from most recent to oldest 
+  const query = `SELECT timestamp, ${metric} FROM performance_metrics ORDER BY timestamp DESC`;
 
   db.all(query, [], (err, rows) => {
       if (err) {
@@ -170,7 +170,7 @@ app.get("/export/:metric/:format", async (req, res) => {
               res.setHeader("Content-Disposition", `attachment; filename=${metric}.json`);
               res.json(rows);
           } else if (format === "csv") {
-              const csvData = parse(rows);
+              const csvData = parse(rows.reverse()); // Reverse the order so latest logs appear first
               const finalCsv = `${metadata}\n${csvData}`;
 
               res.setHeader("Content-Type", "text/csv");
