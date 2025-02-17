@@ -110,7 +110,7 @@ app.get("/history/:timeRange", (req, res) => {
   }
 
   // Query the database for the requested time range, from most recent to oldest 
-  const query = `SELECT timestamp, ${metric} FROM performance_metrics ORDER BY timestamp DESC`;
+  const query = `SELECT timestamp, ${timeCondition} FROM performance_metrics ORDER BY timestamp DESC`;
 
   db.all(query, [], (err, rows) => {
       if (err) {

@@ -3,8 +3,6 @@ import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveAs } from "file-saver";
-// Import background video for the dashboard
-import backgroundVideo from "./assets/background/animated-background-3.mp4"; 
 // Import icons for each metric card
 import cpuIcon from "./assets/icon/chip-icon.gif";
 import cpuTempIcon from "./assets/icon/cpuTemp-icon.gif";
@@ -13,12 +11,18 @@ import gpuIcon from "./assets/icon/gpu-icon.gif";
 import gpuTempIcon from "./assets/icon/gpuTemp-icon.gif";
 import ramIcon from "./assets/icon/ram-icon.gif";
 import diskIcon from "./assets/icon/disk-icon.gif";
+// Import background videos
+import bg1 from "./assets/background/animated-background-1.mp4";
+import bg2 from "./assets/background/animated-background-2.mp4";
+import bg3 from "./assets/background/animated-background-3.mp4";
 
 // Function to play sound alert when showing toast
 const playSoundAlert = () => {
     const audio = new Audio("/alerts/alert-sound-3.mp3");
     audio.play();
 };
+
+const backgrounds = [bg1, bg2, bg3];
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
@@ -68,6 +72,8 @@ const Dashboard = () => {
         network_latency: [],
         timestamps: [], // Ensure timestamps are initialized
     });
+
+    const [currentBg, setCurrentBg] = useState(0);
 
     // Toast alert state
     const activeToasts = new Set(); 
@@ -126,7 +132,15 @@ const Dashboard = () => {
             setVramUsed(vram.vramUsed);  
             setVramTotal(vram.vramTotal); 
             // Check for threshold values and show toast alerts
-            checkThresholds(cpu.value, gpuUsage, cpuTemp.cpuTemp, gpuTemp.gpuTemp, ram.value, latencyValue);
+            checkThresholds(
+                cpuData[cpuData.length - 1] || 0, 
+                gpuData[gpuData.length - 1] || 0, 
+                cpuTempData[cpuTempData.length - 1] || 0, 
+                gpuTempData[gpuTempData.length - 1] || 0, 
+                ramData[ramData.length - 1] || 0, 
+                latencyData[latencyData.length - 1] || 0
+            );
+            
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -199,6 +213,11 @@ const Dashboard = () => {
         } else {
             setExpandedCard(index);
         }
+    };
+
+    // Function to change background video
+    const changeBackground = () => {
+        setCurrentBg((prevBg) => (prevBg + 1) % backgrounds.length);
     };
 
     const handleDownload = async (metric) => {
@@ -342,12 +361,15 @@ const Dashboard = () => {
     // Render dashboard component with metrics and alerts 
     return (
         <div style={{position: "relative",height: "190vh", overflowY: "auto", }}>
-        {/* Video Background */}
+        
+        {/* Video Background with Dynamic Source configurable with a button */}
         <video
+            key={backgrounds[currentBg]}
             autoPlay
             loop
             muted
             playsInline
+            className="background-video"
             style={{
                 position: "absolute",
                 top: 0,
@@ -358,9 +380,32 @@ const Dashboard = () => {
                 zIndex: -1,
             }}
         >
-            <source src={backgroundVideo} type="video/mp4" />
+            <source src={backgrounds[currentBg]} type="video/mp4" />
             Your browser does not support the video tag.
         </video>
+
+        {/* Background Toggle Button - Placed Below Dismiss Alerts Button */}
+        <button
+            style={{
+                position: "absolute",
+                top: 70, // Adjusted to appear below the dismiss button
+                left: 20,
+                padding: "10px 20px",
+                backgroundColor: "#ff9800",
+                color: "white",
+                width: "180px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={changeBackground}
+        >
+            Change Background
+        </button>
+
             {/* Dashboard Title */}
             <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "3rem", color: "#66c0f4" }}>
                 Game Performance Dashboard
@@ -390,6 +435,7 @@ const Dashboard = () => {
                     position: "absolute",
                     top: 20,
                     left: 20,
+                    width: "180px",
                     padding: "10px 20px",
                     backgroundColor: "#66c0f4",
                     color: "white",
