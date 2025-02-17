@@ -6,6 +6,8 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
+- [Deployment](#Deployment)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -69,6 +71,31 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### APIs & Tools:
 - **Steam API** – For detecting installed games
 - **NVIDIA API (Planned)** – For AI-driven optimizations 
+
+---
+
+## ✅ Core Features of Iteration 1 Successfully Implemented
+
+### 🔹 Live CPU, RAM, Disk, GPU Monitoring
+- Tracks real-time **CPU usage, CPU temperature, RAM usage, Disk activity, GPU usage, GPU temperature, VRAM usage, and Network Latency** using PowerShell scripts.
+
+### 🔹 Real-Time Graphs (Chart.js)
+- Uses **Chart.js** to display performance metrics as **smooth, interactive line graphs**, updating automatically every few seconds.
+
+### 🔹 System Alerts & Sound Notifications
+- Implements **toast alerts and warning sounds** when critical performance limits (high CPU/GPU usage, overheating, network latency) are exceeded.
+
+### 🔹 Historical Data Storage (SQLite)
+- Stores real-time performance data in an **SQLite database** (`performance_data.db`), allowing users to track historical trends over **1hr, 12hr, and 24hr periods**.
+
+### 🔹 Export Data (CSV & JSON)
+- Provides an option to **download historical performance logs** in **CSV or JSON format** for further analysis.
+
+### 🔹 Historical Data View
+- Allows users to switch between **1hr, 12hr, and 24hr views**, dynamically fetching past performance data from the database.
+
+### 🔹 Customizable Performance Alerts and UI theme (Planned)
+- Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle button for UI theme for the Dashboard.
 
 ---
 
