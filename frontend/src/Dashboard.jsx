@@ -17,6 +17,7 @@ import bg2 from "./assets/background/animated-background-2.mp4";
 import bg3 from "./assets/background/animated-background-3.mp4";
 import bg4 from "./assets/background/animated-background-4.mp4";
 import bg5 from "./assets/background/animated-background-5.mp4";
+import bg6 from "./assets/background/animated-background-6.mp4";
 
 // Function to play sound alert when showing toast
 const playSoundAlert = () => {
@@ -24,7 +25,7 @@ const playSoundAlert = () => {
     audio.play();
 };
 
-const backgrounds = [bg1, bg2, bg3, bg4, bg5];
+const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg6];
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
