@@ -7,6 +7,7 @@
 - [Usage](#usage)
 - [Dependencies](#dependencies)
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
+- [Planned Features for Iteration 2](#-planned-features-for-iteration-2)
 - [Deployment](#Deployment)
 - [Contributors](#contributors)
 - [License](#license)
@@ -94,7 +95,23 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### 🔹 Historical Data View
 - Allows users to switch between **1hr, 12hr, and 24hr views**, dynamically fetching past performance data from the database.
 
-### 🔹 Customizable Performance Alerts and UI theme (Planned)
+---
+
+## 🚀 Planned Features for Iteration 2
+
+### 🔹 **Steam API Integration - Game Detection**
+- Uses the **Steam API** to fetch a list of installed games, allowing for system performance tracking based on the user's active game library.
+
+### 🔹 **Game Optimization Feature**
+- Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
+
+### 🔹 **In-Game Overlay for Real-Time Monitoring**
+- Implements a lightweight **in-game overlay** displaying key system metrics **(FPS, CPU/GPU usage, temperatures, latency)** without switching out of the game.
+
+### 🔹 **Further UI Improvements**
+- Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
+
+### 🔹 Customizable Performance Alerts and UI theme 
 - Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle button for UI theme for the Dashboard.
 
 ---
