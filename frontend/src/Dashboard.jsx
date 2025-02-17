@@ -136,13 +136,14 @@ const Dashboard = () => {
             setVramUsed(vram.vramUsed);  
             setVramTotal(vram.vramTotal); 
             // Check for threshold values and show toast alerts
+            // Fire Alerts IMMEDIATELY after setting state
             checkThresholds(
-                cpuData[cpuData.length - 1] || 0, 
-                gpuData[gpuData.length - 1] || 0, 
-                cpuTempData[cpuTempData.length - 1] || 0, 
-                gpuTempData[gpuTempData.length - 1] || 0, 
-                ramData[ramData.length - 1] || 0, 
-                latencyData[latencyData.length - 1] || 0
+                cpu.cpuUsage,
+                gpu.gpuUsage,
+                cpuTemp.cpuTemp,
+                gpuTemp.gpuTemp,
+                ram.ramUsage,
+                parseFloat(latency.latency)
             );
             
         } catch (error) {
@@ -355,13 +356,13 @@ const Dashboard = () => {
         card.style.boxShadow = "0 2px 3px rgb(153, 35, 35)";
     };
 
-    // Fetch data on component mount and every 5 seconds
+    // Fetch data on component mount and every 10 seconds
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 5000);
+        const interval = setInterval(fetchData, 10000); // Match backend update speed
         return () => clearInterval(interval);
     }, []);
-
+    
     // Function to determine if the background is bright or dark
     const updateTitleColor = () => {
         const video = document.querySelector(".background-video");
@@ -445,7 +446,7 @@ const Dashboard = () => {
 
             {/* Dashboard Title */}
             <h1 className="dashboard-title" style={{ color: titleColor }}>
-                Game Performance Dashboard
+            Game Performance Dashboard
             </h1>
 
             {/* View History Dropdown */}
