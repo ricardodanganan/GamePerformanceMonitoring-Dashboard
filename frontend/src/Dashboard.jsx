@@ -15,6 +15,8 @@ import diskIcon from "./assets/icon/disk-icon.gif";
 import bg1 from "./assets/background/animated-background-1.mp4";
 import bg2 from "./assets/background/animated-background-2.mp4";
 import bg3 from "./assets/background/animated-background-3.mp4";
+import bg4 from "./assets/background/animated-background-4.mp4";
+import bg5 from "./assets/background/animated-background-5.mp4";
 
 // Function to play sound alert when showing toast
 const playSoundAlert = () => {
@@ -22,7 +24,7 @@ const playSoundAlert = () => {
     audio.play();
 };
 
-const backgrounds = [bg1, bg2, bg3];
+const backgrounds = [bg1, bg2, bg3, bg4, bg5];
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
