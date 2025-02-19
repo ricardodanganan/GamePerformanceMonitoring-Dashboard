@@ -548,7 +548,7 @@ const Dashboard = () => {
                                 border: "2px solid rgba(255, 255, 255, 0.3)",
                                 borderRadius: "10px",
                                 cursor: "pointer",
-                                minWidth: "170px",
+                                minWidth: "180px",
                                 transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "14px",
                                 fontWeight: "bold",
@@ -601,7 +601,7 @@ const Dashboard = () => {
                                 e.target.style.boxShadow = "0px 0px 8px rgba(60, 63, 71, 0.5)";
                             }}
                         >
-                            Download CSV
+                            Download Data
                         </button>
                         {/* Extra Information Section */}
                         <div className={`extra-info ${expandedCard === index ? "expanded" : "collapsed"}`}
