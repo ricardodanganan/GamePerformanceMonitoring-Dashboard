@@ -72,6 +72,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### APIs & Tools:
 - **Steam API** – For detecting installed games
 - **NVIDIA API (Planned)** – For AI-driven optimizations 
+- **(Electron.js, Overwolf SDK, NVDIA Overlay API)** - 3 Possible tools/API for an In-game overlay feature
 
 ---
 
