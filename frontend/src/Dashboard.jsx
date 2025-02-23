@@ -239,24 +239,33 @@ const Dashboard = () => {
         }
     };          
         
-    // Function to show toast alert messages with improved readability
+    // Function to show toast alerts with improved UI
     const showToast = (type, title, message, link, id) => {
         if (activeToasts.has(id)) return; // Prevent duplicate notifications
         activeToasts.add(id);
 
         toast[type](
-            <div style={{ padding: "10px", lineHeight: "1.6" }}>
-                <strong>{title}</strong>
-                <p style={{ fontSize: "14px", margin: "5px 0" }}>{message}</p>
-                <a href={link} target="_blank" rel="noopener noreferrer" style={{ 
-                    color: "#ffffff", 
-                    textDecoration: "underline",
-                    fontWeight: "bold",
-                    display: "inline-block",
-                    marginTop: "5px"
-                }}>
-                    Learn more
-                </a>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                {/* Dynamically assign icons */}
+                <span className={`toast-icon toast-icon-${type}`}>
+                    {type === "error" && "❗"}
+                    {type === "warning" && "⚠️"}
+                    {type === "info" && "ℹ️"}
+                </span>
+
+                <div style={{ lineHeight: "1.6" }}>
+                    <strong>{title}</strong>
+                    <p style={{ fontSize: "14px", margin: "5px 0" }}>{message}</p>
+                    <a href={link} target="_blank" rel="noopener noreferrer" style={{ 
+                        color: "#ffffff", 
+                        textDecoration: "underline",
+                        fontWeight: "bold",
+                        display: "inline-block",
+                        marginTop: "5px"
+                    }}>
+                        Learn more
+                    </a>
+                </div>
             </div>,
             {
                 position: "top-right",
@@ -272,6 +281,7 @@ const Dashboard = () => {
         // Play sound alert when showing toast
         playSoundAlert();
     };
+
 
     // Function to check threshold values and show toast alerts messages based on metrics 
     const checkThresholds = (cpu, gpu, cpuTemp, gpuTemp, ram, latency) => {

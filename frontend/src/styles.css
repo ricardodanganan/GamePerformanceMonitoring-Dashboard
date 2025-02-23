@@ -112,19 +112,48 @@ button:hover {
 /* Close (X) Button Styling */
 .Toastify__close-button {
     position: absolute;
-    top: 10px;
+    top: 12px;
     right: 12px;
-    color: #fff !important; /* Ensure it is visible */
-    font-size: 18px !important; /* Make it bigger */
-    opacity: 0.8;
-    transition: opacity 0.3s, color 0.3s;
+    width: 24px; /* Make it circular */
+    height: 24px; /* Maintain aspect ratio */
+    background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: bold;
+    border-radius: 50%; /* Circular shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 
+/* Hover Effect */
 .Toastify__close-button:hover {
-    opacity: 1;
-    color: #000 !important; /* Change to black when hovered */
+    background: rgba(255, 255, 255, 0.7);
+    color: #000000 !important;
 }
 
+/* Alert Icon Styling */
+.toast-icon {
+    font-size: 24px; /* Bigger size */
+    margin-right: 10px; /* Space from text */
+    vertical-align: middle; /* Align with text */
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7)); /* Glow effect */
+}
+
+/* Specific Colors for Different Alerts */
+.toast-icon-error {
+    color: #FF5252; /* Red for errors */
+}
+
+.toast-icon-warning {
+    color: #FFC107; /* Yellow for warnings */
+}
+
+.toast-icon-info {
+    color: #2196F3; /* Blue for info */
+}
 
 
 
