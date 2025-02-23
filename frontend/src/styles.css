@@ -117,7 +117,7 @@ button:hover {
     width: 24px;
     height: 24px;
     background: rgba(255, 255, 255, 0.3);
-    color: #ffffff !important;
+    color: #000 !important;
     font-size: 16px !important;
     font-weight: bold;
     border-radius: 50%;
@@ -147,7 +147,7 @@ button:hover {
 }
 
 .toast-icon-warning {
-    color: #FFC107; /* Yellow for warnings */
+    color: #ffd000; /* Yellow for warnings */
 }
 
 .toast-icon-info {
