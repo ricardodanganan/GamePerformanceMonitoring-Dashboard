@@ -239,16 +239,24 @@ const Dashboard = () => {
         }
     };          
         
-    // Function to show toast alert messages
+    // Function to show toast alert messages with improved readability
     const showToast = (type, title, message, link, id) => {
         if (activeToasts.has(id)) return; // Prevent duplicate notifications
         activeToasts.add(id);
 
         toast[type](
-            <div>
+            <div style={{ padding: "10px", lineHeight: "1.6" }}>
                 <strong>{title}</strong>
-                <p>{message}</p>
-                <a href={link} target="_blank" rel="noopener noreferrer" style={{ color: "#66c0f4", textDecoration: "underline" }}>Learn more</a>
+                <p style={{ fontSize: "14px", margin: "5px 0" }}>{message}</p>
+                <a href={link} target="_blank" rel="noopener noreferrer" style={{ 
+                    color: "#ffffff", 
+                    textDecoration: "underline",
+                    fontWeight: "bold",
+                    display: "inline-block",
+                    marginTop: "5px"
+                }}>
+                    Learn more
+                </a>
             </div>,
             {
                 position: "top-right",
@@ -260,6 +268,7 @@ const Dashboard = () => {
                 onClose: () => activeToasts.delete(id),
             }
         );
+
         // Play sound alert when showing toast
         playSoundAlert();
     };

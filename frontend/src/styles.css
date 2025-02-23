@@ -76,27 +76,55 @@ button:hover {
     background: linear-gradient(90deg, #000000, #66c0f4);
 }
 
+/* General Toast Alert Styling */
 .Toastify__toast {
-    background-color: #0f0f1a;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7), 0 0 15px rgba(102, 192, 244, 0.5);
-    border: 1px solid #66c0f4;
+    padding: 16px; /* Increased padding for better spacing */
+    font-size: 16px; /* Improve readability */
+    font-weight: bold;
+    line-height: 1.5;
+    border-radius: 10px; /* Smooth rounded edges */
 }
 
+/* 🔴 ERROR (High CPU/GPU Usage) */
 .Toastify__toast--error {
-    background-color: #ff1717;
-    box-shadow: 0 0 15px rgba(255, 23, 23, 0.8);
+    background-color: #D32F2F; /* Darker Red for readability */
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.8);
+    border-left: 6px solid #FF5252; /* Accent color on the left */
 }
 
+/* 🟡 WARNING (High Temp, RAM Usage) */
 .Toastify__toast--warning {
-    background-color: #fcff56;
+    background-color: #FFC107; /* Gold Yellow */
     color: #000000;
-    box-shadow: 0 0 15px rgba(252, 255, 86, 0.8);
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.8);
+    border-left: 6px solid #FFB300;
 }
 
+/* 🔵 INFO (High Latency) */
 .Toastify__toast--info {
-    background-color: #66c0f4;
-    box-shadow: 0 0 15px rgba(102, 192, 244, 0.8);
+    background-color: #1976D2; /* Darker Blue */
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(25, 118, 210, 0.8);
+    border-left: 6px solid #64B5F6;
 }
+
+/* Close (X) Button Styling */
+.Toastify__close-button {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #fff !important; /* Ensure it is visible */
+    font-size: 18px !important; /* Make it bigger */
+    opacity: 0.8;
+    transition: opacity 0.3s, color 0.3s;
+}
+
+.Toastify__close-button:hover {
+    opacity: 1;
+    color: #000 !important; /* Change to black when hovered */
+}
+
 
 
 
