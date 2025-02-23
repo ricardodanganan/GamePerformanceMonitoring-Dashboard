@@ -68,6 +68,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 - **Express.js** – For managing requests
 - **WebSockets** – For real-time updates
 - **PowerShell Scripts** – For retrieving system performance data
+- **SQLite** – For storing and retrieving historical system metrics
 
 ### APIs & Tools:
 - **Steam API** – For detecting installed games
