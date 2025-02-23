@@ -239,14 +239,14 @@ const Dashboard = () => {
         }
     };          
         
-    // Function to show toast alerts with improved UI
+    // Function to show toast alerts with improved UI 
     const showToast = (type, title, message, link, id) => {
         if (activeToasts.has(id)) return; // Prevent duplicate notifications
         activeToasts.add(id);
 
         toast[type](
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                {/* Dynamically assign icons */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                {/* Manually added custom icon */}
                 <span className={`toast-icon toast-icon-${type}`}>
                     {type === "error" && "❗"}
                     {type === "warning" && "⚠️"}
@@ -274,6 +274,8 @@ const Dashboard = () => {
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
+                icon: false, // removes the default Toastify icon
+                style: { marginBottom: "15px" },
                 onClose: () => activeToasts.delete(id),
             }
         );
@@ -281,7 +283,6 @@ const Dashboard = () => {
         // Play sound alert when showing toast
         playSoundAlert();
     };
-
 
     // Function to check threshold values and show toast alerts messages based on metrics 
     const checkThresholds = (cpu, gpu, cpuTemp, gpuTemp, ram, latency) => {
