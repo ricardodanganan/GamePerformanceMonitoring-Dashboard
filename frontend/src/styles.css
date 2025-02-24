@@ -154,5 +154,49 @@ button:hover {
     color: #2196F3; /* Blue for info */
 }
 
+/* Progress Bar Container */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+}
 
-
+/* Progress Bar Wrapper */
+.progress-bar-wrapper {
+    position: relative;          /* Allows absolute positioning for markers */
+    width: 100%;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  
+  /* The actual colored fill */
+  .progress-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* The marker lines */
+  .progress-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;                   /* Thin vertical line */
+    background-color: #888;       /* Adjust color as needed */
+    pointer-events: none;         /* Click-through */
+    opacity: 0.5;                 /* Slightly transparent */
+  }
+  
+  /* Each marker placed at different % usage threshold */
+  .marker-low {
+    left: 50%;  /* 50% usage line */
+  }
+  .marker-high {
+    left: 75%;  /* 75% usage line */
+  }
+  

@@ -84,9 +84,31 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [], select
 
     return (
         <div style={{ width: "100%", height: "250px" }}>
-            <Line data={chartData} options={options} />
+          
+          {/* Progress Bar (Moved above the chart) */}
+          <div className="progress-bar-wrapper" style={{ marginBottom: "8px" }}>
+            <div
+              className="progress-bar"
+              style={{
+                width: `${data[data.length - 1] || 0}%`,
+                backgroundColor: getProgressColor(data[data.length - 1] || 0),
+              }}
+            ></div>
+    
+            {/* Indicator Lines for Low/Moderate/High */}
+            <div className="progress-marker marker-low"></div>
+            <div className="progress-marker marker-high"></div>
+          </div>
+    
+          <Line data={chartData} options={options} />
         </div>
-    );
+      );
+};
+
+const getProgressColor = (value) => {
+    if (value < 50) return "#00ff00"; // Green for low usage
+    if (value < 75) return "#ffcc00"; // Yellow for moderate usage
+    return "#ff3300"; // Red for high usage
 };
 
 export default ChartComponent;
