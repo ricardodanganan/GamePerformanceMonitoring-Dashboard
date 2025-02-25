@@ -418,7 +418,7 @@ const Dashboard = () => {
 
     // Render dashboard component with metrics and alerts 
     return (
-        <div style={{position: "relative",height: "190vh", overflowY: "auto", }}>
+        <div style={{position: "relative",height: "200vh", overflowY: "auto", }}>
         
         {/* Video Background with Dynamic Source configurable with a button */}
         <video
@@ -454,7 +454,7 @@ const Dashboard = () => {
                 width: "180px",
                 border: "none",
                 borderRadius: "5px",
-                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                 fontSize: "14px",
                 fontWeight: "bold",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
@@ -481,7 +481,7 @@ const Dashboard = () => {
                         setTimeRange(newTimeRange);
                         fetchHistoricalData(newTimeRange); // Pass new time range dynamically
                     }}                    
-                    style={{ padding: "5px", fontSize: "16px", borderRadius: "5px" }}
+                    style={{ padding: "5px", fontSize: "16px", borderRadius: "5px", cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto" }}
                 >
                     <option value="1hour">Last 1 Hour</option>
                     <option value="12hours">Last 12 Hours</option>
@@ -500,7 +500,7 @@ const Dashboard = () => {
                     color: "white",
                     border: "none",
                     borderRadius: "5px",
-                    cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto",
+                    cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                 }}
                 onClick={dismissAllToasts}
             >
@@ -509,7 +509,7 @@ const Dashboard = () => {
             {/* Dashboard Container */}
             <div
                 className="dashboard-container"
-                style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", padding: "5px" }}
+                style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "2px" }}
             >   
             {/* Metric Cards */}
                 {[
@@ -534,12 +534,12 @@ const Dashboard = () => {
                             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                             transformStyle: "preserve-3d",
                             transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=4897'), auto", // Custom cursor 
+                            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=226107'), auto", // Custom cursor
                             backgroundColor: "#20232a",
                             width: "300px",
                             textAlign: "center",
                             position: "relative",
-                            filter: expandedCard !== null && expandedCard !== index ? "blur(100px)" : "none", // Blur effect
+                            filter: expandedCard !== null && expandedCard !== index ? "blur(50px)" : "none", // Blur effect
                             opacity: expandedCard !== null && expandedCard !== index ? "0.5" : "1", // Darken effect
                             pointerEvents: expandedCard !== null && expandedCard !== index ? "none" : "auto", // Prevent clicks on blurred cards
                         }}
@@ -567,7 +567,6 @@ const Dashboard = () => {
                                 color: "white",
                                 border: "2px solid rgba(255, 255, 255, 0.3)",
                                 borderRadius: "10px",
-                                cursor: "pointer",
                                 minWidth: "160px",
                                 transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "12px",
@@ -578,6 +577,7 @@ const Dashboard = () => {
                                 display: "block",
                                 marginLeft: "auto",
                                 marginRight: "auto",
+                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor 
                             }}
                             onMouseEnter={(e) => {
                                 e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
@@ -600,7 +600,6 @@ const Dashboard = () => {
                                 color: "white",
                                 border: "2px solid rgba(255, 255, 255, 0.3)",
                                 borderRadius: "10px",
-                                cursor: "pointer",
                                 minWidth: "160px",
                                 transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "12px",
@@ -611,6 +610,7 @@ const Dashboard = () => {
                                 display: "block",
                                 marginLeft: "auto",
                                 marginRight: "auto",
+                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                             }}
                             onMouseEnter={(e) => {
                                 e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
