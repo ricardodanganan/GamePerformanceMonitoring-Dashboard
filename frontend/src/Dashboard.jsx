@@ -620,9 +620,8 @@ const Dashboard = () => {
                                 justifyContent: "center",
                                 marginLeft: "auto",
                                 marginRight: "auto",
-                                cursor: loadingMetric === metric.api ? "not-allowed" : "pointer",
+                                cursor: loadingMetric === metric.api ? "not-allowed" : "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // avoid clicking when loading
                                 opacity: loadingMetric === metric.api ? 0.7 : 1, // ✅ Reduce opacity when loading
-                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor 
                             }}
                             disabled={loadingMetric === metric.api} // ✅ Prevent multiple clicks
                             onMouseEnter={(e) => {
