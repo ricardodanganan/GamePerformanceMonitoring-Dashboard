@@ -608,22 +608,23 @@ const Dashboard = () => {
                                 border: "2px solid rgba(255, 255, 255, 0.3)",
                                 borderRadius: "10px",
                                 minWidth: "160px",
+                                height: "40px", /* ✅ Ensures the button height remains fixed */
                                 transition: "all 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                                 fontSize: "12px",
                                 fontWeight: "bold",
                                 textTransform: "uppercase",
                                 letterSpacing: "1px",
                                 boxShadow: "0px 0px 8px rgba(60, 63, 71, 0.5)",
-                                display: "flex", // Align spinner and text
+                                display: "flex", // ✅ Ensures alignment of spinner & text
                                 alignItems: "center",
                                 justifyContent: "center",
                                 marginLeft: "auto",
                                 marginRight: "auto",
                                 cursor: loadingMetric === metric.api ? "not-allowed" : "pointer",
-                                opacity: loadingMetric === metric.api ? 0.7 : 1, // Reduce opacity when loading
+                                opacity: loadingMetric === metric.api ? 0.7 : 1, // ✅ Reduce opacity when loading
                                 cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor 
                             }}
-                            disabled={loadingMetric === metric.api} // Prevent multiple clicks
+                            disabled={loadingMetric === metric.api} // ✅ Prevent multiple clicks
                             onMouseEnter={(e) => {
                                 if (loadingMetric !== metric.api) {
                                     e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";

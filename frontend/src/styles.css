@@ -223,14 +223,16 @@ button:hover {
     opacity: 0.7;
 }
 
-/* Spinner Styling */
+/* 🔄 Spinner Animation for Download Button */
 .spinner {
-    width: 18px;
-    height: 18px;
+    width: 16px;  /* ✅ Reduced size to prevent button expansion */
+    height: 16px; /* ✅ Keeps button size consistent */
     border: 2px solid transparent;
     border-top: 2px solid white;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+    display: inline-block;
+    margin: auto;
 }
 
 @keyframes spin {
