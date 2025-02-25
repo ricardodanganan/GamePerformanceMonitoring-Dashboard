@@ -177,8 +177,8 @@ button:hover {
   
   /* The actual colored fill */
   .progress-bar {
-    height: 100%;
-    transition: width 0.5s ease-in-out;
+    border-radius: 6px;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
   }
   
   /* The marker lines */
@@ -187,16 +187,18 @@ button:hover {
     top: 0;
     bottom: 0;
     width: 2px;                   /* Thin vertical line */
-    background-color: #888;       /* Adjust color as needed */
+    background-color: rgba(255, 255, 255, 0.3); /* Brighter, more visible */    
     pointer-events: none;         /* Click-through */
     opacity: 0.5;                 /* Slightly transparent */
   }
   
   /* Each marker placed at different % usage threshold */
   .marker-low {
-    left: 50%;  /* 50% usage line */
-  }
-  .marker-high {
-    left: 75%;  /* 75% usage line */
-  }
-  
+    left: 50%;
+        background-color: rgba(255, 255, 0, 0.5); /* Yellow Indicator */
+    }
+    .marker-high {
+        left: 80%;
+        background-color: rgba(255, 0, 0, 0.5); /* Red Indicator */
+    }
+

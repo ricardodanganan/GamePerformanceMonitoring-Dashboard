@@ -87,12 +87,13 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [], select
           
           {/* Progress Bar (Moved above the chart) */}
           <div className="progress-bar-wrapper" style={{ marginBottom: "8px" }}>
-            <div
-              className="progress-bar"
-              style={{
+          <div
+            className="progress-bar"
+            style={{
                 width: `${data[data.length - 1] || 0}%`,
-                backgroundColor: getProgressColor(data[data.length - 1] || 0),
-              }}
+                height: `${Math.min(10, 4 + (data[data.length - 1] / 20))}px`, // Max 10px
+                background: getProgressGradient(data[data.length - 1] || 0),
+            }}
             ></div>
     
             {/* Indicator Lines for Low/Moderate/High */}
@@ -105,10 +106,13 @@ const ChartComponent = ({ label, data = [], borderColor, timeLabels = [], select
       );
 };
 
-const getProgressColor = (value) => {
-    if (value < 50) return "#00ff00"; // Green for low usage
-    if (value < 75) return "#ffcc00"; // Yellow for moderate usage
-    return "#ff3300"; // Red for high usage
+const getProgressGradient = (value) => {
+    return `linear-gradient(to right, 
+        #00FF00 0%,   /* Green Start */
+        #FFFF00 50%,  /* Yellow Mid */
+        #FF0000 100%  /* Red High */
+    )`;
 };
+
 
 export default ChartComponent;
