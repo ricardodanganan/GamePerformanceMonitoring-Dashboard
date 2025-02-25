@@ -363,7 +363,7 @@ const Dashboard = () => {
         const rotateY = ((centerX - x) / centerX) * 4; 
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale(1.05)`;
-        card.style.transition = "transform 0.2s ease-out";
+        card.style.transition = "transform 0.1s ease-out";
         card.style.backgroundPosition = `${50 + rotateY * 2}% ${50 + rotateX * 2}%`; 
         card.style.boxShadow = `0px 15px 20px rgba(0, 0, 0, 0.3)`;
     };
