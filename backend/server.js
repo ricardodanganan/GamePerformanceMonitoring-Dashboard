@@ -135,15 +135,27 @@ app.get("/check-data", (req, res) => {
  
 // Export historical data for a specific metric in JSON or CSV format (e.g., cpu_usage, ram_usage)
 // Add a header with metadata information (export date, system info) before the actual data
-app.get("/export/:metric/:format", async (req, res) => {
-  const { metric, format } = req.params;
+// Export historical data for a specific metric in JSON or CSV format with time filtering
+app.get("/export/:metric/:format/:timeRange", async (req, res) => {
+  const { metric, format, timeRange } = req.params;
   const validMetrics = ["cpu_usage", "cpu_temp", "ram_usage", "disk_usage", "gpu_usage", "gpu_temp", "vram_usage", "network_latency"];
 
   if (!validMetrics.includes(metric)) {
       return res.status(400).json({ error: "Invalid metric" });
   }
 
-  const query = `SELECT timestamp, ${metric} FROM performance_metrics ORDER BY timestamp ASC`;
+  let timeCondition = "";
+  if (timeRange === "1hour") {
+      timeCondition = "timestamp >= datetime('now', '-1 hour')";
+  } else if (timeRange === "12hours") {
+      timeCondition = "timestamp >= datetime('now', '-12 hours')";
+  } else if (timeRange === "24hours") {
+      timeCondition = "timestamp >= datetime('now', '-24 hours')";
+  } else {
+      return res.status(400).json({ error: "Invalid time range selected" });
+  }
+
+  const query = `SELECT timestamp, ${metric} FROM performance_metrics WHERE ${timeCondition} ORDER BY timestamp ASC`;
 
   db.all(query, [], async (err, rows) => {
       if (err) {
@@ -160,19 +172,20 @@ app.get("/export/:metric/:format", async (req, res) => {
               "Game Performance Monitoring Dashboard - Historical Data Export",
               `Exported On: ${new Date().toLocaleString()}`,
               `System Info: ${systemInfo}`,
+              `Time Range: ${timeRange}`, // Include time range in metadata
               "", // Empty line before actual data
           ].join("\n");
 
           if (format === "json") {
               res.setHeader("Content-Type", "application/json");
-              res.setHeader("Content-Disposition", `attachment; filename=${metric}.json`);
+              res.setHeader("Content-Disposition", `attachment; filename=${metric}_${timeRange}.json`);
               res.json(rows);
           } else if (format === "csv") {
-              const csvData = parse(rows.reverse()); // Reverse the order so latest logs appear first
+              const csvData = parse(rows.reverse()); // Reverse order so latest logs appear first
               const finalCsv = `${metadata}\n${csvData}`;
 
               res.setHeader("Content-Type", "text/csv");
-              res.setHeader("Content-Disposition", `attachment; filename=${metric}.csv`);
+              res.setHeader("Content-Disposition", `attachment; filename=${metric}_${timeRange}.csv`);
               res.send(finalCsv);
           } else {
               res.status(400).json({ error: "Invalid format. Use json or csv" });

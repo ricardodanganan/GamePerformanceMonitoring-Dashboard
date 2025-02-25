@@ -228,23 +228,25 @@ const Dashboard = () => {
     // Function to download historical data as CSV file
     const [loadingMetric, setLoadingMetric] = useState(null); // Track which button is loading
 
+    // Function to download historical data as CSV file
     const handleDownload = async (metric) => {
         try {
             setLoadingMetric(metric); // Show spinner on the clicked button
-
-            const response = await fetch(`http://localhost:3001/export/${metric}/csv`);
+    
+            // Include the selected time range in the request
+            const response = await fetch(`http://localhost:3001/export/${metric}/csv/${timeRange}`);
             if (!response.ok) {
                 throw new Error("Failed to download data");
             }
-
+    
             const blob = await response.blob();
-            saveAs(blob, `${metric}_historical_data.csv`);
+            saveAs(blob, `${metric}_${timeRange}.csv`); // ✅ Updated filename to include time range
         } catch (error) {
             console.error("Error downloading file:", error);
         } finally {
             setLoadingMetric(null); // Hide spinner after download is complete
         }
-    };
+    };    
         
     // Function to show toast alerts with improved UI 
     const showToast = (type, title, message, link, id) => {
