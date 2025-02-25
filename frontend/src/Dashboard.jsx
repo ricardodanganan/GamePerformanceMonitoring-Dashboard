@@ -509,7 +509,7 @@ const Dashboard = () => {
             {/* Dashboard Container */}
             <div
                 className="dashboard-container"
-                style={{ display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap", padding: "20px" }}
+                style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", padding: "5px" }}
             >   
             {/* Metric Cards */}
                 {[
