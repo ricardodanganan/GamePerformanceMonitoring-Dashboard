@@ -524,8 +524,8 @@ const Dashboard = () => {
                 {[
                     { label: "CPU Usage", data: cpuData, borderColor: "red", icon: cpuIcon, size: 50, api: "cpu_usage" },
                     { label: "GPU Usage", data: gpuData, borderColor: "purple", icon: gpuIcon, size: 50, api: "gpu_usage" },
-                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50, api: "ram_usage" },
                     { label: "VRAM Usage", data: vramData, borderColor: "yellow", icon: gpuIcon, size: 50, api: "vram_usage" },
+                    { label: "RAM Usage", data: ramData, borderColor: "blue", icon: ramIcon, size: 50, api: "ram_usage" },
                     { label: "Disk Usage", data: diskData, borderColor: "green", icon: diskIcon, size: 45, api: "disk_usage" },
                     { label: "Network Latency", data: latencyData, borderColor: "cyan", icon: latencyIcon, size: 45, api: "network_latency" },
                     { label: "CPU Temperature", data: cpuTempData, borderColor: "blue", icon: cpuTempIcon, size: 45, api: "cpu_temp" },
