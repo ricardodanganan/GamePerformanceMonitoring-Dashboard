@@ -663,8 +663,8 @@ const Dashboard = () => {
                             <div style={{marginTop: "10px",backgroundColor: "#282c34",padding: "10px",borderRadius: "5px",textAlign: "left",fontSize: "14px",}}>
                                  {metric.label === "VRAM Usage" ? (
                                 <>
-                                    <p><strong>VRAM Total:</strong> {vramTotal} MB</p>
-                                    <p><strong>VRAM Used:</strong> {vramUsed} MB</p>
+                                    <p><strong>VRAM Total:</strong> {vramTotal} GB</p>
+                                    <p><strong>VRAM Used:</strong> {vramUsed} GB</p>
                                     <p><strong>VRAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
                                 ) : metric.label === "CPU Usage" ? (
@@ -675,8 +675,8 @@ const Dashboard = () => {
                                 </>
                                 ) : metric.label === "RAM Usage" ? (
                                     <>
-                                    <p><strong>Total RAM:</strong> {totalRAM} MB</p>
-                                    <p><strong>Used RAM:</strong> {usedRAM} MB</p>
+                                    <p><strong>Total RAM:</strong> {totalRAM} gB</p>
+                                    <p><strong>Used RAM:</strong> {usedRAM} GB</p>
                                     <p><strong>RAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
                                 ) : metric.label === "Disk Usage" ? (
