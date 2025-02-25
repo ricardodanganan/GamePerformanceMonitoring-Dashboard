@@ -225,19 +225,26 @@ const Dashboard = () => {
         setCurrentBg((prevBg) => (prevBg + 1) % backgrounds.length);
     };
 
+    // Function to download historical data as CSV file
+    const [loadingMetric, setLoadingMetric] = useState(null); // Track which button is loading
+
     const handleDownload = async (metric) => {
         try {
+            setLoadingMetric(metric); // Show spinner on the clicked button
+
             const response = await fetch(`http://localhost:3001/export/${metric}/csv`);
             if (!response.ok) {
                 throw new Error("Failed to download data");
             }
-    
+
             const blob = await response.blob();
             saveAs(blob, `${metric}_historical_data.csv`);
         } catch (error) {
             console.error("Error downloading file:", error);
+        } finally {
+            setLoadingMetric(null); // Hide spinner after download is complete
         }
-    };          
+    };
         
     // Function to show toast alerts with improved UI 
     const showToast = (type, title, message, link, id) => {
@@ -607,22 +614,36 @@ const Dashboard = () => {
                                 textTransform: "uppercase",
                                 letterSpacing: "1px",
                                 boxShadow: "0px 0px 8px rgba(60, 63, 71, 0.5)",
-                                display: "block",
+                                display: "flex", // Align spinner and text
+                                alignItems: "center",
+                                justifyContent: "center",
                                 marginLeft: "auto",
                                 marginRight: "auto",
-                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
+                                cursor: loadingMetric === metric.api ? "not-allowed" : "pointer",
+                                opacity: loadingMetric === metric.api ? 0.7 : 1, // Reduce opacity when loading
+                                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor 
                             }}
+                            disabled={loadingMetric === metric.api} // Prevent multiple clicks
                             onMouseEnter={(e) => {
-                                e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
-                                e.target.style.boxShadow = "0px 0px 15px rgba(60, 63, 71, 0.8)";
+                                if (loadingMetric !== metric.api) {
+                                    e.target.style.background = "linear-gradient(90deg, #3c3f47, #2a2d35)";
+                                    e.target.style.boxShadow = "0px 0px 15px rgba(60, 63, 71, 0.8)";
+                                }
                             }}
                             onMouseLeave={(e) => {
-                                e.target.style.background = "linear-gradient(90deg, #2a2d35, #3c3f47)";
-                                e.target.style.boxShadow = "0px 0px 8px rgba(60, 63, 71, 0.5)";
+                                if (loadingMetric !== metric.api) {
+                                    e.target.style.background = "linear-gradient(90deg, #2a2d35, #3c3f47)";
+                                    e.target.style.boxShadow = "0px 0px 8px rgba(60, 63, 71, 0.5)";
+                                }
                             }}
                         >
-                            Download Data
+                            {loadingMetric === metric.api ? (
+                                <span className="spinner"></span> // Show spinner when loading
+                            ) : (
+                                "Download Data"
+                            )}
                         </button>
+
                         {/* Extra Information Section */}
                         <div className={`extra-info ${expandedCard === index ? "expanded" : "collapsed"}`}
                             style={{
