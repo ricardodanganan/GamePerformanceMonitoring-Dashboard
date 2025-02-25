@@ -539,7 +539,7 @@ const Dashboard = () => {
                             width: "300px",
                             textAlign: "center",
                             position: "relative",
-                            filter: expandedCard !== null && expandedCard !== index ? "blur(10px)" : "none", // Blur effect
+                            filter: expandedCard !== null && expandedCard !== index ? "blur(100px)" : "none", // Blur effect
                             opacity: expandedCard !== null && expandedCard !== index ? "0.5" : "1", // Darken effect
                             pointerEvents: expandedCard !== null && expandedCard !== index ? "none" : "auto", // Prevent clicks on blurred cards
                         }}
