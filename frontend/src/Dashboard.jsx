@@ -675,7 +675,7 @@ const Dashboard = () => {
                                 </>
                                 ) : metric.label === "RAM Usage" ? (
                                     <>
-                                    <p><strong>Total RAM:</strong> {totalRAM} gB</p>
+                                    <p><strong>Total RAM:</strong> {totalRAM} GB</p>
                                     <p><strong>Used RAM:</strong> {usedRAM} GB</p>
                                     <p><strong>RAM Usage:</strong> {metric.data[metric.data.length - 1] || 0}%</p>
                                 </>
