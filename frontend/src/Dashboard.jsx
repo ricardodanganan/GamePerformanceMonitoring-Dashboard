@@ -348,7 +348,7 @@ const Dashboard = () => {
                 "warning",
                 "High RAM Usage!",
                 `Your RAM usage is at ${ram}%. This might cause slowdowns or crashes in games. Consider closing unused programs or upgrading your RAM.`,
-                "https://example.com/high-ram-usage",
+                "https://softwarekeep.com/blogs/troubleshooting/how-to-fix-high-ram-usage-on-windows",
                 "ram-high"
             );
         }
@@ -357,7 +357,7 @@ const Dashboard = () => {
                 "info",
                 "High Network Latency!",
                 `Your latency is at ${latency} ms. This can cause lag or delays in online games. Switching to a wired connection or optimizing your network can help.`,
-                "https://example.com/high-latency",
+                "https://goliathtechnologies.com/blog/how-do-i-fix-high-latency-issues-for-remote-users/",
                 "latency-high"
             );
         }
@@ -366,7 +366,7 @@ const Dashboard = () => {
                 "warning",
                 "High VRAM Usage!",
                 `Your VRAM usage is at ${vram}%. Running out of VRAM can cause texture pop-ins and stutters in games. Consider lowering in-game texture settings.`,
-                "https://www.techpowerup.com/forums/threads/vram-usage-optimization-guide.287359/",
+                "https://www.diskmfr.com/gpu-vram-overflow-causes-and-solutions/",
                 "vram-high"
             );
         }
