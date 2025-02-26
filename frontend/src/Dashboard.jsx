@@ -19,17 +19,13 @@ import bg4 from "./assets/background/animated-background-4.mp4";
 import bg5 from "./assets/background/animated-background-5.mp4";
 import bg6 from "./assets/background/animated-background-6.mp4";
 
-// Function to play sound alert when showing toast
-const playSoundAlert = () => {
-    const audio = new Audio("/alerts/alert-sound-3.mp3");
-    audio.play();
-};
-
 const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg6];
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
 
+    // Sound alert state
+    const [soundEnabled, setSoundEnabled] = useState(true);
     // Cpu usage, name, cores, speed state
     const [cpuData, setCpuData] = useState([]);
     const [cpuName, setCpuName] = useState("");
@@ -137,19 +133,28 @@ const Dashboard = () => {
             setVramTotal(vram.vramTotal); 
             // Check for threshold values and show toast alerts
             // Fire Alerts IMMEDIATELY after setting state
+            // Check for threshold values and show toast alerts
             checkThresholds(
                 cpu.cpuUsage,
                 gpu.gpuUsage,
                 cpuTemp.cpuTemp,
                 gpuTemp.gpuTemp,
                 ram.ramUsage,
-                parseFloat(latency.latency)
+                parseFloat(latency.latency),
+                vram.vramUsage // ✅ Added VRAM usage here
             );
             
         } catch (error) {
             console.error("Error fetching data:", error);
         }
     };
+
+    // Function to play sound alert when threshold is reached
+    const playSoundAlert = () => {
+        if (!soundEnabled) return; // ✅ This will now properly check the sound state
+        const audio = new Audio("/alerts/alert-sound-3.mp3");
+        audio.play();
+    };    
 
     // Function to fetch historical data based on time range
     // Fetch function to get historical data
@@ -294,7 +299,7 @@ const Dashboard = () => {
     };
 
     // Function to check threshold values and show toast alerts messages based on metrics 
-    const checkThresholds = (cpu, gpu, cpuTemp, gpuTemp, ram, latency) => {
+    const checkThresholds = (cpu, gpu, cpuTemp, gpuTemp, ram, latency, vram) => {
         if (cpu > 80) {
             showToast(
                 "error",
@@ -349,7 +354,16 @@ const Dashboard = () => {
                 "latency-high"
             );
         }
-    };
+        if (vram > 85) {
+            showToast(
+                "warning",
+                "High VRAM Usage!",
+                `Your VRAM usage is at ${vram}%. Running out of VRAM can cause texture pop-ins and stutters in games. Consider lowering in-game texture settings.`,
+                "https://www.techpowerup.com/forums/threads/vram-usage-optimization-guide.287359/",
+                "vram-high"
+            );
+        }
+    };    
 
     // Dismiss all toasts alert messages when the button is clicked
     const dismissAllToasts = () => {
@@ -456,13 +470,13 @@ const Dashboard = () => {
             style={{
                 position: "absolute",
                 top: 70, // Adjusted to appear below the dismiss button
-                left: 20,
+                left: 50,
                 padding: "10px 20px",
                 backgroundColor: "#ff9800",
                 color: "white",
-                width: "180px",
+                width: "200px",
                 border: "none",
-                borderRadius: "5px",
+                borderRadius: "15px",
                 cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                 fontSize: "14px",
                 fontWeight: "bold",
@@ -471,6 +485,28 @@ const Dashboard = () => {
             onClick={changeBackground}
         >
             Change Background
+        </button>
+
+        {/* Button to Toggle Sound Alerts */}
+        <button
+            style={{
+                position: "absolute",
+                top: 120, // Adjusted position below other buttons
+                left: 50,
+                padding: "10px 20px",
+                backgroundColor: soundEnabled ? "#ff0000" : "#00cc00",
+                color: "white",
+                width: "200px",
+                border: "none",
+                borderRadius: "15px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={() => setSoundEnabled(!soundEnabled)}
+        >
+            {soundEnabled ? "🔊 Disable Alert Sound" : "🔇 Enable Alert Sound"}
         </button>
 
             {/* Dashboard Title */}
@@ -502,13 +538,13 @@ const Dashboard = () => {
                 style={{
                     position: "absolute",
                     top: 20,
-                    left: 20,
-                    width: "180px",
+                    left: 50,
+                    width: "200px",
                     padding: "10px 20px",
                     backgroundColor: "#66c0f4",
                     color: "white",
                     border: "none",
-                    borderRadius: "5px",
+                    borderRadius: "15px",
                     cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                 }}
                 onClick={dismissAllToasts}
