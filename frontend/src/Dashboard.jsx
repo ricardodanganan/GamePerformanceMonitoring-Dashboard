@@ -151,10 +151,17 @@ const Dashboard = () => {
 
     // Function to play sound alert when threshold is reached
     const playSoundAlert = () => {
-        if (!soundEnabled) return; // ✅ This will now properly check the sound state
-        const audio = new Audio("/alerts/alert-sound-3.mp3");
-        audio.play();
-    };    
+        setTimeout(() => {
+            // Use functional update to get the latest value of soundEnabled
+            setSoundEnabled((prevSoundEnabled) => {
+                if (!prevSoundEnabled) return prevSoundEnabled; // If disabled, do nothing
+                const audio = new Audio("/alerts/alert-sound-3.mp3");
+                audio.play().catch(error => console.error("Audio play error:", error)); // Catch any errors
+                return prevSoundEnabled;
+            });
+        }, 50); // Small delay ensures latest state is considered
+    };
+
 
     // Function to fetch historical data based on time range
     // Fetch function to get historical data
@@ -499,12 +506,12 @@ const Dashboard = () => {
                 width: "200px",
                 border: "none",
                 borderRadius: "15px",
-                cursor: "pointer",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
                 fontSize: "14px",
                 fontWeight: "bold",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
             }}
-            onClick={() => setSoundEnabled(!soundEnabled)}
+            onClick={() => setSoundEnabled((prev) => !prev)} // ✅ Now updates correctly
         >
             {soundEnabled ? "🔊 Disable Alert Sound" : "🔇 Enable Alert Sound"}
         </button>
