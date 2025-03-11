@@ -6,18 +6,20 @@
     <title>FPS Overlay</title>
     <style>
         body {
-            background: transparent;
-            color: white;
-            font-size: 20px;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 10px;
-            user-select: none;
-            position: absolute;
-            top: 10px;  
-            right: 10px; 
-            width: auto;
-        }
+    margin: 0; /* ✅ Remove extra spacing */
+    overflow: hidden; /* ✅ Prevent scrollbar from appearing */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #fps-counter {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
     </style>
 </head>
 <body>
