@@ -7,8 +7,8 @@ let dashboardWindow;
 app.whenReady().then(() => {
   // ✅ Create the FPS Overlay Window
   overlayWindow = new BrowserWindow({
-    width: 150,
-    height: 50,
+    width: 120, // Adjust width to match FPS text
+    height: 40, // Reduce height to remove scrollbar
     frame: false,
     alwaysOnTop: true,
     transparent: true,
@@ -21,6 +21,7 @@ app.whenReady().then(() => {
       nodeIntegration: false,
     },
   });
+  
 
   overlayWindow.setIgnoreMouseEvents(true);
   overlayWindow.loadFile(path.join(__dirname, "overlay.html"));
