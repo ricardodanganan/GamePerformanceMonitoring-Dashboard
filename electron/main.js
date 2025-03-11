@@ -1,3 +1,7 @@
+// ✅ Create the FPS Overlay Window in Electron (main.js)
+// The FPS Overlay window will display the current frames per second (FPS) of the Electron app. 
+// This is useful for debugging performance issues in your Electron app.
+
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("path");
 
