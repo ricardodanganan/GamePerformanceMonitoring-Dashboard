@@ -1,20 +1,12 @@
-window.addEventListener("DOMContentLoaded", () => {
-    const fpsElement = document.getElementById("fps-counter");
-  
-    let lastFrameTime = performance.now();
-    let frameCount = 0;
-  
-    function updateFPS() {
-      const now = performance.now();
-      frameCount++;
-      if (now - lastFrameTime >= 1000) {
-        fpsElement.innerText = `FPS: ${frameCount}`;
-        frameCount = 0;
-        lastFrameTime = now;
-      }
-      requestAnimationFrame(updateFPS);
-    }
-  
-    updateFPS();
-  });
-  
+const { contextBridge, ipcRenderer } = require("electron");
+
+// ✅ Properly expose Electron API to the frontend
+contextBridge.exposeInMainWorld("electron", {
+  send: (channel, data) => {
+    ipcRenderer.send(channel, data);
+  },
+  receive: (channel, callback) => {
+    ipcRenderer.on(channel, (event, ...args) => callback(...args));
+  },
+  isElectron: true, // ✅ Allows React to check if Electron is available
+});

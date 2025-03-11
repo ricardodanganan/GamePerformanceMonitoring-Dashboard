@@ -3,6 +3,10 @@ import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveAs } from "file-saver";
+
+// ✅ No need for `window.require("electron")` anymore
+const electron = window.electron;
+
 // Import icons for each metric card
 import cpuIcon from "./assets/icon/chip-icon.gif";
 import cpuTempIcon from "./assets/icon/cpuTemp-icon.gif";
@@ -23,7 +27,6 @@ const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg6];
 
 // Dashboard component to display metrics and alerts
 const Dashboard = () => {
-
     // Sound alert state
     const [soundEnabled, setSoundEnabled] = useState(true);
     // Cpu usage, name, cores, speed state
@@ -471,6 +474,35 @@ const Dashboard = () => {
             <source src={backgrounds[currentBg]} type="video/mp4" />
             Your browser does not support the video tag.
         </video>
+
+        {/* FPS Overlay Toggle Button */}
+        <button
+            style={{
+                position: "absolute",
+                top: 20,  // Keep it below "Change Background"
+                right: 50, // Move to the right side
+                padding: "10px 20px",
+                backgroundColor: "#4CAF50",
+                color: "white",
+                width: "200px",
+                border: "none",
+                borderRadius: "15px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={() => {
+                console.log("Toggle FPS Button Clicked!"); 
+                if (window.electron && window.electron.isElectron) { // ✅ Check if Electron exists
+                    window.electron.send("toggle-fps");
+                } else {
+                    console.error("❌ Electron is not available! Are you running inside Electron?");
+                }
+            }}
+        >
+            Toggle FPS Overlay
+        </button>
 
         {/* Background Toggle Button - Placed Below Dismiss Alerts Button */}
         <button
