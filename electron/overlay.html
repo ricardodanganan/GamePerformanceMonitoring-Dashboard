@@ -6,24 +6,32 @@
     <title>FPS Overlay</title>
     <style>
         body {
-    margin: 0; /* ✅ Remove extra spacing */
-    overflow: hidden; /* ✅ Prevent scrollbar from appearing */
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+        margin: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        padding: 0px; /* ✅ Add spacing */
+        font-family: Arial, sans-serif;
+    }
 
-  #fps-counter {
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-  }
+    #fps-counter, #cpu-usage, #gpu-usage, #cpu-temp, #gpu-temp {
+        font-size: 14px;
+        font-weight: bold;
+        color: rgb(30, 150, 0);
+        background: rgba(0, 0, 0, 0.6); /* ✅ Add a slight background for visibility */
+        padding: 5px 10px;
+        margin-bottom: 5px; /* ✅ Space out the items */
+        border-radius: 0px;
+    }
     </style>
 </head>
 <body>
     <div id="fps-counter">FPS: 0</div>
+    <div id="cpu-usage">CPU: --%</div>
+    <div id="gpu-usage">GPU: --%</div>
+    <div id="cpu-temp">CPU: --°C</div>
+    <div id="gpu-temp">GPU: --°C</div>
     <script src="overlay.js"></script>
 </body>
 </html>

@@ -11,8 +11,8 @@ let dashboardWindow;
 app.whenReady().then(() => {
   // ✅ Create the FPS Overlay Window
   overlayWindow = new BrowserWindow({
-    width: 120, // Adjust width to match FPS text
-    height: 40, // Reduce height to remove scrollbar
+    width: 300, // Increased width for more metrics
+    height: 100, // Increased height for CPU/GPU data
     frame: false,
     alwaysOnTop: true,
     transparent: true,
@@ -32,7 +32,7 @@ app.whenReady().then(() => {
 
   // ✅ Position FPS Counter at Upper-Right Corner
   const { width } = screen.getPrimaryDisplay().bounds;
-  overlayWindow.setBounds({ x: width - 160, y: 10, width: 150, height: 50 });
+  overlayWindow.setBounds({ x: width - 310, y: 10, width: 300, height: 100 });
 
   // ✅ Create the React Dashboard Window (New)
   dashboardWindow = new BrowserWindow({
@@ -61,6 +61,13 @@ app.whenReady().then(() => {
       }
     }
   });
+
+    // ✅ Listen for system metrics from Dashboard.jsx and forward to the FPS overlay
+    ipcMain.on("update-overlay", (event, data) => {
+        if (overlayWindow) {
+            overlayWindow.webContents.send("update-overlay-stats", data);
+        }
+    });
 
   app.on("window-all-closed", (e) => {
     e.preventDefault();

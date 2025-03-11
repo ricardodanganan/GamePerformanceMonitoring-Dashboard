@@ -137,6 +137,18 @@ const Dashboard = () => {
             // Check for threshold values and show toast alerts
             // Fire Alerts IMMEDIATELY after setting state
             // Check for threshold values and show toast alerts
+
+            // ✅ Send system metrics to Electron for the FPS overlay
+            if (window.electron && window.electron.isElectron) {
+                window.electron.send("update-overlay", {
+                    fps: 60, // Placeholder FPS value
+                    cpuUsage: cpu.cpuUsage,
+                    gpuUsage: gpu.gpuUsage,
+                    cpuTemperature: cpuTemp.cpuTemp,
+                    gpuTemperature: gpuTemp.gpuTemp
+                });
+            }
+
             checkThresholds(
                 cpu.cpuUsage,
                 gpu.gpuUsage,
