@@ -79,22 +79,22 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 
 ## ✅ Core Features of Iteration 1 Successfully Implemented
 
-### 🔹 Live CPU, RAM, Disk, GPU Monitoring
+### 🔹 Live CPU, RAM, Disk, GPU Monitoring ✅
 - Tracks real-time **CPU usage, CPU temperature, RAM usage, Disk activity, GPU usage, GPU temperature, VRAM usage, and Network Latency** using PowerShell scripts.
 
-### 🔹 Real-Time Graphs (Chart.js)
+### 🔹 Real-Time Graphs (Chart.js) ✅
 - Uses **Chart.js** to display performance metrics as **smooth, interactive line graphs**, updating automatically every few seconds.
 
-### 🔹 System Alerts & Sound Notifications
+### 🔹 System Alerts & Sound Notifications ✅
 - Implements **toast alerts and warning sounds** when critical performance limits (high CPU/GPU usage, overheating, network latency) are exceeded.
 
-### 🔹 Historical Data Storage (SQLite)
+### 🔹 Historical Data Storage (SQLite) ✅
 - Stores real-time performance data in an **SQLite database** (`performance_data.db`), allowing users to track historical trends over **1hr, 12hr, and 24hr periods**.
 
-### 🔹 Export Data (CSV & JSON)
+### 🔹 Export Data (CSV & JSON) ✅
 - Provides an option to **download historical performance logs** in **CSV or JSON format** for further analysis.
 
-### 🔹 Historical Data View
+### 🔹 Historical Data View ✅
 - Allows users to switch between **1hr, 12hr, and 24hr views**, dynamically fetching past performance data from the database.
 
 ---
@@ -107,7 +107,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### 🔹 **Game Optimization Feature**
 - Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
 
-### 🔹 **In-Game Overlay for Real-Time Monitoring**
+### 🔹 **In-Game Overlay for Real-Time Monitoring** ✅
 - Implements a lightweight **in-game overlay** displaying key system metrics **(FPS, CPU/GPU usage, temperatures, latency)** without switching out of the game.
 
 ### 🔹 **Further UI Improvements**
