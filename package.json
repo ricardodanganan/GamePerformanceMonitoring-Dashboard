@@ -1,8 +1,10 @@
 {
   "name": "game_performance_dashboard",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "electron/main.js",
   "scripts": {
+    "start": "vite",
+    "electron": "electron electron/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,5 +19,8 @@
     "speedtest-net": "^2.2.0",
     "sqlite3": "^5.1.7",
     "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^35.0.1"
   }
 }
