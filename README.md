@@ -110,7 +110,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### 🔹 **In-Game Overlay for Real-Time Monitoring** ✅
 - Implements a lightweight **in-game overlay** displaying key system metrics **(FPS, CPU/GPU usage, temperatures, latency)** without switching out of the game.
 
-### 🔹 **Further UI Improvements**
+### 🔹 **Further UI Improvements** ✅
 - Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
 
 ### 🔹 Customizable Performance Alerts and UI theme 
