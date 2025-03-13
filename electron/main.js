@@ -1,6 +1,6 @@
-// ✅ Create the FPS Overlay Window in Electron (main.js)
-// The FPS Overlay window will display the current frames per second (FPS) of the Electron app. 
-// This is useful for debugging performance issues in your Electron app.
+// ✅ Create the FPS Overlay Window in Electron (main.js) 
+// The FPS overlay window will display the current frames per second (FPS) of your application. 
+// This is useful for debugging performance issues and optimizing your app.
 
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("path");
@@ -11,21 +11,27 @@ let dashboardWindow;
 app.whenReady().then(() => {
   // ✅ Create the FPS Overlay Window
   overlayWindow = new BrowserWindow({
-    width: 300, // Increased width for more metrics
-    height: 100, // Increased height for CPU/GPU data
-    frame: false,
-    alwaysOnTop: true,
+    width: 300,
+    height: 100,
     transparent: true,
+    frame: false,
+    alwaysOnTop: true, // ✅ Keeps it on top
+    fullscreenable: false, // ✅ Prevents resizing issues
     skipTaskbar: true,
     resizable: false,
+    hasShadow: false,
+    focusable: false, // ✅ Prevents focus issues with the game
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-      contextIsolation: true,
-      enableRemoteModule: false,
-      nodeIntegration: false,
-    },
-  });
-  
+        nodeIntegration: false,
+        contextIsolation: true,
+        preload: path.join(__dirname, "preload.js"),
+    }
+});
+
+// ✅ Force overlay to stay on top in fullscreen mode
+overlayWindow.setAlwaysOnTop(true, "screen-saver", 1);
+overlayWindow.setVisibleOnAllWorkspaces(true);
+overlayWindow.setFullScreenable(false);
 
   overlayWindow.setIgnoreMouseEvents(true);
   overlayWindow.loadFile(path.join(__dirname, "overlay.html"));

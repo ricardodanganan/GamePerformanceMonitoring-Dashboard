@@ -4,7 +4,7 @@
   "main": "electron/main.js",
   "scripts": {
     "start": "vite",
-    "electron": "electron electron/main.js",
+    "electron": "electron --disable-gpu-vsync --enable-transparent-visuals electron/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
