@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { saveAs } from "file-saver";
 
-// ✅ No need for `window.require("electron")` anymore
+// Import Electron API from the window object
 const electron = window.electron;
 
 // Import icons for each metric card
@@ -513,7 +513,7 @@ const Dashboard = () => {
                 }
             }}
         >
-            Toggle FPS Overlay
+            Toggle Overlay
         </button>
 
         {/* Background Toggle Button - Placed Below Dismiss Alerts Button */}
