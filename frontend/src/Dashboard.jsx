@@ -1,3 +1,8 @@
+// backend - node server.js
+// frontend - npm run dev
+// electron - npm run electron
+// npm run start-all
+
 import React, { useEffect, useState } from "react"; 
 import ChartComponent from "./ChartComponent";
 import { ToastContainer, toast } from "react-toastify";

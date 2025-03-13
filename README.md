@@ -107,6 +107,13 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### 🔹 **Game Optimization Feature**
 - Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
 
+### 🔹 Separate Electron Window for the Dashboard ✅
+- The entire **Game Performance Dashboard now runs inside Electron**, instead of a web browser.
+- This allows for **faster performance, better integration with system resources, and improved fullscreen support**.
+- Users can launch the dashboard as a **dedicated app** using `npm run start-all`.
+- This eliminates the need to manually open `localhost:5173`, making the experience smoother.
+
+
 ### 🔹 In-Game Overlay Integration ✅
 - Successfully implemented an **Electron-based in-game overlay**, displaying **FPS, CPU usage, GPU usage, CPU temperature, and GPU temperature**.
 - The overlay stays **on top of fullscreen games**, providing real-time performance insights without needing to switch out of the game.
