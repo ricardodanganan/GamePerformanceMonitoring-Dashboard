@@ -2,10 +2,12 @@
   "name": "game_performance_dashboard",
   "version": "1.0.0",
   "main": "electron/main.js",
-  "scripts": {
-    "start": "vite",
-    "electron": "electron --disable-gpu-vsync --enable-transparent-visuals electron/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scripts": {
+    "dev": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "server": "cd backend && node server.js",
+    "electron": "cd electron && electron main.js",
+    "start-all": "concurrently \"npm run server\" \"npm run frontend\" \"npm run electron\""
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "ws": "^8.18.0"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "electron": "^35.0.1"
   }
 }

@@ -73,7 +73,7 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### APIs & Tools:
 - **Steam API** – For detecting installed games
 - **NVIDIA API (Planned)** – For AI-driven optimizations 
-- **(Electron.js, Overwolf SDK, NVDIA Overlay API)** - 3 Possible tools/API for an In-game overlay feature
+- **(Electron.js)** - for an In-game overlay feature
 
 ---
 
@@ -107,8 +107,11 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ### 🔹 **Game Optimization Feature**
 - Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
 
-### 🔹 **In-Game Overlay for Real-Time Monitoring** ✅
-- Implements a lightweight **in-game overlay** displaying key system metrics **(FPS, CPU/GPU usage, temperatures, latency)** without switching out of the game.
+### 🔹 In-Game Overlay Integration ✅
+- Successfully implemented an **Electron-based in-game overlay**, displaying **FPS, CPU usage, GPU usage, CPU temperature, and GPU temperature**.
+- The overlay stays **on top of fullscreen games**, providing real-time performance insights without needing to switch out of the game.
+- Features include **adjustable transparency, always-on-top mode, and click-through functionality** to ensure minimal interference with gameplay.
+- Future improvements may include **Steam API FPS integration or DirectX hooks for more accurate game FPS tracking**.
 
 ### 🔹 **Further UI Improvements** ✅
 - Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
