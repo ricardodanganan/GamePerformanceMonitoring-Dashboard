@@ -521,6 +521,34 @@ const Dashboard = () => {
             Toggle Overlay
         </button>
 
+        {/* Button to Open Grafana Dashboard */}
+        <button
+            style={{
+                position: "absolute",
+                top: 70,  // Adjusted to appear below "Toggle Overlay"
+                right: 50, // Aligns with the Toggle Overlay button
+                padding: "10px 20px",
+                backgroundColor: "#008CBA", // Blue color for Grafana link
+                color: "white",
+                width: "200px",
+                border: "none",
+                borderRadius: "15px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+                textAlign: "center",
+            }}
+            onClick={() => {
+                window.open(
+                    "http://localhost:3000/d/aeg8tz0uwvk74d/game-performance-dashboard?orgId=1&from=now-30m&to=now&timezone=browser&refresh=5s",
+                    "_blank"
+                );
+            }}
+        >
+            Open Grafana
+        </button>
+
         {/* Background Toggle Button - Placed Below Dismiss Alerts Button */}
         <button
             style={{
