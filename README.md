@@ -112,7 +112,24 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 - This allows for **faster performance, better integration with system resources, and improved fullscreen support**.
 - Users can launch the dashboard as a **dedicated app** using `npm run start-all`.
 - This eliminates the need to manually open `localhost:5173`, making the experience smoother.
+- **Optimized Electron Performance** by reducing CPU usage through background throttling, GPU acceleration, and efficient event handling.
 
+### 🔹 Electron Performance Issue & Fixes ✅
+During testing, we observed that Electron's CPU usage **fluctuated significantly**, leading to performance concerns when running the overlay. The following optimizations were implemented to reduce CPU consumption:
+
+**🔍 Issue:**
+- The Electron overlay would **consume high CPU resources**, especially when running real-time updates.
+- `requestAnimationFrame()` **locked FPS at 60**, causing unnecessary rendering cycles.
+- Background processes **kept running at full speed**, even when Electron was minimized.
+
+**🛠 Fixes Applied:**
+✅ **Lowered data fetching rate** → Reduced polling frequency for CPU/GPU stats to avoid excessive updates.  
+✅ **Optimized FPS counter updates** → Limited `requestAnimationFrame()` calls to match actual game FPS.  
+✅ **Enabled background throttling** → Prevented Electron from consuming CPU when minimized.  
+✅ **Forced GPU acceleration** → Offloaded rendering to the GPU instead of overloading the CPU.  
+✅ **Improved overlay performance** → Used `setIgnoreMouseEvents(true, { forward: true })` to prevent unnecessary event handling.
+
+After these fixes, **Electron now consumes significantly less CPU**, making the dashboard more efficient, even while running in fullscreen mode.
 
 ### 🔹 In-Game Overlay Integration ✅
 - Successfully implemented an **Electron-based in-game overlay**, displaying **FPS, CPU usage, GPU usage, CPU temperature, and GPU temperature**.
