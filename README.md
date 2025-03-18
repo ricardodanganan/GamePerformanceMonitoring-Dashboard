@@ -140,38 +140,35 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ### 🔹 **Further UI Improvements** ✅
 - Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
 
-🔹 Grafana Optional View (Performance Monitoring Dashboard)
-In addition to the built-in game performance tracking in the Electron dashboard, an optional Grafana-based monitoring view was implemented to provide a more customizable and professional performance dashboard.
+### 🔹 Grafana Optional View (Performance Monitoring Dashboard) ✅
+- In addition to the built-in game performance tracking in the Electron dashboard, an optional Grafana-based monitoring view was implemented to provide a more   customizable and professional performance dashboard.
 
-✅ What Was Done
-Connected Grafana to SQLite:
+**What Was Done**
+- Connected Grafana to SQLite:
+- Used an SQLite data source in Grafana to pull system performance data directly from performance_data.db.
+- Queries were structured using SQL to fetch time-series data.
 
-Used an SQLite data source in Grafana to pull system performance data directly from performance_data.db.
-Queries were structured using SQL to fetch time-series data.
-Created Real-Time Performance Panels:
+- Created Real-Time Performance Panels:
+- CPU Usage, GPU Usage, CPU Temp, GPU Temp, VRAM Usage, RAM Usage, Disk Usage, and Network Latency were displayed using gauge and time-series panels.
+- Each metric was retrieved dynamically from the SQLite database.
+- Added a Button to Open Grafana from Electron:
+- A new button was placed below the "Toggle Overlay" button in the Electron dashboard.
+- Clicking it opens the Grafana dashboard in a browser, allowing users to view a professional performance monitoring panel.
 
-CPU Usage, GPU Usage, CPU Temp, GPU Temp, VRAM Usage, RAM Usage, Disk Usage, and Network Latency were displayed using gauge and time-series panels.
-Each metric was retrieved dynamically from the SQLite database.
-Added a Button to Open Grafana from Electron:
+**How to Use**
+- Start the Grafana Server
+- Run grafana-server.exe (or the equivalent startup command in the Grafana installation).
+- Open http://localhost:3000/ in a browser to access Grafana.
+- Ensure SQLite Database is Available
+- The SQLite data source must be correctly set up in Grafana.
+- Performance data must be actively logged into performance_data.db.
+- Access the Grafana Dashboard from the Electron App
+- Click the "View Grafana Dashboard" button to open the optional Grafana view.
 
-A new button was placed below the "Toggle Overlay" button in the Electron dashboard.
-Clicking it opens the Grafana dashboard in a browser, allowing users to view a professional performance monitoring panel.
-✅ How to Use
-Start the Grafana Server
-
-Run grafana-server.exe (or the equivalent startup command in the Grafana installation).
-Open http://localhost:3000/ in a browser to access Grafana.
-Ensure SQLite Database is Available
-
-The SQLite data source must be correctly set up in Grafana.
-Performance data must be actively logged into performance_data.db.
-Access the Grafana Dashboard from the Electron App
-
-Click the "View Grafana Dashboard" button to open the optional Grafana view.
-✅ Why This Was Added
-Alternative to Built-in Charts → Allows users to leverage Grafana’s advanced visualization capabilities.
-Customizable & Expandable → Users can modify and extend the panels without changing the core project code.
-Separate from the Main Dashboard → Provides an alternative method to view system performance, rather than replacing the built-in monitoring.
+**Why This Was Added**
+- Alternative to Built-in Charts → Allows users to leverage Grafana’s advanced visualization capabilities.
+- Customizable & Expandable → Users can modify and extend the panels without changing the core project code.
+- Separate from the Main Dashboard → Provides an alternative method to view system performance, rather than replacing the built-in monitoring.
 
 ### 🔹 Customizable Performance Alerts and UI theme 
 - Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle button for UI theme for the Dashboard.
