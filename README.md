@@ -27,8 +27,6 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 ✅ **Steam API integration** – Automatically detect installed games based on the user's Steam library.  
 ✅ **Optimized system recommendations** – Suggest best performance settings based on game requirements and hardware specifications.  
 ✅ **Historical performance tracking** – Store real-time monitoring data in a local JSON file for future analysis.  
-✅ **Cloud synchronization (Future Enhancement)** – Allow users to sync performance logs across multiple devices via cloud storage.  
-✅ **Multi-system monitoring across LAN (Planned)** – Track performance data from multiple systems within a local network.  
 ✅ **In-game overlay (Planned)** – Display real-time system stats while gaming without exiting the application.  
 ✅ **AI-driven game optimization (Planned)** – Use machine learning to recommend system tweaks for better performance.  
 
@@ -40,19 +38,20 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 - **CPU & GPU Usage & Temperature**: Graphical representation via Chart.js.
 - **RAM & Disk Usage**: Track memory and storage performance.
 - **Network Monitoring**: Display ping and latency.
+- **Grafana Performance Metrics**: Advanced real-time monitoring dashboard with customizable panels for each metrics.
 
 ### Receive alerts when system thresholds are exceeded
 - **Automatic notifications** will appear when CPU, GPU, or RAM usage reaches critical levels.
 - **Audio alerts** will trigger for immediate attention.
 
+### Access in-game overlay 
+- **Live stats inside your game** without minimizing it.
+- **Toggle visibility via a hotkey** to enable/disable the overlay.
+
 ### Use the game optimization module *(Upcoming Feature)*
 - **Detect installed games** via Steam API.
 - **Compare system hardware** to recommended settings.
 - **Receive optimization suggestions** based on detected hardware and software.
-
-### Access in-game overlay *(Planned Feature)*
-- **Live stats inside your game** without minimizing it.
-- **Toggle visibility via a hotkey** to enable/disable the overlay.
 
 ---
 
