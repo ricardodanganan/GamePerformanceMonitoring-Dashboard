@@ -100,7 +100,7 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 ### APIs & Tools:
 - **Steam API (Planned)** – For detecting installed Steam games.
 - **NVIDIA API (Planned)** – For AI-driven optimizations and game performance tuning.
-- **Grafana (Optional)** – For external real-time monitoring and visualization.
+- **Grafana** – For external real-time monitoring and visualization.
 
 ---
 
