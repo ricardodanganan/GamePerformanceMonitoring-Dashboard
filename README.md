@@ -28,13 +28,15 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 
 ## Features
 
-✅ **Real-time performance tracking** – Monitor CPU, GPU, RAM, disk usage, and network performance dynamically.  
-✅ **System alerts for overheating & resource overuse** – Receive notifications when resource consumption exceeds safe limits.  
-✅ **Steam API integration** – Automatically detect installed games based on the user's Steam library.  
-✅ **Optimized system recommendations** – Suggest best performance settings based on game requirements and hardware specifications.  
-✅ **Historical performance tracking** – Store real-time monitoring data in a local JSON file for future analysis.  
-✅ **In-game overlay (Planned)** – Display real-time system stats while gaming without exiting the application.  
-✅ **AI-driven game optimization (Planned)** – Use machine learning to recommend system tweaks for better performance.  
+✅ **Real-time performance tracking** – Monitor CPU, GPU, RAM, VRAM, disk usage, temperatures, and network latency using PowerShell scripts.  
+✅ **System alerts for overheating & resource overuse** – Visual and sound alerts using toast notifications when resource thresholds are exceeded.  
+✅ **Standalone desktop app** – Powered by Electron, the dashboard runs as a native Windows application without needing a browser or localhost.  
+✅ **In-game overlay (FPS HUD)** – Display real-time FPS, CPU/GPU usage, and temperatures inside an always-on-top overlay window.  
+✅ **Historical performance tracking** – Logs system data into a local SQLite database with support for CSV/JSON exports by time range.  
+✅ **Grafana integration** – Open Grafana dashboard with real-time metrics visualization and historical trends.  
+✅ **Background customization** – Switch between animated backgrounds for a personalized dashboard experience.  
+✅ **Steam API integration (Planned)** – Detect installed Steam games for future optimization features.  
+✅ **Game optimization (Planned)** – Use machine learning to provide tailored performance recommendations (future enhancement).
 
 ---
 
