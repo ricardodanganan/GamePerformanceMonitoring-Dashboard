@@ -79,21 +79,28 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 ## Dependencies
 
 ### Frontend:
-- **React.js** – For UI components
-- **Chart.js** – For real-time graphical data visualization
-- **React Toastify** – For system alerts & notifications
+- **React.js** – For UI components and rendering the dashboard.
+- **Chart.js** – For real-time graphical data visualization.
+- **React Toastify** – For system alerts and notifications.
+- **File-Saver** – For exporting historical data in CSV/JSON format.
 
 ### Backend:
-- **Node.js** – For API handling
-- **Express.js** – For managing requests
-- **WebSockets** – For real-time updates
-- **PowerShell Scripts** – For retrieving system performance data
-- **SQLite** – For storing and retrieving historical system metrics
+- **Node.js** – For handling API requests and running the server.
+- **Express.js** – For managing API routes and system interactions.
+- **WebSockets** – For real-time updates without page refresh.
+- **PowerShell Scripts** – For retrieving live system performance data.
+- **SQLite** – For storing and retrieving historical system metrics.
+- **Child Process (Node.js)** – For executing PowerShell scripts asynchronously.
+
+### Electron (Standalone App & In-Game Overlay):
+- **Electron.js** – For packaging the dashboard as a desktop app.
+- **Electron IPC** – For inter-process communication between the React UI and the FPS overlay.
+- **Electron BrowserWindow** – For launching the main dashboard and overlay windows.
 
 ### APIs & Tools:
-- **Steam API** – For detecting installed games
-- **NVIDIA API (Planned)** – For AI-driven optimizations 
-- **(Electron.js)** - for an In-game overlay feature
+- **Steam API (Planned)** – For detecting installed Steam games.
+- **NVIDIA API (Planned)** – For AI-driven optimizations and game performance tuning.
+- **Grafana (Optional)** – For external real-time monitoring and visualization.
 
 ---
 
