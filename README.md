@@ -16,7 +16,13 @@
 
 ## Introduction
 
-The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Management project, developed as part of my 4th-year finals project. This real-time monitoring and optimization tool is designed to enhance gaming performance by providing comprehensive system insights. It tracks CPU and GPU usage, temperatures, RAM consumption, disk activity, and network performance, ensuring gamers have a clear view of their system’s health. Equipped with threshold-based alerts, historical performance tracking, and Steam API integration, it helps optimize system resources, detect installed games, and provide tailored recommendations. Additionally, I have integrated Grafana monitoring for advanced data visualization and real-time analytics. An in-game overlay allows players to monitor system performance without exiting their game.
+The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Management project, developed as part of my 4th-year finals. This real-time monitoring and optimization tool is designed to enhance gaming performance by providing comprehensive system insights.
+
+It tracks CPU and GPU usage, temperatures, RAM consumption, disk activity, VRAM usage, and network performance, ensuring gamers have a clear view of their system’s health. Equipped with threshold-based alerts, historical performance tracking, and Steam API integration, it helps optimize system resources, detect installed games, and provide tailored recommendations.
+
+Additionally, I have integrated Grafana monitoring for advanced data visualization and real-time analytics, and implemented CSV/JSON data export functionality for deeper analysis. An in-game overlay, powered by Electron, allows players to monitor system performance (FPS, usage, temps) without exiting their game.
+
+The entire dashboard runs as a standalone desktop application via Electron, removing the need to launch it in a browser or rely on localhost, delivering a seamless, app-like experience.
 
 ---
 
