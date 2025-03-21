@@ -38,15 +38,17 @@ The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Manag
 - **CPU & GPU Usage & Temperature**: Graphical representation via Chart.js.
 - **RAM & Disk Usage**: Track memory and storage performance.
 - **Network Monitoring**: Display ping and latency.
-- **Grafana Performance Metrics**: Advanced real-time monitoring dashboard with customizable panels for each metrics.
+- **Grafana Performance Metrics**: Advanced real-time monitoring dashboard with customizable panels for each metric.
+- **Optimized CPU & GPU monitoring** to reduce system overhead.
 
 ### Receive alerts when system thresholds are exceeded
-- **Automatic notifications** will appear when CPU, GPU, or RAM usage reaches critical levels.
-- **Audio alerts** will trigger for immediate attention.
+- **Automatic notifications** appear when CPU, GPU, or RAM usage reaches critical levels.
+- **Audio alerts** trigger for immediate attention.
 
-### Access in-game overlay 
-- **Live stats inside your game** without minimizing it.
+### Access the in-game overlay
+- **Live stats inside your game** even when running in **fullscreen mode**.
 - **Toggle visibility via a hotkey** to enable/disable the overlay.
+- **Click-through mode enabled**, so the overlay does not interfere with gameplay.
 
 ### Use the game optimization module *(Upcoming Feature)*
 - **Detect installed games** via Steam API.
