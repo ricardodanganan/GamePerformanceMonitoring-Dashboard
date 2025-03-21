@@ -44,19 +44,30 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 
 ### View system performance metrics in real-time
 - **CPU & GPU Usage & Temperature**: Graphical representation via Chart.js.
-- **RAM & Disk Usage**: Track memory and storage performance.
-- **Network Monitoring**: Display ping and latency.
-- **Grafana Performance Metrics**: Advanced real-time monitoring dashboard with customizable panels for each metric.
-- **Optimized CPU & GPU monitoring** to reduce system overhead.
+- **RAM, VRAM & Disk Usage**: Track memory, VRAM consumption, and storage performance.
+- **Network Monitoring**: Display ping, latency, and packet loss for online gaming.
+- **Grafana Performance Metrics**: Open Grafana for advanced real-time monitoring and trend analysis.
+- **Optimized system monitoring** to reduce overhead, ensuring minimal impact on performance.
 
 ### Receive alerts when system thresholds are exceeded
-- **Automatic notifications** appear when CPU, GPU, or RAM usage reaches critical levels.
-- **Audio alerts** trigger for immediate attention.
+- **Automatic notifications** appear when CPU, GPU, RAM, or VRAM usage reaches critical levels.
+- **Audio alerts** provide immediate warnings for overheating or resource overuse.
+- **Custom alert thresholds** let users adjust limits based on their preferences.
 
-### Access the in-game overlay
+### Access the in-game overlay *(Electron FPS HUD)*
 - **Live stats inside your game** even when running in **fullscreen mode**.
-- **Toggle visibility via a hotkey** to enable/disable the overlay.
+- **Displays FPS, CPU/GPU usage, and temperatures** in a compact overlay.
 - **Click-through mode enabled**, so the overlay does not interfere with gameplay.
+- **Toggle visibility via a hotkey or dashboard button** to show/hide the overlay.
+
+### Export historical performance data
+- **Download performance logs** as CSV or JSON files based on selected time range (1 hour, 12 hours, 24 hours).
+- **Automated background logging** stores real-time data in an SQLite database.
+- **Easy access to exported data** for further analysis or sharing.
+
+### Customize the dashboard appearance
+- **Switch between multiple animated backgrounds** for a personalized UI experience.
+- **Adjust UI colors and styles dynamically** for better visibility.
 
 ### Use the game optimization module *(Upcoming Feature)*
 - **Detect installed games** via Steam API.
