@@ -126,13 +126,7 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 
 ---
 
-## 🚀 Core Features of Iteration 2 Successfully Implemented
-
-### 🔹 **Steam API Integration - Game Detection**
-- Uses the **Steam API** to fetch a list of installed games, allowing for system performance tracking based on the user's active game library.
-
-### 🔹 **Game Optimization Feature**
-- Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
+## ✅ Core Features of Iteration 2 Successfully Implemented
 
 ### 🔹 Separate Electron Window for the Dashboard ✅
 - The entire **Game Performance Dashboard now runs inside Electron**, instead of a web browser.
@@ -196,6 +190,19 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 - Alternative to Built-in Charts → Allows users to leverage Grafana’s advanced visualization capabilities.
 - Customizable & Expandable → Users can modify and extend the panels without changing the core project code.
 - Separate from the Main Dashboard → Provides an alternative method to view system performance, rather than replacing the built-in monitoring.
+
+---
+
+## 🚀 Planned features for 3rd and Final Iteration
+
+### 🔹 **Steam API Integration - Game Detection**
+- Uses the **Steam API** to fetch a list of installed games, allowing for system performance tracking based on the user's active game library.
+
+### 🔹 **Game Optimization Feature**
+- Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
+
+### 🔹 **Further UI Improvements** 
+- Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
 
 ### 🔹 Customizable Performance Alerts and UI theme 
 - Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle button for UI theme for the Dashboard.
