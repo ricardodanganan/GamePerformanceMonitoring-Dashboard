@@ -7,7 +7,7 @@
 - [Usage](#usage)
 - [Dependencies](#dependencies)
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
-- [Planned Features for Iteration 2](#-planned-features-for-iteration-2)
+- [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
 - [Deployment](#Deployment)
 - [Contributors](#contributors)
 - [License](#license)
@@ -126,7 +126,7 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 
 ---
 
-## 🚀 Planned Features for Iteration 2
+## 🚀 Core Features of Iteration 2 Successfully Implemented
 
 ### 🔹 **Steam API Integration - Game Detection**
 - Uses the **Steam API** to fetch a list of installed games, allowing for system performance tracking based on the user's active game library.
