@@ -213,6 +213,7 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 
 👤 **Ricardo Danganan Jnr** *(Developer)*  
 📧 Contact: [ricardo_danganan@yahoo.com](mailto:ricardo_danganan@yahoo.com)  
+🌐 GitHub: [github.com/ricardodanganan](https://github.com/ricardodanganan)
 
 ---
 
