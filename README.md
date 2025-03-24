@@ -8,7 +8,7 @@
 - [Dependencies](#dependencies)
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
 - [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
-- [Deployment](#Deployment)
+- [Planned features for 3rd and Final Iteration](#-planned-features-for-3rd-and-final-iteration)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -204,8 +204,12 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ### 🔹 **Further UI Improvements** 
 - Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
 
-### 🔹 Customizable Performance Alerts and UI theme 
-- Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle button for UI theme for the Dashboard.
+### 🔹 **Customizable Performance Alerts and UI Theme**
+- Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle between **light/dark themes** for the dashboard interface.
+
+### 🔹 **Electron App Packaging (Executable Build)**
+- Convert the Electron-based dashboard into a **standalone executable (.exe) file** for easy distribution and installation.
+- This will remove the need for users to run `npm` commands and simplify deployment on any Windows machine.
 
 ---
 
@@ -214,7 +218,7 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 👤 **Ricardo Danganan Jnr** *(Developer)*  
 📧 Email: [ricardo_danganan@yahoo.com](mailto:ricardo_danganan@yahoo.com)  
 🌐 GitHub: [github.com/ricardodanganan](https://github.com/ricardodanganan)  
-🔗 LinkedIn: [linkedin.com/in/ricardo-danganan-jnr](www.linkedin.com/in/ricardo-danganan-jnr)  
+🔗 LinkedIn: [linkedin.com/in/ricardo-danganan-jnr](https://www.linkedin.com/in/ricardo-danganan-jnr)  
 🧩 Portfolio: [ricardo-danganan-portfolio-website.vercel.app](https://ricardo-danganan-portfolio-website.vercel.app/)
 
 ---
