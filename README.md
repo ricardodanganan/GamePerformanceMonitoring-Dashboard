@@ -212,8 +212,10 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ## Contributors
 
 👤 **Ricardo Danganan Jnr** *(Developer)*  
-📧 Contact: [ricardo_danganan@yahoo.com](mailto:ricardo_danganan@yahoo.com)  
-🌐 GitHub: [github.com/ricardodanganan](https://github.com/ricardodanganan)
+📧 Email: [ricardo_danganan@yahoo.com](mailto:ricardo_danganan@yahoo.com)  
+🌐 GitHub: [github.com/ricardodanganan](https://github.com/ricardodanganan)  
+🔗 LinkedIn: [linkedin.com/in/ricardo-danganan-jnr](www.linkedin.com/in/ricardo-danganan-jnr)  
+🧩 Portfolio: [ricardo-danganan-portfolio-website.vercel.app](https://ricardo-danganan-portfolio-website.vercel.app/)
 
 ---
 
