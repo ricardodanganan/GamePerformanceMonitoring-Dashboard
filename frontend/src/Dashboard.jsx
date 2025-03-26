@@ -492,12 +492,78 @@ const Dashboard = () => {
             Your browser does not support the video tag.
         </video>
 
-        {/* FPS Overlay Toggle Button */}
+        {/* Dismiss All Alerts Button */}
+        <button
+                style={{
+                    position: "absolute",
+                    top: 20,
+                    left: 50,
+                    width: "200px",
+                    padding: "10px 20px",
+                    backgroundColor: "#66c0f4",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "15px",
+                    cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
+                }}
+                onClick={dismissAllToasts}
+            >
+                Dismiss All Alerts
+        </button>
+        {/*End of Dismiss All Alerts Button */}
+
+        {/* Background Toggle Button */}
         <button
             style={{
                 position: "absolute",
-                top: 20,  // Keep it below "Change Background"
-                right: 50, // Move to the right side
+                top: 70, // Adjusted to appear below the dismiss button
+                left: 50,
+                padding: "10px 20px",
+                backgroundColor: "#ff9800",
+                color: "white",
+                width: "200px",
+                border: "none",
+                borderRadius: "15px",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={changeBackground}
+        >
+            Change Background
+        </button>
+        {/* End of Background Toggle Button */}
+
+        {/* Button to Toggle Sound Alerts */}
+        <button
+            style={{
+                position: "absolute",
+                top: 120, // Adjusted position below other buttons
+                left: 50,
+                padding: "10px 20px",
+                backgroundColor: soundEnabled ? "#ff0000" : "#00cc00",
+                color: "white",
+                width: "200px",
+                border: "none",
+                borderRadius: "15px",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
+                fontSize: "14px",
+                fontWeight: "bold",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            }}
+            onClick={() => setSoundEnabled((prev) => !prev)} // ✅ Now updates correctly
+        >
+            {soundEnabled ? "🔊 Disable Alert Sound" : "🔇 Enable Alert Sound"}
+        </button>
+        {/* End of Button to Toggle Sound Alerts */}
+
+        {/* Overlay Toggle Button */}
+        <button
+            style={{
+                position: "absolute",
+                top: 20,  
+                right: 50, 
                 padding: "10px 20px",
                 backgroundColor: "#4CAF50",
                 color: "white",
@@ -521,6 +587,7 @@ const Dashboard = () => {
         >
             Toggle Overlay
         </button>
+        {/* End of Overlay Toggle Button */}
 
         {/* Button to Open Grafana Dashboard */}
         <button
@@ -550,50 +617,31 @@ const Dashboard = () => {
         >
             Open Grafana
         </button>
+        {/* End of Button to Open Grafana Dashboard */}
 
-        {/* Background Toggle Button */}
+        {/* Button to Open Grafana Dashboard */}
         <button
             style={{
                 position: "absolute",
-                top: 70, // Adjusted to appear below the dismiss button
-                left: 50,
+                top: 120,  
+                right: 50, 
                 padding: "10px 20px",
-                backgroundColor: "#ff9800",
+                backgroundColor: "#008CBA", 
                 color: "white",
                 width: "200px",
                 border: "none",
                 borderRadius: "15px",
-                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
+                cursor: "pointer",
                 fontSize: "14px",
                 fontWeight: "bold",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
-            }}
-            onClick={changeBackground}
-        >
-            Change Background
-        </button>
-
-        {/* Button to Toggle Sound Alerts */}
-        <button
-            style={{
-                position: "absolute",
-                top: 120, // Adjusted position below other buttons
-                left: 50,
-                padding: "10px 20px",
-                backgroundColor: soundEnabled ? "#ff0000" : "#00cc00",
-                color: "white",
-                width: "200px",
-                border: "none",
-                borderRadius: "15px",
+                textAlign: "center",
                 cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
-                fontSize: "14px",
-                fontWeight: "bold",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
             }}
-            onClick={() => setSoundEnabled((prev) => !prev)} // ✅ Now updates correctly
         >
-            {soundEnabled ? "🔊 Disable Alert Sound" : "🔇 Enable Alert Sound"}
+            View Game Library
         </button>
+        {/* End of Button to Open Grafana Dashboard */}
 
             {/* Dashboard Title */}
             <h1 className="dashboard-title" style={{ color: titleColor }}>
@@ -619,24 +667,6 @@ const Dashboard = () => {
                     <option value="24hours">Last 24 Hours</option>
                 </select>
             </div>
-            {/* Dismiss All Alerts Button */}
-            <button
-                style={{
-                    position: "absolute",
-                    top: 20,
-                    left: 50,
-                    width: "200px",
-                    padding: "10px 20px",
-                    backgroundColor: "#66c0f4",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "15px",
-                    cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
-                }}
-                onClick={dismissAllToasts}
-            >
-                Dismiss All Alerts
-            </button>
             {/* Dashboard Container */}
             <div
                 className="dashboard-container"
