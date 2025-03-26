@@ -508,6 +508,7 @@ const Dashboard = () => {
                 fontSize: "14px",
                 fontWeight: "bold",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
             }}
             onClick={() => {
                 console.log("Toggle FPS Button Clicked!"); 
@@ -538,6 +539,7 @@ const Dashboard = () => {
                 fontWeight: "bold",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
                 textAlign: "center",
+                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
             }}
             onClick={() => {
                 window.open(
@@ -549,7 +551,7 @@ const Dashboard = () => {
             Open Grafana
         </button>
 
-        {/* Background Toggle Button - Placed Below Dismiss Alerts Button */}
+        {/* Background Toggle Button */}
         <button
             style={{
                 position: "absolute",
