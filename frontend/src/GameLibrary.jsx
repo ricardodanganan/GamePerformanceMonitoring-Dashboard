@@ -22,20 +22,24 @@ const GameLibrary = () => {
 
   return (
     <div className="library-container">
-      <h2 className="library-heading">🎮 Your Steam Game Library</h2>
+      <h2 className="library-heading">Your Steam Game Library</h2>
       <div className="game-grid">
         {games.map((game) => (
           <div key={game.appid} className="game-card">
             <img src={game.img_icon_url} alt={game.name} className="game-icon" />
-            <h4>{game.name}</h4>
-            <p>Playtime: {game.playtime_hours} hrs</p>
+            
+            <div className="game-title">{game.name}</div>
+            <p className="game-playtime">Playtime: {game.playtime_hours} hrs</p>
+
+            <div className="btn-container">
             <button className="opt-btn">Optimize</button>
-            <button className="check-btn">Installed?</button>
+            <button className="check-btn">Installed</button>
+            </div>
           </div>
         ))}
       </div>
     </div>
-  );
+  );  
 };
 
 export default GameLibrary;
