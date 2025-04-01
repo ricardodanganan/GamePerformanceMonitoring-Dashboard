@@ -4,6 +4,7 @@ import "./GameLibrary.css";
 const GameLibrary = () => {
   const [games, setGames] = useState([]);
   const [profile, setProfile] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     // Fetch game library
@@ -29,10 +30,20 @@ const GameLibrary = () => {
       )}
 
       <h2 className="library-heading">🎮 Your Steam Game Library</h2>
+      <input
+        type="text"
+        className="search-bar"
+        placeholder="Search games..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        />
       <div className="game-grid">
       {[...games]
-        .sort((a, b) => parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours))
-        .map((game) => (
+            .filter((game) =>
+                game.name.toLowerCase().includes(searchQuery.toLowerCase())
+            )
+            .sort((a, b) => parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours))
+            .map((game) => (
           <div key={game.appid} className="game-card">
             <img src={game.img_icon_url} alt={game.name} className="game-icon" />
             <div className="game-title">{game.name}</div>

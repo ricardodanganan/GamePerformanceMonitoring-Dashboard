@@ -112,3 +112,15 @@ body {
   font-weight: bold;
   color: #fff;
 }
+
+.search-bar {
+  padding: 10px;
+  margin: 20px auto;
+  display: block;
+  width: 60%;
+  max-width: 400px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
