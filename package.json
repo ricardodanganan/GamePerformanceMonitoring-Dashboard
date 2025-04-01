@@ -2,7 +2,7 @@
   "name": "game_performance_dashboard",
   "version": "1.0.0",
   "main": "electron/main.js",
-    "scripts": {
+  "scripts": {
     "dev": "cd backend && npm run dev",
     "frontend": "cd frontend && npm run dev",
     "server": "cd backend && node server.js",
@@ -14,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.8.4",
     "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",

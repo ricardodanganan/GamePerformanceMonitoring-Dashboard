@@ -4,11 +4,13 @@ const cors = require("cors");
 const db = require('./database'); // Import SQLite database
 const fs = require("fs");
 const { parse } = require("json2csv");
+const steamRoutes = require("./steam"); // New
 
 const app = express();
 const PORT = 3001;
 
 app.use(cors()); // Allow frontend to access backend
+app.use("/steam", steamRoutes); // New
 
 // Function to execute PowerShell scripts and return the output
 // const runPowerShell = (scriptPath, res) => {
