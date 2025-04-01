@@ -30,7 +30,9 @@ const GameLibrary = () => {
 
       <h2 className="library-heading">🎮 Your Steam Game Library</h2>
       <div className="game-grid">
-        {games.map((game) => (
+      {[...games]
+        .sort((a, b) => parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours))
+        .map((game) => (
           <div key={game.appid} className="game-card">
             <img src={game.img_icon_url} alt={game.name} className="game-icon" />
             <div className="game-title">{game.name}</div>
