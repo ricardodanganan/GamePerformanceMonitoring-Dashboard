@@ -2,9 +2,9 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-// Replace with your actual Steam API key and your Steam ID
-const STEAM_API_KEY = "13E4AF2448ABFE7C4F1EA848B56E15E7";
-const STEAM_USER_ID = "76561198046984855";
+// Steam API credentials and user ID
+const STEAM_API_KEY = "13E4AF2448ABFE7C4F1EA848B56E15E7"; // Steam API key
+const STEAM_USER_ID = "76561198046984855"; //Steam user ID 
 
 router.get("/games", async (req, res) => {
     try {
