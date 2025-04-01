@@ -617,28 +617,36 @@ const Dashboard = () => {
         </button>
         {/* End of Button to Open Grafana Dashboard */}
 
-        {/* Button to Open Grafana Dashboard */}
+        {/* Button to View Game Library Dashboard */}
         <button
-            style={{
-                position: "absolute",
-                top: 120,  
-                right: 50, 
-                padding: "10px 20px",
-                backgroundColor: "#008CBA", 
-                color: "white",
-                width: "200px",
-                border: "none",
-                borderRadius: "15px",
-                fontSize: "14px",
-                fontWeight: "bold",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
-                textAlign: "center",
-                cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto", // Custom cursor
-            }}
+        style={{
+            position: "absolute",
+            top: 120,
+            right: 50,
+            padding: "10px 20px",
+            backgroundColor: "#008CBA",
+            color: "white",
+            width: "200px",
+            border: "none",
+            borderRadius: "15px",
+            fontSize: "14px",
+            fontWeight: "bold",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.3)",
+            textAlign: "center",
+            cursor: "url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto"
+        }}
+        onClick={() => {
+            if (window.electron && window.electron.send) {
+              window.electron.send("open-game-library");
+            } else {
+              console.error("Electron IPC not available!");
+            }
+          }}          
         >
-            View Game Library
+          View Game Library
         </button>
-        {/* End of Button to Open Grafana Dashboard */}
+        {/* End of Button to View Game Library Dashboard */}
+
 
             {/* Dashboard Title */}
             <h1 className="dashboard-title" style={{ color: titleColor }}>

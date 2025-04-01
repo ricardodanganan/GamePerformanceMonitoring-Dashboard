@@ -7,41 +7,39 @@ const path = require("path");
 
 let overlayWindow;
 let dashboardWindow;
+let libraryWindow;
 
 app.whenReady().then(() => {
-    // ✅ Create the FPS Overlay Window (Optimized)
+    // ✅ FPS Overlay Window
     overlayWindow = new BrowserWindow({
         width: 300,
         height: 100,
         transparent: true,
         frame: false,
-        alwaysOnTop: true, // ✅ Keeps it on top
-        fullscreenable: false, // ✅ Prevents resizing issues
+        alwaysOnTop: true,
+        fullscreenable: false,
         skipTaskbar: true,
         resizable: false,
         hasShadow: false,
-        focusable: false, // ✅ Prevents focus issues with the game
+        focusable: false,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, "preload.js"),
-            backgroundThrottling: false, // ✅ Prevents performance drop in the background
+            backgroundThrottling: false,
         },
     });
 
-    // ✅ Ensure overlay stays on top in fullscreen mode
     overlayWindow.setAlwaysOnTop(true, "screen-saver", 1);
     overlayWindow.setVisibleOnAllWorkspaces(true);
     overlayWindow.setFullScreenable(false);
-    overlayWindow.setIgnoreMouseEvents(true, { forward: true }); // ✅ Forward mouse events
-
+    overlayWindow.setIgnoreMouseEvents(true, { forward: true });
     overlayWindow.loadFile(path.join(__dirname, "overlay.html"));
 
-    // ✅ Position FPS Overlay at Upper-Right Corner
     const { width } = screen.getPrimaryDisplay().bounds;
     overlayWindow.setBounds({ x: width - 310, y: 10, width: 300, height: 100 });
 
-    // ✅ Create the Dashboard Window (Optimized)
+    // ✅ Dashboard Window
     dashboardWindow = new BrowserWindow({
         width: 1400,
         height: 800,
@@ -50,34 +48,56 @@ app.whenReady().then(() => {
             contextIsolation: true,
             enableRemoteModule: false,
             nodeIntegration: false,
-            backgroundThrottling: false, // ✅ Prevents lag when app is minimized
+            backgroundThrottling: false,
         },
     });
 
-    // ✅ Load the React App in Electron Instead of Chrome
     dashboardWindow.loadURL("http://localhost:5173");
 
-    // ✅ Fix: Toggle FPS Overlay from React
+    // ✅ Handle FPS overlay toggle
     ipcMain.on("toggle-fps", () => {
         if (overlayWindow) {
-            if (overlayWindow.isVisible()) {
-                overlayWindow.hide();
-                console.log("FPS Overlay Hidden");
-            } else {
-                overlayWindow.show();
-                console.log("FPS Overlay Shown");
-            }
+            overlayWindow.isVisible() ? overlayWindow.hide() : overlayWindow.show();
         }
     });
 
-    // ✅ Optimized: Listen for system metrics and prevent excessive IPC calls
+    // ✅ Update FPS overlay stats
     ipcMain.on("update-overlay", (event, data) => {
-        if (overlayWindow && overlayWindow.webContents) {
+        if (overlayWindow?.webContents) {
             overlayWindow.webContents.send("update-overlay-stats", data);
         }
     });
 
-    // ✅ Close all windows properly on quit to prevent memory leaks
+    // ✅ Game Library Window
+    function createLibraryWindow() {
+        libraryWindow = new BrowserWindow({
+            width: 1000,
+            height: 700,
+            title: "Steam Game Library",
+            webPreferences: {
+                preload: path.join(__dirname, "preload.js"),
+                contextIsolation: true,
+                nodeIntegration: false,
+                backgroundThrottling: false,
+            },
+        });
+
+        libraryWindow.loadFile(path.join(__dirname, "../frontend/dist/library.html"));
+
+        libraryWindow.on("closed", () => {
+            libraryWindow = null;
+        });
+    }
+
+    ipcMain.on("open-game-library", () => {
+        if (!libraryWindow) {
+            createLibraryWindow();
+        } else {
+            libraryWindow.focus();
+        }
+    });
+
+    // ✅ Handle app close
     app.on("window-all-closed", () => {
         if (process.platform !== "darwin") {
             app.quit();
