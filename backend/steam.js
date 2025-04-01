@@ -34,4 +34,28 @@ router.get("/games", async (req, res) => {
     }
 });
 
+// ✅ New route to get Steam profile info (for avatar)
+router.get("/profile", async (req, res) => {
+    try {
+        const response = await axios.get(
+            `https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/`,
+            {
+                params: {
+                    key: STEAM_API_KEY,
+                    steamids: STEAM_USER_ID,
+                },
+            }
+        );
+
+        const player = response.data.response.players[0];
+        res.json({
+            name: player.personaname,
+            avatar: player.avatarfull, // full-sized profile pic
+        });
+    } catch (err) {
+        console.error("Failed to fetch Steam profile:", err.message);
+        res.status(500).json({ error: "Failed to fetch Steam profile" });
+    }
+});
+
 module.exports = router;
