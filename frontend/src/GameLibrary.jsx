@@ -39,7 +39,7 @@ const GameLibrary = () => {
             <p className="game-playtime">Playtime: {game.playtime_hours} hrs</p>
             <div className="btn-container">
               <button className="opt-btn">Optimize</button>
-              <button className="check-btn">Installed?</button>
+              <button className="check-btn">Installed</button>
             </div>
           </div>
         ))}
