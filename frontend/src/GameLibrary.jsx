@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./GameLibrary.css";
+import "./GameLibrary.css"; // Import the CSS file for styling
 
 const GameLibrary = () => {
   const [games, setGames] = useState([]);
@@ -7,7 +7,7 @@ const GameLibrary = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    // Fetch game library
+    // Fetch game library data from the backend API (Express server)
     fetch("http://localhost:3001/steam/games")
       .then((res) => res.json())
       .then((data) => setGames(data))
@@ -20,6 +20,7 @@ const GameLibrary = () => {
       .catch((err) => console.error("Failed to fetch profile", err));
   }, []);
 
+  // Function to format playtime from hours to a more readable format
   return (
     <div className="library-container">
       {profile && (
@@ -29,7 +30,7 @@ const GameLibrary = () => {
         </div>
       )}
 
-      <h2 className="library-heading">🎮 Your Steam Game Library</h2>
+      <h2 className="library-heading">🎮 Steam Game Library</h2>
       <input
         type="text"
         className="search-bar"

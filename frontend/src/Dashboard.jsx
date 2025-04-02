@@ -598,7 +598,7 @@ const Dashboard = () => {
                 backgroundColor: "#008CBA", // Blue color for Grafana link
                 color: "white",
                 width: "200px",
-                border: "none",
+                border: "none", // Removed border for a cleaner look 
                 borderRadius: "15px",
                 fontSize: "14px",
                 fontWeight: "bold",
@@ -647,11 +647,11 @@ const Dashboard = () => {
         </button>
         {/* End of Button to View Game Library Dashboard */}
 
-
-            {/* Dashboard Title */}
-            <h1 className="dashboard-title" style={{ color: titleColor }}>
-            Game Performance Dashboard
-            </h1>
+        {/* Dashboard Title */}
+        <h1 className="dashboard-title" style={{ color: titleColor }}>
+        Game Performance Dashboard
+        </h1>
+        {/* End of Dashboard Title */}
 
             {/* View History Dropdown */}
             <div style={{ textAlign: "center", margin: "20px 0" }}>
