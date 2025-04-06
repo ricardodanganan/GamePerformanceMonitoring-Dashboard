@@ -38,10 +38,7 @@ const GameLibrary = () => {
 
   function extractValue(rawString, key) {
     try {
-      const fixed = rawString
-        .replace(/'/g, '"')
-        .replace(/None/g, "null");
-
+      const fixed = rawString.replace(/'/g, '"').replace(/None/g, "null");
       const parsed = JSON.parse(fixed);
       return parsed[key] || "Not Available";
     } catch (err) {
@@ -49,27 +46,39 @@ const GameLibrary = () => {
     }
   }
 
+  function getRAMStatus(reqData, pcSpecs) {
+    const yourRAM_MB = parseInt(extractValue(pcSpecs.ram, "totalRAM"), 10);
+    if (!reqData || !yourRAM_MB || isNaN(yourRAM_MB)) return "⚠️ Unable to compare";
+
+    const ramRegex = /(\d+)\s?GB/i;
+    const minMatch = reqData.minimum?.match(ramRegex);
+    const recMatch = reqData.recommended?.match(ramRegex);
+
+    const minGB = minMatch ? parseInt(minMatch[1]) : null;
+    const recGB = recMatch ? parseInt(recMatch[1]) : null;
+    const yourRAM_GB = yourRAM_MB / 1024;
+
+    if (recGB && yourRAM_GB >= recGB) return "✅ Above Recommended";
+    if (minGB && yourRAM_GB >= minGB) return "⚠️ Meets Minimum";
+    if (minGB && yourRAM_GB < minGB) return "❌ Below Minimum";
+
+    return "⚠️ Requirement data not available";
+  }
+
   return (
     <div className="library-container">
       {profile && (
         <div className="profile-section">
-          <img
-            src={profile.avatar}
-            alt="Steam Avatar"
-            className="steam-avatar"
-          />
+          <img src={profile.avatar} alt="Steam Avatar" className="steam-avatar" />
           <h3 className="steam-name">{profile.name}</h3>
         </div>
       )}
 
       <h2 className="library-heading">🎮 Steam Game Library</h2>
-      <button
-        className="pcspecs-btn"
-        onClick={() => {
-          setShowSpecs(true);
-          fetchSpecs();
-        }}
-      >
+      <button className="pcspecs-btn" onClick={() => {
+        setShowSpecs(true);
+        fetchSpecs();
+      }}>
         🖥️ Show My PC Specs
       </button>
 
@@ -105,13 +114,8 @@ const GameLibrary = () => {
 
       <div className="game-grid">
         {[...games]
-          .filter((game) =>
-            game.name.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-          .sort(
-            (a, b) =>
-              parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours)
-          )
+          .filter((game) => game.name.toLowerCase().includes(searchQuery.toLowerCase()))
+          .sort((a, b) => parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours))
           .map((game) => {
             const isExpanded = expandedGame === game.appid;
             const isHidden = expandedGame !== null && !isExpanded;
@@ -121,15 +125,10 @@ const GameLibrary = () => {
                 key={game.appid}
                 className={`game-card ${isHidden ? "card-hidden" : "card-visible"}`}
               >
-                <img
-                  src={game.img_icon_url}
-                  alt={game.name}
-                  className="game-icon"
-                />
+                <img src={game.img_icon_url} alt={game.name} className="game-icon" />
                 <div className="game-title">{game.name}</div>
-                <p className="game-playtime">
-                  Playtime: {game.playtime_hours} hrs
-                </p>
+                <p className="game-playtime">Playtime: {game.playtime_hours} hrs</p>
+
                 <div className="btn-container">
                   <button
                     className="opt-btn"
@@ -141,9 +140,7 @@ const GameLibrary = () => {
                         setExpandedGame(game.appid);
                         try {
                           const response = await fetch(
-                            `http://localhost:3001/steam/requirements?game=${encodeURIComponent(
-                              game.name
-                            )}`
+                            `http://localhost:3001/steam/requirements?game=${encodeURIComponent(game.name)}`
                           );
                           const data = await response.json();
                           setRequirementsData((prev) => ({
@@ -182,6 +179,14 @@ const GameLibrary = () => {
                         <pre style={{ whiteSpace: "pre-wrap" }}>
                           {requirementsData[game.appid]?.recommended || "Not available"}
                         </pre>
+
+                        {pcSpecs && (
+                          <div className="ram-compare-box">
+                            <h4>🧪 RAM Comparison</h4>
+                            <p>Your RAM: <strong>{extractValue(pcSpecs.ram, "totalRAM")} MB</strong></p>
+                            <p>Status: <strong>{getRAMStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
+                          </div>
+                        )}
                       </>
                     )}
                   </div>
@@ -195,3 +200,4 @@ const GameLibrary = () => {
 };
 
 export default GameLibrary;
+
