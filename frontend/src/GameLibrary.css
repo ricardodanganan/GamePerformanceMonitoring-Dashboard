@@ -89,7 +89,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-
 .steam-avatar {
   width: 64px;
   height: 64px;
@@ -164,6 +163,105 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Game Specs Section */
+.pcspecs-btn {
+  background-color: #007bff;
+  border: none;
+  padding: 8px 16px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.pcspecs-btn:hover {
+  background-color: #0097a7;
+}
+
+/* Game Specs Box */
+.spec-block {
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #ddd;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal Box */
+.modal-content {
+  background-color: #141414;
+  border-radius: 12px;
+  padding: 30px;
+  width: 400px;
+  max-width: 90%;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 26px;
+  color: #ff4e4e;
+  cursor: pointer;
+}
+
+/* Spec Row */
+.spec-row {
+  margin-top: 15px;
+  font-size: 15px;
+}
+
+/* Modal Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  text-align: center;
+  padding: 30px;
+}
+
+.spinner {
+  margin: 0 auto 15px auto;
+  border: 4px solid #555;
+  border-top: 4px solid #00c6ff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* 🔁 Fullscreen video background */

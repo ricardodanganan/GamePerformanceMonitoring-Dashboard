@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import "./GameLibrary.css"; // Import the CSS file for styling
+import "./GameLibrary.css";
 
 const GameLibrary = () => {
   const [games, setGames] = useState([]);
   const [profile, setProfile] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedGame, setExpandedGame] = useState(null);
+  const [requirementsData, setRequirementsData] = useState({});
+  const [loadingRequirements, setLoadingRequirements] = useState(false);
+  const [pcSpecs, setPcSpecs] = useState(null);
+  const [showSpecs, setShowSpecs] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3001/steam/games")
@@ -18,6 +23,31 @@ const GameLibrary = () => {
       .then((data) => setProfile(data))
       .catch((err) => console.error("Failed to fetch profile", err));
   }, []);
+
+  const fetchSpecs = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:3001/api/system-specs");
+      const data = await res.json();
+      setPcSpecs(data);
+    } catch (err) {
+      console.error("Failed to fetch specs:", err);
+    }
+    setLoading(false);
+  };
+
+  function extractValue(rawString, key) {
+    try {
+      const fixed = rawString
+        .replace(/'/g, '"')
+        .replace(/None/g, "null");
+
+      const parsed = JSON.parse(fixed);
+      return parsed[key] || "Not Available";
+    } catch (err) {
+      return "Invalid Data";
+    }
+  }
 
   return (
     <div className="library-container">
@@ -33,6 +63,38 @@ const GameLibrary = () => {
       )}
 
       <h2 className="library-heading">🎮 Steam Game Library</h2>
+      <button
+        className="pcspecs-btn"
+        onClick={() => {
+          setShowSpecs(true);
+          fetchSpecs();
+        }}
+      >
+        🖥️ Show My PC Specs
+      </button>
+
+      {showSpecs && (
+        <div className="modal-overlay" onClick={() => setShowSpecs(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close-btn" onClick={() => setShowSpecs(false)}>×</span>
+            {loading ? (
+              <div className="loading-spinner">
+                <div className="spinner" />
+                <p>Loading PC Specs...</p>
+              </div>
+            ) : (
+              <>
+                <h3>💻 Your PC Specs</h3>
+                <div className="spec-row"><b>🧠 CPU:</b> {extractValue(pcSpecs.cpu, "cpuName")}</div>
+                <div className="spec-row"><b>🎮 GPU:</b> {extractValue(pcSpecs.gpu, "gpuName")}</div>
+                <div className="spec-row"><b>💾 Disk:</b> {extractValue(pcSpecs.disk, "totalDisk")} GB</div>
+                <div className="spec-row"><b>🧬 RAM:</b> {extractValue(pcSpecs.ram, "totalRAM")} MB</div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       <input
         type="text"
         className="search-bar"
@@ -46,7 +108,10 @@ const GameLibrary = () => {
           .filter((game) =>
             game.name.toLowerCase().includes(searchQuery.toLowerCase())
           )
-          .sort((a, b) => parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours))
+          .sort(
+            (a, b) =>
+              parseFloat(b.playtime_hours) - parseFloat(a.playtime_hours)
+          )
           .map((game) => {
             const isExpanded = expandedGame === game.appid;
             const isHidden = expandedGame !== null && !isExpanded;
@@ -56,7 +121,11 @@ const GameLibrary = () => {
                 key={game.appid}
                 className={`game-card ${isHidden ? "card-hidden" : "card-visible"}`}
               >
-                <img src={game.img_icon_url} alt={game.name} className="game-icon" />
+                <img
+                  src={game.img_icon_url}
+                  alt={game.name}
+                  className="game-icon"
+                />
                 <div className="game-title">{game.name}</div>
                 <p className="game-playtime">
                   Playtime: {game.playtime_hours} hrs
@@ -64,9 +133,36 @@ const GameLibrary = () => {
                 <div className="btn-container">
                   <button
                     className="opt-btn"
-                    onClick={() =>
-                      setExpandedGame(isExpanded ? null : game.appid)
-                    }
+                    onClick={async () => {
+                      if (expandedGame === game.appid) {
+                        setExpandedGame(null);
+                      } else {
+                        setLoadingRequirements(true);
+                        setExpandedGame(game.appid);
+                        try {
+                          const response = await fetch(
+                            `http://localhost:3001/steam/requirements?game=${encodeURIComponent(
+                              game.name
+                            )}`
+                          );
+                          const data = await response.json();
+                          setRequirementsData((prev) => ({
+                            ...prev,
+                            [game.appid]: data.requirements,
+                          }));
+                        } catch (error) {
+                          setRequirementsData((prev) => ({
+                            ...prev,
+                            [game.appid]: {
+                              minimum: "Error fetching requirements",
+                              recommended: "",
+                            },
+                          }));
+                        } finally {
+                          setLoadingRequirements(false);
+                        }
+                      }
+                    }}
                   >
                     {isExpanded ? "Hide Info" : "Requirements"}
                   </button>
@@ -74,13 +170,20 @@ const GameLibrary = () => {
 
                 {isExpanded && (
                   <div className="accordion-content">
-                    <p>
-                      🔧 Optimization info loading for <strong>{game.name}</strong>...
-                    </p>
-                    <p>
-                      💡 This will later show system requirement comparison, settings
-                      recommendations, etc.
-                    </p>
+                    {loadingRequirements ? (
+                      <p>⏳ Fetching system requirements...</p>
+                    ) : (
+                      <>
+                        <p>📌 <strong>Minimum:</strong></p>
+                        <pre style={{ whiteSpace: "pre-wrap" }}>
+                          {requirementsData[game.appid]?.minimum || "Not available"}
+                        </pre>
+                        <p>📌 <strong>Recommended:</strong></p>
+                        <pre style={{ whiteSpace: "pre-wrap" }}>
+                          {requirementsData[game.appid]?.recommended || "Not available"}
+                        </pre>
+                      </>
+                    )}
                   </div>
                 )}
               </div>

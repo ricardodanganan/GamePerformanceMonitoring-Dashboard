@@ -6,6 +6,7 @@ const router = express.Router();
 const STEAM_API_KEY = "13E4AF2448ABFE7C4F1EA848B56E15E7"; // Steam API key
 const STEAM_USER_ID = "76561198046984855"; //Steam user ID 
 
+// 🔹 Get Steam game library
 router.get("/games", async (req, res) => {
     try {
         const response = await axios.get(
@@ -34,7 +35,7 @@ router.get("/games", async (req, res) => {
     }
 });
 
-// ✅ New route to get Steam profile info (for avatar)
+// 🔹 Get Steam profile info
 router.get("/profile", async (req, res) => {
     try {
         const response = await axios.get(
@@ -50,11 +51,52 @@ router.get("/profile", async (req, res) => {
         const player = response.data.response.players[0];
         res.json({
             name: player.personaname,
-            avatar: player.avatarfull, // full-sized profile pic
+            avatar: player.avatarfull,
         });
     } catch (err) {
         console.error("Failed to fetch Steam profile:", err.message);
         res.status(500).json({ error: "Failed to fetch Steam profile" });
+    }
+});
+
+// ✅ 🔹 New RAWG system requirements route
+const RAWG_API_KEY = "ad2598b205694f199f6a7cc5684681d8";
+
+router.get("/requirements", async (req, res) => {
+    const gameName = req.query.game;
+
+    try {
+        // Step 1: Search for the game
+        const searchURL = `https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${encodeURIComponent(gameName)}`;
+        const searchRes = await axios.get(searchURL);
+        const searchData = searchRes.data;
+
+        if (!searchData.results || searchData.results.length === 0) {
+            return res.status(404).json({ error: "Game not found on RAWG" });
+        }
+
+        // Step 2: Get detailed data using first matched game's slug
+        const slug = searchData.results[0].slug;
+        const detailsURL = `https://api.rawg.io/api/games/${slug}?key=${RAWG_API_KEY}`;
+        const detailsRes = await axios.get(detailsURL);
+        const detailsData = detailsRes.data;
+
+        // ✅ Find the "PC" platform specifically
+        const pcPlatform = detailsData.platforms?.find(p => p.platform?.slug === "pc");
+        const requirements = pcPlatform?.requirements || {
+        minimum: "No data",
+        recommended: "No data"
+        };
+
+        res.json({
+        slug,
+        name: detailsData.name,
+        requirements,
+        });
+
+    } catch (error) {
+        console.error("RAWG API error:", error.message);
+        res.status(500).json({ error: "Failed to fetch from RAWG" });
     }
 });
 
