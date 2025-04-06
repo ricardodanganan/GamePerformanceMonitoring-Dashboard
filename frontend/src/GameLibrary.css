@@ -1,15 +1,15 @@
 body {
-  background-color: #0b0b22; /* match dashboard theme */
+  background-color: #0b0b22;
   color: white;
+  margin: 0;
+  padding: 0;
 }
 
 .library-container {
-  padding: 2rem;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 12px;
-  color: white;
   text-align: center;
-  margin-top: 3rem;
+  margin: 0;      /* ✅ remove any margin pushing the section down */
 }
 
 .library-heading {
@@ -65,30 +65,20 @@ body {
   margin-top: auto;
 }
 
-.opt-btn,
-.check-btn {
+.opt-btn {
   padding: 6px 12px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
   font-size: 13px;
+  background-color: #007bff;
+  color: white;
   transition: transform 0.2s;
 }
 
-.opt-btn:hover,
-.check-btn:hover {
+.opt-btn:hover {
   transform: scale(1.05);
-}
-
-.opt-btn {
-  background-color: #007bff;
-  color: white;
-}
-
-.check-btn {
-  background-color: #28a745;
-  color: white;
 }
 
 .profile-section {
@@ -99,11 +89,13 @@ body {
   margin-bottom: 1.5rem;
 }
 
+
 .steam-avatar {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   border: 2px solid #00bfff;
+  margin-top: 1.2rem;      /* ✅ added to push it slightly down */
   box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
 }
 
@@ -124,3 +116,66 @@ body {
   font-size: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Accordion Styles */
+.accordion-content {
+  margin-top: 0.5rem;
+  padding: 10px;
+  background-color: #121212;
+  border-radius: 8px;
+  color: #b0b0b0;
+  font-size: 14px;
+  text-align: left;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* card animation */
+.card-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.card-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.4s ease-in-out;
+}
+
+/* blur effect for the background */
+.blurred {
+  filter: blur(10px);
+  opacity: 0.9;
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔁 Fullscreen video background */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.3; /* Adjust to control how bright/dim the video is */
+  pointer-events: none;
+}
+

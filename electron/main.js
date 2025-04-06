@@ -1,6 +1,7 @@
-// ✅ Create the FPS Overlay Window in Electron (main.js) 
+// Create the FPS Overlay Window in Electron (main.js) 
 // The FPS overlay window will display the current frames per second (FPS) of your application. 
-// This is useful for debugging performance issues and optimizing your app.
+// Game library window will be created when the user clicks on the "Open Game Library" button in the dashboard window.
+// run "npm run build" at frontend route/folder whenever changes are made to the frontend code, to update the game library window.
 
 const { app, BrowserWindow, ipcMain, screen } = require("electron");
 const path = require("path");
