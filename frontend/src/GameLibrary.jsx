@@ -46,6 +46,7 @@ const GameLibrary = () => {
     }
   }
 
+  // Function to get RAM status based on requirements and PC specs
   function getRAMStatus(reqData, pcSpecs) {
     const yourRAM_MB = parseInt(extractValue(pcSpecs.ram, "totalRAM"), 10);
     if (!reqData || !yourRAM_MB || isNaN(yourRAM_MB)) return "⚠️ Unable to compare";
@@ -65,6 +66,7 @@ const GameLibrary = () => {
     return "⚠️ Requirement data not available";
   }
 
+  // Function to get CPU status based on requirements and PC specs
   function getCPUStatus(reqData, pcSpecs) {
     const yourCPU = extractValue(pcSpecs.cpu, "cpuName")?.toLowerCase();
     if (!yourCPU || !reqData) return "⚠️ Unable to compare";
@@ -94,6 +96,43 @@ const GameLibrary = () => {
     if (minIndex !== -1 && yourIndex < minIndex) return "❌ Below Minimum";
   
     return "⚠️ Could not determine CPU match";
+  }  
+
+  // Function to get GPU status based on requirements and PC specs
+  function getGPUStatus(reqData, pcSpecs) {
+    const yourGPU = extractValue(pcSpecs.gpu, "gpuName")?.toLowerCase();
+    if (!yourGPU || !reqData) return "⚠️ Unable to compare";
+  
+    const gpuRegex = /(gtx\s?\d{3,4}|rtx\s?\d{3,4}|rx\s?\d{3,4})/i;
+  
+    const recMatch = reqData.recommended?.match(gpuRegex);
+    const minMatch = reqData.minimum?.match(gpuRegex);
+  
+    const yourMatch = yourGPU.match(gpuRegex);
+  
+    if (!yourMatch || (!minMatch && !recMatch)) return "⚠️ Not enough data";
+  
+    const yourModel = yourMatch[0].replace(/\s+/g, "").toLowerCase();
+    const recModel = recMatch?.[0].replace(/\s+/g, "").toLowerCase();
+    const minModel = minMatch?.[0].replace(/\s+/g, "").toLowerCase();
+  
+    const knownModels = [
+      "gtx550", "gtx760", "gtx780", "gtx960", "gtx970", "gtx1050", "gtx1060", "gtx1070", "gtx1080",
+      "rtx2060", "rtx2070", "rtx2080", "rtx3060", "rtx3070", "rtx3080", "rtx4060", "rtx4070", "rtx4080",
+      "rx570", "rx580", "rx6600", "rx6700", "rx6800", "rx6900", "rx7600", "rx7700", "rx7900"
+    ];
+  
+    const getModelRank = (model) => knownModels.indexOf(model);
+  
+    const yourRank = getModelRank(yourModel);
+    const recRank = getModelRank(recModel);
+    const minRank = getModelRank(minModel);
+  
+    if (recRank !== -1 && yourRank >= recRank) return "✅ Above Recommended";
+    if (minRank !== -1 && yourRank >= minRank) return "⚠️ Meets Minimum";
+    if (minRank !== -1 && yourRank < minRank) return "❌ Below Minimum";
+  
+    return "⚠️ Could not determine GPU match";
   }  
 
   return (
@@ -219,6 +258,9 @@ const GameLibrary = () => {
                             <h4>🧪 CPU Comparison</h4>
                             <p>Your CPU: <strong>{extractValue(pcSpecs.cpu, "cpuName")}</strong></p>
                             <p>Status: <strong>{getCPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
+                            <h4>🧪 GPU Comparison</h4>
+                            <p>Your GPU: <strong>{extractValue(pcSpecs.gpu, "gpuName")}</strong></p>
+                            <p>Status: <strong>{getGPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
                           </div>
                         )}
                       </>
