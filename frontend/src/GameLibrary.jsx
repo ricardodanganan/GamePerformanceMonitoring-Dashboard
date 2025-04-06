@@ -65,6 +65,37 @@ const GameLibrary = () => {
     return "⚠️ Requirement data not available";
   }
 
+  function getCPUStatus(reqData, pcSpecs) {
+    const yourCPU = extractValue(pcSpecs.cpu, "cpuName")?.toLowerCase();
+    if (!yourCPU || !reqData) return "⚠️ Unable to compare";
+  
+    const cpuRegex = /(intel|amd)?\s*(core)?\s*(i\d|ryzen\s?\d)/i;
+  
+    const minMatch = reqData.minimum?.match(cpuRegex);
+    const recMatch = reqData.recommended?.match(cpuRegex);
+  
+    const yourMatch = yourCPU.match(cpuRegex);
+  
+    if (!yourMatch || (!minMatch && !recMatch)) return "⚠️ Not enough data";
+  
+    const yourLevel = yourMatch[3].replace(/\s+/g, "").toLowerCase();
+    const recLevel = recMatch?.[3].replace(/\s+/g, "").toLowerCase();
+    const minLevel = minMatch?.[3].replace(/\s+/g, "").toLowerCase();
+  
+    // Order of preference
+    const levels = ["i3", "i5", "i7", "i9", "ryzen3", "ryzen5", "ryzen7", "ryzen9"];
+  
+    const yourIndex = levels.indexOf(yourLevel);
+    const recIndex = levels.indexOf(recLevel);
+    const minIndex = levels.indexOf(minLevel);
+  
+    if (recIndex !== -1 && yourIndex >= recIndex) return "✅ Above Recommended";
+    if (minIndex !== -1 && yourIndex >= minIndex) return "⚠️ Meets Minimum";
+    if (minIndex !== -1 && yourIndex < minIndex) return "❌ Below Minimum";
+  
+    return "⚠️ Could not determine CPU match";
+  }  
+
   return (
     <div className="library-container">
       {profile && (
@@ -185,6 +216,9 @@ const GameLibrary = () => {
                             <h4>🧪 RAM Comparison</h4>
                             <p>Your RAM: <strong>{extractValue(pcSpecs.ram, "totalRAM")} MB</strong></p>
                             <p>Status: <strong>{getRAMStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
+                            <h4>🧪 CPU Comparison</h4>
+                            <p>Your CPU: <strong>{extractValue(pcSpecs.cpu, "cpuName")}</strong></p>
+                            <p>Status: <strong>{getCPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
                           </div>
                         )}
                       </>
