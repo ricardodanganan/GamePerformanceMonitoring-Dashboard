@@ -5,15 +5,12 @@ const db = require('./database'); // Import SQLite database
 const fs = require("fs");
 const { parse } = require("json2csv");
 const steamRoutes = require("./steam"); // Import Steam API routes
-const rawgRoutes = require("./rawg"); // Import RAWG API routes
 
 const app = express();
 const PORT = 3001;
 
 app.use(cors()); // Allow frontend to access backend
 app.use("/steam", steamRoutes); // Steam API routes
-app.use("/rawg", rawgRoutes); // RAWG API routes
-
 
 // Function to execute PowerShell scripts and return the output
 // const runPowerShell = (scriptPath, res) => {
