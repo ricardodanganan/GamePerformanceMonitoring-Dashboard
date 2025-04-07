@@ -9,6 +9,7 @@
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
 - [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
 - [Planned features for 3rd and Final Iteration](#-planned-features-for-3rd-and-final-iteration)
+- [📚 References](#-references)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -98,8 +99,8 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 - **Electron BrowserWindow** – For launching the main dashboard and overlay windows.
 
 ### APIs & Tools:
-- **Steam API (Planned)** – For detecting installed Steam games.
-- **NVIDIA API (Planned)** – For AI-driven optimizations and game performance tuning.
+- **Steam API** – For detecting installed Steam games.
+- **RAWG API** – For fetching game system requirements and metadata.
 - **Grafana** – For external real-time monitoring and visualization.
 
 ---
@@ -195,21 +196,56 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 
 ## 🚀 Planned features for 3rd and Final Iteration
 
-### 🔹 **Steam API Integration - Game Detection**
-- Uses the **Steam API** to fetch a list of installed games, allowing for system performance tracking based on the user's active game library.
+### ✅ 1. Game Optimization Engine (Based on System Specs vs Requirements)
+- Integrated RAWG API to fetch each game’s minimum and recommended specs
+- Pulled real-time PC hardware specs using PowerShell scripts (RAM, CPU, GPU)
+- Implemented in-depth **comparison logic**:
+  - ✅ RAM comparison: checks MB vs game requirement in GB
+  - ✅ CPU comparison: matches core family (i5, i7, Ryzen 5, etc.)
+  - ✅ GPU comparison: matches model keyword (e.g., GTX 1060, RTX 4060)
+- Displayed result in-game card accordion with badges:
+  - ✔ Above Recommended
+  - ⚠ Meets Minimum
+  - ❌ Below Minimum
 
-### 🔹 **Game Optimization Feature**
-- Compares detected games with system hardware specifications and **recommends performance optimizations** such as adjusting resolution, background processes, and power settings.
+### ✅ 2. Optimization Suggestions UI (Context-Aware)
+- Displays tailored optimization advice under each game based on system match results
+  - ❌ Below Minimum → “Use Low Settings, disable shadows & post-processing”
+  - ⚠ Meets Minimum → “Use Medium settings, cap FPS at 60”
+  - ✅ Above Recommended → “Recommended: High or Ultra Settings”
+- Clean accordion layout with smooth status feedback
 
-### 🔹 **Further UI Improvements** 
-- Enhances **visual effects, animation smoothness, and responsiveness** for a **sleek, modern dashboard experience**.
+### ✅ 3. UI/UX Enhancements
+- Modal for displaying your PC specs with loading animation
+- Wider card layout for better readability
+- RAM/CPU/GPU sections styled for clean hierarchy
+- Icons added to improve visual feedback (💻, 🧠, 🎮)
 
-### 🔹 **Customizable Performance Alerts and UI Theme**
-- Future updates will allow users to **adjust threshold levels** for CPU, GPU, RAM, and network alerts, and toggle between **light/dark themes** for the dashboard interface.
+### 🛠 4. Code Structure Improvements
+- Comparison logic grouped into reusable functions
+- Clear separation of frontend & backend data flow
+- Prepared for future enhancements (like export or theming)
 
 ### 🔹 **Electron App Packaging (Executable Build)**
 - Convert the Electron-based dashboard into a **standalone executable (.exe) file** for easy distribution and installation.
 - This will remove the need for users to run `npm` commands and simplify deployment on any Windows machine.
+
+---
+
+## 📚 References
+
+### 🧠 APIs Used
+- [RAWG API](https://api.rawg.io/docs/)
+- [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
+
+### 🖥️ Tech Docs
+- [React.js](https://reactjs.org/docs/getting-started.html)
+- [Node.js](https://nodejs.org/en/docs)
+- [Electron](https://www.electronjs.org/docs/latest/)
+- [Chart.js](https://www.chartjs.org/docs/latest/)
+
+### 📜 System Tools
+- [PowerShell Script Reference](https://learn.microsoft.com/en-us/powershell/scripting/overview)
 
 ---
 
