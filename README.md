@@ -27,17 +27,40 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 
 ---
 
-## Features
+## 🚀 Features
 
-✅ **Real-time performance tracking** – Monitor CPU, GPU, RAM, VRAM, disk usage, temperatures, and network latency using PowerShell scripts.  
-✅ **System alerts for overheating & resource overuse** – Visual and sound alerts using toast notifications when resource thresholds are exceeded.  
-✅ **Standalone desktop app** – Powered by Electron, the dashboard runs as a native Windows application without needing a browser or localhost.  
-✅ **In-game overlay (FPS HUD)** – Display real-time FPS, CPU/GPU usage, and temperatures inside an always-on-top overlay window.  
-✅ **Historical performance tracking** – Logs system data into a local SQLite database with support for CSV/JSON exports by time range.  
-✅ **Grafana integration** – Open Grafana dashboard with real-time metrics visualization and historical trends.  
-✅ **Background customization** – Switch between animated backgrounds for a personalized dashboard experience.  
-✅ **Steam API integration (Planned)** – Detect installed Steam games for future optimization features.  
-✅ **Game optimization (Planned)** – Use machine learning to provide tailored performance recommendations (future enhancement).
+✅ **Real-Time System Monitoring**  
+Track CPU, GPU, RAM, VRAM, Disk usage, temperatures, and network latency in real-time using efficient PowerShell scripts.
+
+✅ **Smart Alerts for Performance Bottlenecks**  
+Custom toast notifications with sound and visual cues are triggered when CPU/GPU usage, RAM, temperatures, or latency exceed optimal thresholds.
+
+✅ **Cross-Platform Desktop Application**  
+Built with Electron, the dashboard runs as a standalone Windows desktop app—no browser or localhost needed.
+
+✅ **In-Game Performance Overlay (FPS HUD)**  
+Lightweight always-on-top overlay displays live FPS, CPU/GPU usage, and temperatures without interrupting gameplay.
+
+✅ **Historical Metrics & Data Export**  
+System performance is logged into a local SQLite database with support for CSV export by selected time ranges (1hr, 12hr, 24hr).
+
+✅ **Grafana Integration for Pro Insights**  
+Launch an external Grafana dashboard to visualize real-time and historical data with advanced filtering.
+
+✅ **Animated UI with Background Switching**  
+Customize your dashboard experience with togglable animated video backgrounds and smooth transitions.
+
+✅ **Steam Game Library Integration**  
+Displays your Steam game collection along with total playtime and icons using the Steam Web API.
+
+✅ **RAWG API Game Spec Detection**  
+Fetches game system requirements from the RAWG API and displays both minimum and recommended specs.
+
+✅ **Hardware Comparison (RAM, CPU, GPU)**  
+Compares your PC’s specs to each game’s requirements and highlights if your system meets, exceeds, or falls below requirements.
+
+🧠 **Game Optimization Assistant (Planned)**  
+Future enhancement: Integrate intelligent recommendations to optimize game settings based on your system’s capabilities.
 
 ---
 
@@ -70,10 +93,10 @@ The entire dashboard runs as a standalone desktop application via Electron, remo
 - **Switch between multiple animated backgrounds** for a personalized UI experience.
 - **Adjust UI colors and styles dynamically** for better visibility.
 
-### Use the game optimization module *(Upcoming Feature)*
-- **Detect installed games** via Steam API.
-- **Compare system hardware** to recommended settings.
-- **Receive optimization suggestions** based on detected hardware and software.
+### Using the Game Optimization Module
+- **Detect Installed Games Automatically**: Retrieves your Steam game library using the Steam Web API, displaying game names, icons, and playtime.
+- **Compare System Specs vs Game Requirements**: Uses the RAWG API to fetch minimum and recommended system requirements and compares them to your actual CPU, GPU, RAM, and VRAM specs.
+- **View Optimization Insights**: Visual status indicators show whether your system meets or exceeds each game's requirements, helping you decide whether to upgrade hardware or tweak in-game settings.
 
 ---
 
