@@ -59,9 +59,6 @@ Fetches game system requirements from the RAWG API and displays both minimum and
 ✅ **Hardware Comparison (RAM, CPU, GPU)**  
 Compares your PC’s specs to each game’s requirements and highlights if your system meets, exceeds, or falls below requirements.
 
-🧠 **Game Optimization Assistant (Planned)**  
-Future enhancement: Integrate intelligent recommendations to optimize game settings based on your system’s capabilities.
-
 ---
 
 ## Usage
