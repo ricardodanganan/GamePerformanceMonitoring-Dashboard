@@ -9,7 +9,7 @@
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
 - [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
 - [Planned features for 3rd and Final Iteration](#-planned-features-for-3rd-and-final-iteration)
-- [📚 References](#-references)
+- [References](#-references)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -261,8 +261,19 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ### 🖥️ Tech Docs
 - [React.js](https://reactjs.org/docs/getting-started.html)
 - [Node.js](https://nodejs.org/en/docs)
+- [Express.js Docs](https://expressjs.com/)
 - [Electron](https://www.electronjs.org/docs/latest/)
 - [Chart.js](https://www.chartjs.org/docs/latest/)
+- [SQLite Docs](https://www.sqlite.org/docs.html)
+- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+- [Child Process Module (Node.js)](https://nodejs.org/api/child_process.html)
+
+### 🔔 Libraries
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
+- [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
+
+### 📊 Monitoring Tools
+- [Grafana Documentation](https://grafana.com/docs/grafana/latest/)
 
 ### 📜 System Tools
 - [PowerShell Script Reference](https://learn.microsoft.com/en-us/powershell/scripting/overview)
