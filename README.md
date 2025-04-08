@@ -250,6 +250,12 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 - Convert the Electron-based dashboard into a **standalone executable (.exe) file** for easy distribution and installation.
 - This will remove the need for users to run `npm` commands and simplify deployment on any Windows machine.
 
+### ✅ 5. Export Game Report to CSV
+- Added an export button per game to generate a personalized `.csv` report
+- Includes game title, playtime, user system specs, comparison results, and optimization summary
+- Helps users **analyze their system compatibility** with specific games and retain a record for support, auditing, or planning future upgrades
+- Format opens cleanly in Excel or Google Sheets for advanced users and reviewers
+
 ---
 
 ## 📚 References
@@ -257,6 +263,7 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ### 🧠 APIs Used
 - [RAWG API](https://api.rawg.io/docs/)
 - [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
+- [OpenRouter API](https://openrouter.ai/docs) – Used for AI-based optimization suggestions and comparisons
 
 ### 🖥️ Tech Docs
 - [React.js](https://reactjs.org/docs/getting-started.html)
