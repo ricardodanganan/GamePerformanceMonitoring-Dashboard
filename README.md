@@ -17,13 +17,15 @@
 
 ## Introduction
 
-The **Game Performance** & **IT Monitoring Dashboard** is my final year IT Management project, developed as part of my 4th-year finals. This real-time monitoring and optimization tool is designed to enhance gaming performance by providing comprehensive system insights.
+## Introduction
 
-It tracks CPU and GPU usage, temperatures, RAM consumption, disk activity, VRAM usage, and network performance, ensuring gamers have a clear view of their system’s health. Equipped with threshold-based alerts, historical performance tracking, and Steam API integration, it helps optimize system resources, detect installed games, and provide tailored recommendations.
+The **Game Performance & IT Monitoring Dashboard** is my final year IT Management project, built to deliver real-time performance insights and system optimization for gamers.
 
-Additionally, I have integrated Grafana monitoring for advanced data visualization and real-time analytics, and implemented CSV/JSON data export functionality for deeper analysis. An in-game overlay, powered by Electron, allows players to monitor system performance (FPS, usage, temps) without exiting their game.
+It monitors key metrics such as CPU/GPU usage and temperature, RAM, disk, VRAM, and network activity—ensuring users can assess their system's health at a glance. With Steam API integration, the dashboard auto-detects installed games and compares system specs against game requirements, providing tailored optimization advice through AI-powered suggestions.
 
-The entire dashboard runs as a standalone desktop application via Electron, removing the need to launch it in a browser or rely on localhost, delivering a seamless, app-like experience.
+Users can export per-game performance reports as structured `.csv` files for external analysis or audit purposes. Advanced data visualization is supported via integrated **Grafana dashboards**, while historical tracking and threshold-based alerts enhance decision-making.
+
+An in-game FPS and system overlay, powered by **Electron**, allows seamless performance tracking without leaving the game. The app runs as a standalone `.exe` file, offering a full desktop experience with no need for browsers or localhost environments.
 
 ---
 
@@ -58,6 +60,9 @@ Fetches game system requirements from the RAWG API and displays both minimum and
 
 ✅ **Hardware Comparison (RAM, CPU, GPU)**  
 Compares your PC’s specs to each game’s requirements and highlights if your system meets, exceeds, or falls below requirements.
+
+✅ **AI Optimization Engine (OpenRouter)**  
+Uses OpenRouter's GPT-based API to generate smart optimization tips based on your PC specs and game requirements—recommending graphics settings like resolution, texture quality, anti-aliasing, and more.
 
 ---
 
@@ -94,6 +99,7 @@ Compares your PC’s specs to each game’s requirements and highlights if your 
 - **Detect Installed Games Automatically**: Retrieves your Steam game library using the Steam Web API, displaying game names, icons, and playtime.
 - **Compare System Specs vs Game Requirements**: Uses the RAWG API to fetch minimum and recommended system requirements and compares them to your actual CPU, GPU, RAM, and VRAM specs.
 - **View Optimization Insights**: Visual status indicators show whether your system meets or exceeds each game's requirements, helping you decide whether to upgrade hardware or tweak in-game settings.
+- **Generate AI-Based Optimization Tips**: Uses the OpenRouter GPT API to analyze your PC and recommend tailored game settings such as resolution, texture detail, shadows, and frame caps.
 
 ---
 
@@ -122,6 +128,7 @@ Compares your PC’s specs to each game’s requirements and highlights if your 
 - **Steam API** – For detecting installed Steam games.
 - **RAWG API** – For fetching game system requirements and metadata.
 - **Grafana** – For external real-time monitoring and visualization.
+- **OpenRouter API** - Used for AI-based optimization suggestions and comparisons
 
 ---
 
