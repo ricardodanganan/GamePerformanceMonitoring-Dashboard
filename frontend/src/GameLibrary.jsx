@@ -29,6 +29,52 @@ const GameLibrary = () => {
       .catch((err) => console.error("Failed to fetch profile", err));
   }, []);
 
+  // Function to handle exporting game data to CSV
+  const handleExportCSV = (game) => {
+    const data = {
+      name: game.name,
+      playtime: game.playtime_hours,
+      specs: {
+        cpu: extractValue(pcSpecs.cpu, "cpuName"),
+        gpu: extractValue(pcSpecs.gpu, "gpuName"),
+        ram: extractValue(pcSpecs.ram, "totalRAM"),
+      },
+      comparisons: {
+        cpu: getCPUStatus(requirementsData[game.appid], pcSpecs),
+        gpu: getGPUStatus(requirementsData[game.appid], pcSpecs),
+        ram: getRAMStatus(requirementsData[game.appid], pcSpecs),
+      },
+      aiTip: aiTips || "N/A",
+    };
+  
+    fetch("http://localhost:3001/export-csv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Download failed");
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${game.name.replace(/[^a-z0-9]/gi, "_")}_Report.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      })
+      .catch((err) => {
+        console.error("❌ Failed to export:", err);
+        alert("❌ Failed to export game report.");
+      });
+  };
+  
+  // Function to fetch system specs from the backend
   const fetchSpecs = async () => {
     setLoading(true);
     try {
@@ -41,6 +87,7 @@ const GameLibrary = () => {
     setLoading(false);
   };
 
+  // Function to fetch AI tips based on game name
   function extractValue(rawString, key) {
     try {
       const fixed = rawString.replace(/'/g, '"').replace(/None/g, "null");
@@ -286,6 +333,7 @@ const GameLibrary = () => {
 
                         {pcSpecs && (
                           <div className="ram-compare-box">
+                            {/*Specific game comparisons*/}
                             <h4>🧪 RAM Comparison</h4>
                             <p>Your RAM: <strong>{extractValue(pcSpecs.ram, "totalRAM")} MB</strong></p>
                             <p>Status: <strong>{getRAMStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
@@ -295,20 +343,27 @@ const GameLibrary = () => {
                             <h4>🧪 GPU Comparison</h4>
                             <p>Your GPU: <strong>{extractValue(pcSpecs.gpu, "gpuName")}</strong></p>
                             <p>Status: <strong>{getGPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
+                            {/*buttons for AI tips and optimization*/}
                             <button className="ai-optimize-btn" onClick={() => handleAIOptimize(game.name)}>
                               💡 AI Optimize
                             </button>
                             <button
-                            className="ai-optimize-btn simulate"
-                            onClick={() => setShowSimulatedModal(true)}
-                          >
-                            🛠 Optimize
-                          </button>
-
-                          <SimulatedModal
-                            isOpen={showSimulatedModal}
-                            onClose={() => setShowSimulatedModal(false)}
-                          />
+                              className="ai-optimize-btn simulate"
+                              onClick={() => setShowSimulatedModal(true)}
+                            >
+                              🛠 Optimize
+                            </button>
+                            {/*button for exporting CSV*/}
+                            <button
+                              className="export-csv-btn"
+                              onClick={() => handleExportCSV(game)}
+                            >
+                              📤 Export CSV
+                            </button>
+                            <SimulatedModal
+                              isOpen={showSimulatedModal}
+                              onClose={() => setShowSimulatedModal(false)}
+                            />
                           </div>
                         )}
                       </>

@@ -14,6 +14,7 @@ const PORT = 3001;
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors()); // Allow frontend to access backend
 app.use("/steam", steamRoutes); // Steam API routes
+app.use('/', steamRoutes); // Steam API routes
 app.use("/api/system-specs", systemSpecsRoute); // System specs route
 app.use(aiRecommendations); // AI recommendations route
 

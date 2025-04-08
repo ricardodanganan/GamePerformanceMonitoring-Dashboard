@@ -356,3 +356,27 @@ body {
   background: #66c0f4;
   color: #000;
 }
+
+/* export-csv-btn */
+.export-csv-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px 20px;
+  width: 180px;
+  transition: all 0.3s ease;
+  background: linear-gradient(145deg, #1b1f23, #0f1113);
+  color: #66c0f4; /* Steam blue */
+  box-shadow: 0 0 3px #66c0f4;
+}
+
+.export-csv-btn:hover {
+  background: #66c0f4;
+  color: #000;
+}
