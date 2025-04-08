@@ -6,13 +6,16 @@ const fs = require("fs");
 const { parse } = require("json2csv");
 const steamRoutes = require("./steam"); // Import Steam API routes
 const systemSpecsRoute = require("./systemSpecs"); // Import system specs route
+const aiRecommendations = require('./aiRecommendations'); // Import AI recommendations route
 
 const app = express();
 const PORT = 3001;
 
+app.use(express.json()); // Parse JSON request bodies
 app.use(cors()); // Allow frontend to access backend
 app.use("/steam", steamRoutes); // Steam API routes
 app.use("/api/system-specs", systemSpecsRoute); // System specs route
+app.use(aiRecommendations); // AI recommendations route
 
 // Function to execute PowerShell scripts and return the output
 // const runPowerShell = (scriptPath, res) => {

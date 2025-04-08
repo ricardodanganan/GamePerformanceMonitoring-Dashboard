@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./GameLibrary.css";
+import SimulatedModal from './SimulatedModal';
 
 const GameLibrary = () => {
   const [games, setGames] = useState([]);
@@ -11,6 +12,10 @@ const GameLibrary = () => {
   const [pcSpecs, setPcSpecs] = useState(null);
   const [showSpecs, setShowSpecs] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [aiTips, setAiTips] = useState("");
+  const [showAITipsModal, setShowAITipsModal] = useState(false);
+  const [loadingAITips, setLoadingAITips] = useState(false);
+  const [showSimulatedModal, setShowSimulatedModal] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3001/steam/games")
@@ -133,8 +138,37 @@ const GameLibrary = () => {
     if (minRank !== -1 && yourRank < minRank) return "❌ Below Minimum";
   
     return "⚠️ Could not determine GPU match";
-  }  
+  } 
 
+  // Function to handle AI optimization request 
+  const handleAIOptimize = async (gameName) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/optimize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          gameName: gameName,
+          specs: pcSpecs,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data && data.recommendation) {
+        alert(`🧠 AI Suggestion:\n\n${data.recommendation}`);
+      } else if (data?.error?.message?.includes('Insufficient credits')) {
+        alert('⚠️ AI optimization unavailable: insufficient credits on your account.');
+      } else {
+        alert('⚠️ AI optimization unavailable: insufficient credits on your account.');
+      }
+    } catch (error) {
+      console.error('AI Optimization Error:', error);
+      alert('⚠️ An error occurred while fetching AI optimization.');
+    }
+  };
+  
   return (
     <div className="library-container">
       {profile && (
@@ -261,10 +295,37 @@ const GameLibrary = () => {
                             <h4>🧪 GPU Comparison</h4>
                             <p>Your GPU: <strong>{extractValue(pcSpecs.gpu, "gpuName")}</strong></p>
                             <p>Status: <strong>{getGPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
+                            <button className="ai-optimize-btn" onClick={() => handleAIOptimize(game.name)}>
+                              💡 AI Optimize
+                            </button>
+                            <button
+                            className="ai-optimize-btn simulate"
+                            onClick={() => setShowSimulatedModal(true)}
+                          >
+                            🛠 Optimize
+                          </button>
+
+                          <SimulatedModal
+                            isOpen={showSimulatedModal}
+                            onClose={() => setShowSimulatedModal(false)}
+                          />
                           </div>
                         )}
                       </>
                     )}
+                  </div>
+                )}
+                {showAITipsModal && (
+                  <div className="ai-tips-modal">
+                    <div className="ai-tips-content">
+                      <h2>🧠 AI Recommendation</h2>
+                      {loadingAITips ? (
+                        <p>Loading tips...</p>
+                      ) : (
+                        <pre>{aiTips}</pre>
+                      )}
+                      <button onClick={() => setShowAITipsModal(false)}>Close</button>
+                    </div>
                   </div>
                 )}
               </div>

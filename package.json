@@ -20,6 +20,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "json2csv": "^6.0.0-alpha.2",
+    "node-fetch": "^2.7.0",
     "speedtest-net": "^2.2.0",
     "sqlite3": "^5.1.7",
     "ws": "^8.18.0"
