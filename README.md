@@ -9,7 +9,7 @@
 - [Environment Setup](#-environment-setup)
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
 - [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
-- [Planned features for 3rd and Final Iteration](#-planned-features-for-3rd-and-final-iteration)
+- [Core Features of Iteration 3 Successfully Implemented](#-core-features-of-iteration-3-successfully-implemented)
 - [References](#-references)
 - [Contributors](#contributors)
 - [License](#license)
@@ -62,8 +62,8 @@ Fetches game system requirements from the RAWG API and displays both minimum and
 ✅ **Hardware Comparison (RAM, CPU, GPU)**  
 Compares your PC’s specs to each game’s requirements and highlights if your system meets, exceeds, or falls below requirements.
 
-✅ **AI Optimization Engine (OpenRouter)**  
-Uses OpenRouter's GPT-based API to generate smart optimization tips based on your PC specs and game requirements—recommending graphics settings like resolution, texture quality, anti-aliasing, and more.
+✅ **AI Optimization Engine (Azure OpenAI)**  
+Uses Azure OpenAI's GPT-based API to generate smart optimization tips based on your PC specs and game requirements—recommending graphics settings like resolution, texture quality, anti-aliasing, and more.
 
 ---
 
@@ -129,7 +129,7 @@ Uses OpenRouter's GPT-based API to generate smart optimization tips based on you
 - **Steam API** – For detecting installed Steam games.
 - **RAWG API** – For fetching game system requirements and metadata.
 - **Grafana** – For external real-time monitoring and visualization.
-- **OpenRouter API** - Used for AI-based optimization suggestions and comparisons
+- **Azure OpenAI API** - Used for AI-based optimization suggestions and comparisons
 
 ---
 
@@ -255,7 +255,7 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 
 ---
 
-## 🚀 Planned features for 3rd and Final Iteration
+## ✅ Core Features of Iteration 3 Successfully Implemented
 
 ### ✅ 1. Game Optimization Engine (Based on System Specs vs Requirements)
 - Integrated RAWG API to fetch each game’s minimum and recommended specs
