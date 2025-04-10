@@ -4,10 +4,11 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 const { Parser } = require("json2csv");
+require("dotenv").config(); 
 
-// Steam API credentials
-const STEAM_API_KEY = "13E4AF2448ABFE7C4F1EA848B56E15E7";
-const STEAM_USER_ID = "76561198046984855";
+const STEAM_API_KEY = process.env.STEAM_API_KEY;
+const STEAM_USER_ID = process.env.STEAM_USER_ID;
+const RAWG_API_KEY = process.env.RAWG_API_KEY;
 
 // Get list of owned Steam games
 router.get("/games", async (req, res) => {
@@ -64,8 +65,6 @@ router.get("/profile", async (req, res) => {
 });
 
 // Get RAWG requirements
-const RAWG_API_KEY = "ad2598b205694f199f6a7cc5684681d8";
-
 router.get("/requirements", async (req, res) => {
   const gameName = req.query.game;
   try {
