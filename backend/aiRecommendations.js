@@ -1,7 +1,13 @@
-// 📍 backend/aiRecommendations.js
+// 📍 backend/aiRecommendations.js (Azure Hardcoded Version)
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch'); // Make sure node-fetch@2 is installed
+const fetch = require('node-fetch');
+
+// 🔐 HARD-CODED Azure OpenAI config (update with your real values when quota is approved)
+const AZURE_API_KEY = "YOUR_ACTUAL_API_KEY_HERE"; // 👈 Replace this when you're approved
+const AZURE_ENDPOINT = "https://gamedash-openai.openai.azure.com/";
+const DEPLOYMENT_NAME = "gameoptimizer";
+const API_VERSION = "2023-05-15"; // Confirm this matches the API version listed in your Azure resource
 
 router.post('/api/optimize', async (req, res) => {
     const { gameName, specs } = req.body;
@@ -19,37 +25,42 @@ My PC has the following specs:
 - RAM: ${specs.ram?.totalRAM} MB
 
 Based on these specs, recommend the best graphics settings (resolution, textures, shadows, anti-aliasing, etc.) for the game "${gameName}".
-Mention if the system can run it on Ultra, High, Medium, or Low settings. Provide clear and brief optimization tips.
+Mention if the system can run it on Ultra, High, Medium, or Low settings.
+Provide clear and brief optimization tips based on that game's in-game settings.
 `;
 
     try {
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer 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`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                model: 'openai/gpt-3.5-turbo',
-                messages: [
-                    { role: 'user', content: prompt }
-                ]
-            })
-        });
+        const response = await fetch(
+            `${AZURE_ENDPOINT}openai/deployments/${DEPLOYMENT_NAME}/chat/completions?api-version=${API_VERSION}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'api-key': AZURE_API_KEY,
+                },
+                body: JSON.stringify({
+                    messages: [{ role: 'user', content: prompt }],
+                    temperature: 0.7,
+                    max_tokens: 400,
+                }),
+            }
+        );
 
         const data = await response.json();
-        console.log('🔵 OpenRouter response:', JSON.stringify(data, null, 2));
+
+        console.log("🔵 Azure response:", JSON.stringify(data, null, 2));
 
         if (!data.choices || !data.choices.length) {
-            return res.status(500).json({ error: 'No response from OpenRouter.' });
+            return res.status(500).json({ error: 'No response from Azure OpenAI.' });
         }
 
         res.json({ recommendation: data.choices[0].message.content });
 
     } catch (error) {
-        console.error('🔴 OpenRouter request failed:', error);
+        console.error("🔴 Azure OpenAI request failed:", error);
         res.status(500).json({ error: 'Failed to get AI recommendation.' });
     }
 });
 
 module.exports = router;
+
