@@ -302,29 +302,29 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ## 📚 References
 
 ### 🧠 APIs Used
-- [RAWG API](https://api.rawg.io/docs/)
-- [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API)
-- [OpenRouter API](https://openrouter.ai/docs) – Used for AI-based optimization suggestions and comparisons
+- [RAWG API](https://api.rawg.io/docs/) – Used to fetch system requirements and metadata for video games.
+- [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API) – Used to retrieve user game libraries and Steam metadata.
+- [OpenRouter API](https://openrouter.ai/docs) – Used to access AI models (like GPT) for game optimization recommendations and comparisons.
 
 ### 🖥️ Tech Docs
-- [React.js](https://reactjs.org/docs/getting-started.html)
-- [Node.js](https://nodejs.org/en/docs)
-- [Express.js Docs](https://expressjs.com/)
-- [Electron](https://www.electronjs.org/docs/latest/)
-- [Chart.js](https://www.chartjs.org/docs/latest/)
-- [SQLite Docs](https://www.sqlite.org/docs.html)
-- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-- [Child Process Module (Node.js)](https://nodejs.org/api/child_process.html)
+- [React.js](https://reactjs.org/docs/getting-started.html) – JavaScript library used for building the frontend UI.
+- [Node.js](https://nodejs.org/en/docs) – Backend runtime environment for running JavaScript server-side code.
+- [Express.js Docs](https://expressjs.com/) – Minimal web framework for handling routing and API endpoints.
+- [Electron](https://www.electronjs.org/docs/latest/) – Used to package the entire application into a cross-platform desktop app.
+- [Chart.js](https://www.chartjs.org/docs/latest/) – Library used to create dynamic, real-time charts for system monitoring.
+- [SQLite Docs](https://www.sqlite.org/docs.html) – Lightweight database engine used to store performance and comparison data.
+- [WebSocket API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) – Enables real-time communication between frontend and backend.
+- [Child Process Module (Node.js)](https://nodejs.org/api/child_process.html) – Allows execution of PowerShell scripts within Node.js backend.
 
 ### 🔔 Libraries
-- [React Toastify](https://fkhadra.github.io/react-toastify/introduction)
-- [FileSaver.js](https://github.com/eligrey/FileSaver.js/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction) – Displays dynamic toast notifications in the frontend UI.
+- [FileSaver.js](https://github.com/eligrey/FileSaver.js/) – Enables client-side export of performance or comparison data to CSV format.
 
 ### 📊 Monitoring Tools
-- [Grafana Documentation](https://grafana.com/docs/grafana/latest/)
+- [Grafana Documentation](https://grafana.com/docs/grafana/latest/) – Used for advanced visualization of resource monitoring metrics.
 
 ### 📜 System Tools
-- [PowerShell Script Reference](https://learn.microsoft.com/en-us/powershell/scripting/overview)
+- [PowerShell Script Reference](https://learn.microsoft.com/en-us/powershell/scripting/overview) – Official Microsoft documentation for scripting system metric extraction.
 
 ---
 
