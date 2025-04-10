@@ -6,6 +6,7 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Environment Setup](#-environment-setup)
 - [Core Features of Iteration 1 Successfully Implemented](#-core-features-of-iteration-1-successfully-implemented)
 - [Core Features of Iteration 2 Successfully Implemented](#-core-features-of-iteration-2-successfully-implemented)
 - [Planned features for 3rd and Final Iteration](#-planned-features-for-3rd-and-final-iteration)
@@ -130,6 +131,39 @@ Uses OpenRouter's GPT-based API to generate smart optimization tips based on you
 - **Grafana** – For external real-time monitoring and visualization.
 - **OpenRouter API** - Used for AI-based optimization suggestions and comparisons
 
+---
+
+## 🔐 Environment Setup
+
+This project requires several API keys for integration with external services. To manage these securely:
+
+1. **Create a `.env` file** in the `backend/` directory.
+
+2. **Use the `.env.example` file** as a template. Copy its contents into your new `.env` file:
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+
+3. **Replace the placeholder values** in `.env` with your actual API keys and configuration:
+   ```env
+   AZURE_API_KEY=your_actual_azure_api_key
+   AZURE_ENDPOINT=https://your-azure-endpoint.openai.azure.com/
+   DEPLOYMENT_NAME=your_deployment_name
+   API_VERSION=2023-05-15
+
+   STEAM_API_KEY=your_actual_steam_api_key
+   STEAM_USER_ID=your_steam_user_id
+   RAWG_API_KEY=your_actual_rawg_api_key
+   ```
+
+4. **Ensure `.env` is ignored by Git** so it doesn't get pushed to your repository.  
+   Your `.gitignore` file should include:
+   ```gitignore
+   # Environment variables
+   .env
+   *.env
+   backend/.env
+   ```
 ---
 
 ## ✅ Core Features of Iteration 1 Successfully Implemented
