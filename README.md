@@ -304,7 +304,7 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 ### 🧠 APIs Used
 - [RAWG API](https://api.rawg.io/docs/) – Used to fetch system requirements and metadata for video games.
 - [Steam Web API](https://developer.valvesoftware.com/wiki/Steam_Web_API) – Used to retrieve user game libraries and Steam metadata.
-- [OpenRouter API](https://openrouter.ai/docs) – Used to access AI models (like GPT) for game optimization recommendations and comparisons.
+- [Azure OpenAI API](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview) – Used to access AI models (like GPT) for generating game optimization recommendations and hardware comparisons.
 
 ### 🖥️ Tech Docs
 - [React.js](https://reactjs.org/docs/getting-started.html) – JavaScript library used for building the frontend UI.
