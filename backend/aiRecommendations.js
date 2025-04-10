@@ -1,13 +1,14 @@
-// 📍 backend/aiRecommendations.js (Azure Hardcoded Version)
 const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
+require('dotenv').config(); // Load .env values
 
-// 🔐 HARD-CODED Azure OpenAI config (update with your real values when quota is approved)
-const AZURE_API_KEY = "YOUR_ACTUAL_API_KEY_HERE"; // 👈 Replace this when you're approved
-const AZURE_ENDPOINT = "https://gamedash-openai.openai.azure.com/";
-const DEPLOYMENT_NAME = "gameoptimizer";
-const API_VERSION = "2023-05-15"; // Confirm this matches the API version listed in your Azure resource
+// 🔐 Use environment variables for safety
+const AZURE_API_KEY = process.env.AZURE_API_KEY;
+const AZURE_ENDPOINT = process.env.AZURE_ENDPOINT;
+const DEPLOYMENT_NAME = process.env.DEPLOYMENT_NAME;
+const API_VERSION = process.env.API_VERSION || "2023-05-15";
+
 
 router.post('/api/optimize', async (req, res) => {
     const { gameName, specs } = req.body;
@@ -19,15 +20,15 @@ router.post('/api/optimize', async (req, res) => {
     }
 
     const prompt = `
-My PC has the following specs:
-- CPU: ${specs.cpu?.cpuName}
-- GPU: ${specs.gpu?.gpuName}
-- RAM: ${specs.ram?.totalRAM} MB
+    My PC has the following specs:
+    - CPU: ${specs.cpu?.cpuName}
+    - GPU: ${specs.gpu?.gpuName}
+    - RAM: ${specs.ram?.totalRAM} MB
 
-Based on these specs, recommend the best graphics settings (resolution, textures, shadows, anti-aliasing, etc.) for the game "${gameName}".
-Mention if the system can run it on Ultra, High, Medium, or Low settings.
-Provide clear and brief optimization tips based on that game's in-game settings.
-`;
+    Based on these specs, recommend the best graphics settings (resolution, textures, shadows, anti-aliasing, etc.) for the game "${gameName}".
+    Mention if the system can run it on Ultra, High, Medium, or Low settings.
+    Provide clear and brief optimization tips based on that game's in-game settings.
+    `;
 
     try {
         const response = await fetch(
