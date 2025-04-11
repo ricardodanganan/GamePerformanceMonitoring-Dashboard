@@ -63,7 +63,7 @@ Fetches game system requirements from the RAWG API and displays both minimum and
 Compares your PC’s specs to each game’s requirements and highlights if your system meets, exceeds, or falls below requirements.
 
 ✅ **AI Optimization Engine (Azure OpenAI)**  
-Uses Azure OpenAI's GPT-based API to generate smart optimization tips based on your PC specs and game requirements—recommending graphics settings like resolution, texture quality, anti-aliasing, and more.
+Uses Azure OpenAI's GPT-based API to generate optimization tips by comparing the game’s system requirements with your system specs. Suggests ideal graphics settings such as resolution, texture quality, and shadows.
 
 ---
 
@@ -100,7 +100,7 @@ Uses Azure OpenAI's GPT-based API to generate smart optimization tips based on y
 - **Detect Installed Games Automatically**: Retrieves your Steam game library using the Steam Web API, displaying game names, icons, and playtime.
 - **Compare System Specs vs Game Requirements**: Uses the RAWG API to fetch minimum and recommended system requirements and compares them to your actual CPU, GPU, RAM, and VRAM specs.
 - **View Optimization Insights**: Visual status indicators show whether your system meets or exceeds each game's requirements, helping you decide whether to upgrade hardware or tweak in-game settings.
-- **Generate AI-Based Optimization Tips**: Uses the OpenRouter GPT API to analyze your PC and recommend tailored game settings such as resolution, texture detail, shadows, and frame caps.
+- **Generate AI-Based Optimization Tips**: Generate AI-Based Optimization Tips: Uses Azure OpenAI GPT to analyze system specs and recommend graphics settings like resolution, texture detail, shadows, and frame caps based on game requirements retrieved from the RAWG API.
 
 ---
 
@@ -129,7 +129,7 @@ Uses Azure OpenAI's GPT-based API to generate smart optimization tips based on y
 - **Steam API** – For detecting installed Steam games.
 - **RAWG API** – For fetching game system requirements and metadata.
 - **Grafana** – For external real-time monitoring and visualization.
-- **Azure OpenAI API** - Used for AI-based optimization suggestions and comparisons
+- **Azure OpenAI API** - Azure OpenAI API – Used for AI-based optimization suggestions.
 
 ---
 
@@ -296,6 +296,17 @@ After these fixes, **Electron now consumes significantly less CPU**, making the 
 - Includes game title, playtime, user system specs, comparison results, and optimization summary
 - Helps users **analyze their system compatibility** with specific games and retain a record for support, auditing, or planning future upgrades
 - Format opens cleanly in Excel or Google Sheets for advanced users and reviewers
+
+### ✅ 6. AI-Based Optimization with Azure OpenAI
+- Integrated **Azure OpenAI GPT** to analyze and interpret the game’s requirements vs. system specs
+- AI generates **custom optimization suggestions** (resolution, texture quality, anti-aliasing, FPS caps, etc.)
+- Compared game `minimum` and `recommended` requirements fetched from the RAWG API with the user's system
+- Due to inconsistency in dynamic interpretation of structured data, the AI currently uses a **hardcoded version of the user’s system specs** (e.g., RTX 4060, 32 GB RAM, i7-12650H) to ensure **consistent and stable results**
+- GPT responds with a clear, structured summary:
+  - Component status (CPU, GPU, RAM): Above / Meets / Below Recommended
+  - Suggested graphic settings (Low / Medium / High / Ultra)
+  - Performance tips if specs are borderline
+- Output is displayed in a modal or accordion with AI tag (🧠), offering users an intelligent optimization summary per game
 
 ---
 
