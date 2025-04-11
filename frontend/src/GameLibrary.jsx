@@ -188,16 +188,15 @@ const GameLibrary = () => {
   } 
 
   // Function to handle AI optimization request 
-  const handleAIOptimize = async (gameName) => {
+  const handleAIOptimize = async (gameName, appid) => {
     try {
       const response = await fetch('http://localhost:3001/api/optimize', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           gameName: gameName,
           specs: pcSpecs,
+          requirements: requirementsData[appid], // 🔥 Send RAWG data too
         }),
       });
   
@@ -205,16 +204,14 @@ const GameLibrary = () => {
   
       if (data && data.recommendation) {
         alert(`🧠 AI Suggestion:\n\n${data.recommendation}`);
-      } else if (data?.error?.message?.includes('Insufficient credits')) {
-        alert('⚠️ AI optimization unavailable: insufficient credits on your account.');
       } else {
-        alert('⚠️ AI optimization unavailable: insufficient credits on your account.');
+        alert('⚠️ AI optimization unavailable.');
       }
     } catch (error) {
       console.error('AI Optimization Error:', error);
       alert('⚠️ An error occurred while fetching AI optimization.');
     }
-  };
+  };  
   
   return (
     <div className="library-container">
@@ -344,7 +341,7 @@ const GameLibrary = () => {
                             <p>Your GPU: <strong>{extractValue(pcSpecs.gpu, "gpuName")}</strong></p>
                             <p>Status: <strong>{getGPUStatus(requirementsData[game.appid], pcSpecs)}</strong></p>
                             {/*buttons for AI tips and optimization*/}
-                            <button className="ai-optimize-btn" onClick={() => handleAIOptimize(game.name)}>
+                            <button className="ai-optimize-btn" onClick={() => handleAIOptimize(game.name, game.appid)}>
                               💡 AI Optimize
                             </button>
                             <button
