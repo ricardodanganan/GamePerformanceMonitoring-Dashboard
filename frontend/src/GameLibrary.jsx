@@ -329,7 +329,7 @@ const GameLibrary = () => {
                         </pre>
 
                         {pcSpecs && (
-                          <div className="ram-compare-box">
+                          <div className="ram-compare-box"> 
                             {/*Specific game comparisons*/}
                             <h4>🧪 RAM Comparison</h4>
                             <p>Your RAM: <strong>{extractValue(pcSpecs.ram, "totalRAM")} MB</strong></p>

@@ -5,6 +5,7 @@ body {
     margin: 0;  /* ✅ Remove any default margin */
     padding: 0; /* ✅ Remove default padding */
     overflow-x: hidden; /* ✅ Prevent horizontal scrolling */
+    cursor: url('http://www.rw-designer.com/cursor-extern.php?id=226107'), auto;
 }
 
 .dashboard-title {

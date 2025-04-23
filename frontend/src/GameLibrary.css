@@ -10,6 +10,7 @@ body {
   border-radius: 12px;
   text-align: center;
   margin: 0;      /* ✅ remove any margin pushing the section down */
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=226107'), auto;
 }
 
 .library-heading {
@@ -69,7 +70,7 @@ body {
   padding: 6px 12px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto;
   font-weight: bold;
   font-size: 13px;
   background-color: #007bff;
@@ -114,6 +115,7 @@ body {
   border: none;
   font-size: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto;
 }
 
 /* Accordion Styles */
@@ -174,7 +176,7 @@ body {
   border-radius: 10px;
   font-weight: bold;
   color: white;
-  cursor: pointer;
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto;
   transition: background-color 0.2s ease;
 }
 
@@ -326,7 +328,7 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto;
   font-size: 14px;
   padding: 10px 20px;
   width: 180px;
@@ -366,7 +368,7 @@ body {
   font-weight: bold;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: url('http://www.rw-designer.com/cursor-extern.php?id=225968'), auto;
   font-size: 14px;
   padding: 10px 20px;
   width: 180px;
